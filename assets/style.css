@@ -258,6 +258,11 @@ figure img, .contents-figure img {
   display: block; max-width: 100%; height: auto; margin: 0 auto; padding: 0.75rem; background: var(--plate);
   border: 1px solid var(--line); border-radius: 12px; filter: var(--figure-filter);
 }
+/* A figure drawn also for the dark page (Figure 1.5; build_site.py makes it a <picture class="themed">): in dark
+   mode the dark drawing sits on the page itself, with no plate, no border and no dimming */
+@media (prefers-color-scheme: dark) {
+  picture.themed img { background: none; border-color: transparent; filter: none; }
+}
 figcaption {
   margin-top: 0.75rem; font-family: var(--sans); font-size: 0.875rem; line-height: 1.25rem; color: var(--text-2);
 }
@@ -327,7 +332,7 @@ a.backlink {
 .book-subtitle { margin: 0.75rem 0 0; font-size: 1.25rem; line-height: 1.75rem; color: var(--text-2); }
 
 .contents-figure { margin: 0 0 2.5rem; }
-.contents-figure img { width: 15rem; margin: 0; }
+.contents-figure img { width: min(20rem, 100%); margin: 0; }
 
 .part { margin: 0 0 3rem; }
 .part h2 { margin: 0 0 0.5rem; font-family: var(--sans); font-size: 1.25rem; font-weight: 500; line-height: 1.75rem; }
@@ -346,9 +351,10 @@ a.backlink {
 }
 
 @media (min-width: 68rem) {
-  /* the list in the text column, the tree in a 15rem column: the chapter pages' frame, mirrored */
+  /* the list in the text column, the tree beside it: the chapter pages' frame, mirrored, with the side column
+     widened to 18rem (the gap narrowed to 2rem, so the outer edges stay) for the labels of the tree */
   .contents-main {
-    display: grid; grid-template-columns: minmax(0, var(--measure)) 15rem; column-gap: 5rem;
+    display: grid; grid-template-columns: minmax(0, var(--measure)) 18rem; column-gap: 2rem;
     grid-template-areas: "head figure" "parts figure";
     grid-template-rows: auto 1fr;
   }
