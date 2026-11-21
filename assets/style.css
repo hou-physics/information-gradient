@@ -4,7 +4,12 @@
    by chapter. Patient, exact, a little warm. Its world is the printed book: warm paper, the ink blue of the print
    edition (#1F4E79, book/build/preamble.tex), and the book's own figures, set on white plates. The one recurring
    detail is the section number, set apart in muted tabular figures: it hangs in the margin beside each heading and
-   stands in one column in every list.
+   stands in one column in every list. The home page shows the book's root model at work (assets/home.js): a crowd
+   of grey dots that turn ink blue as the news reaches them.
+
+   One frame for every page: the text column (--measure) on narrow screens, the column and the 15rem side column
+   with the 5rem gap between them from 68rem up (--frame). The top bar, the footer, the contents pages and the home
+   page are all set to it, so their edges line up with the chapter pages'.
 
    Fonts from Google Fonts: Source Serif 4 and Source Sans 3 for Latin text, Noto Serif SC and Noto Sans SC (the
    Source Han faces, drawn to match them) for Chinese; formulas are MathML in the system's math font. Light and dark
@@ -30,18 +35,40 @@
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --text-size: 1.125rem;
   --leading: 1.65;
-  --measure: 33.5em;
+  --measure-em: 33.5;
+  --measure: calc(var(--measure-em) * var(--text-size));
+  --frame: var(--measure);
+  --gutter: 1rem;
+  --bar: 3.5rem;
   --display-tracking: -0.02em;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --accent-strong: #173c5e;
+
+  /* The home page's field (assets/home.js): people who have not heard, who have, the paths the news took */
+  --field-dot: rgba(31, 27, 22, 0.34);
+  --field-on: #1f4e79;
+  --field-link: rgba(31, 78, 121, 0.26);
+}
+
+/* Chinese text, on Chinese pages and in the Chinese parts of the home page and the top bar */
+:lang(zh-Hans) {
+  --serif: "Noto Serif SC", "Source Serif 4", "Songti SC", "STSong", serif;
+  --sans: "Noto Sans SC", "Source Sans 3", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 :root:lang(zh-Hans) {
-  --serif: "Noto Serif SC", "Source Serif 4", "Songti SC", "STSong", serif;
-  --sans: "Noto Sans SC", "Source Sans 3", "PingFang SC", "Microsoft YaHei", sans-serif;
   --text-size: 1.0625rem;
   --leading: 1.9;
-  --measure: 36em;
+  --measure-em: 36;
   --display-tracking: 0;
+}
+
+@media (min-width: 48rem) {
+  :root { --gutter: 2rem; }
+}
+
+@media (min-width: 68rem) {
+  :root { --frame: calc(20rem + var(--measure)); }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,6 +83,10 @@
     --line-strong: rgba(236, 230, 218, 0.5);
     --accent: #93b7dc;
     --accent-rule: rgba(147, 183, 220, 0.6);
+    --accent-strong: #b6cfe8;
+    --field-dot: rgba(236, 230, 218, 0.3);
+    --field-on: #93b7dc;
+    --field-link: rgba(147, 183, 220, 0.26);
     --target: #36301f;
     /* the figures are drawn for a white page: a white plate, a little dimmed against the dark page */
     --figure-filter: brightness(0.92);
@@ -89,33 +120,47 @@ strong { font-weight: 600; }
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-/* Header and footer ------------------------------------------------------------------------------------------ */
+/* The frame: the top bar, the footer, the contents pages and the home page share the chapter pages' edges */
+.site-header-inner, .site-footer, .contents-main, .hero-frame, .hero-intro, .home-parts {
+  width: min(var(--frame), 100% - 2 * var(--gutter)); margin-left: auto; margin-right: auto;
+}
 
+/* A word in the other language (the language switch, the home page) takes its own language's face */
+:where(.site-header, .home-page, .site-footer) :where([lang]) { font-family: var(--sans); }
+
+/* Top bar and footer ----------------------------------------------------------------------------------------- */
+
+/* One row of fixed height, every item the same size, so that all sit on one baseline */
 .site-header { border-bottom: 1px solid var(--line); font-family: var(--sans); }
 .site-header-inner {
-  max-width: 76rem; margin: 0 auto; padding: 1rem 1rem;
-  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: var(--bar);
+  font-size: 0.9375rem; line-height: 1.5rem;
 }
-.site-title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 1rem; line-height: 1.5rem; }
-.site-nav { display: flex; gap: 1.5rem; font-size: 0.9375rem; line-height: 1.5rem; }
+.site-title {
+  min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  color: var(--text); font-weight: 600; text-decoration: none;
+}
+.site-nav { flex: none; display: flex; gap: 1.5rem; }
 .site-nav a { color: var(--text-2); text-decoration: none; }
+.site-nav a[aria-current="page"] { color: var(--text); }
 .site-title:hover, .site-nav a:hover { color: var(--accent); }
 
+@media (max-width: 30rem) {
+  .title-rest { display: none; }
+  .site-nav { gap: 1.25rem; }
+}
+
 .site-footer {
-  max-width: 76rem; margin: 4rem auto 0; padding: 1.5rem 1rem 2.5rem;
+  margin-top: 4rem; margin-bottom: 0; padding: 1.5rem 0 2.5rem;
   border-top: 1px solid var(--line); color: var(--text-3); font-family: var(--sans); font-size: 0.875rem;
   line-height: 1.25rem;
 }
 .site-footer p { margin: 0; }
 .site-footer p + p { margin-top: 0.25rem; }
 
-@media (min-width: 48rem) {
-  .site-header-inner, .site-footer { padding-left: 2rem; padding-right: 2rem; }
-}
-
 /* Chapter layout --------------------------------------------------------------------------------------------- */
 
-.layout { max-width: 76rem; margin: 0 auto; padding: 0 1rem; }
+.layout { max-width: 76rem; margin: 0 auto; padding: 0 var(--gutter); }
 .chapter-main { max-width: var(--measure); margin: 0 auto; min-width: 0; }
 
 .toc-side { display: none; }
@@ -140,10 +185,6 @@ strong { font-weight: 600; }
   flex: none; min-width: 1.75rem; color: var(--text-3); font-variant-numeric: tabular-nums;
 }
 .toc-side ol ol .toc-num, .toc-top ol ol .toc-num { min-width: 2.25rem; }
-
-@media (min-width: 48rem) {
-  .layout { padding: 0 2rem; }
-}
 
 @media (min-width: 68rem) {
   .layout {
@@ -278,7 +319,6 @@ a.backlink {
 
 /* Contents pages --------------------------------------------------------------------------------------------- */
 
-.contents-main { max-width: 42rem; margin: 0 auto; padding: 0 1rem; }
 .contents-head { margin: 3rem 0 2.5rem; }
 .book-title {
   margin: 0; font-family: var(--sans); font-weight: 500; font-size: 2.5rem; line-height: 1.1;
@@ -306,9 +346,9 @@ a.backlink {
 }
 
 @media (min-width: 68rem) {
+  /* the list in the text column, the tree in a 15rem column: the chapter pages' frame, mirrored */
   .contents-main {
-    max-width: 68rem; padding: 0 2rem;
-    display: grid; grid-template-columns: minmax(0, 40rem) 17rem; column-gap: 5rem; justify-content: center;
+    display: grid; grid-template-columns: minmax(0, var(--measure)) 15rem; column-gap: 5rem;
     grid-template-areas: "head figure" "parts figure";
     grid-template-rows: auto 1fr;
   }
@@ -318,34 +358,101 @@ a.backlink {
   .contents-figure img { width: 100%; }
 }
 
-/* Landing page: a title page in both languages --------------------------------------------------------------- */
+/* Home page: the root model at work behind the two titles ------------------------------------------------------ */
 
-.landing-page { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
-.landing-main {
-  flex: 1; display: flex; flex-direction: column; justify-content: center;
-  width: 100%; max-width: 48rem; margin: 0 auto; padding: 4rem 1rem 2rem;
+/* The field spans the window; the dots keep clear of the text (assets/home.js) */
+.hero-stage { position: relative; overflow: hidden; }
+.hero-field { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.hero-frame { position: relative; padding: 11rem 0 2.5rem; }
+
+.hero-titles { width: fit-content; max-width: 100%; margin: 0; font-weight: 500; }
+.hero-title, .hero-subtitle { display: block; }
+.hero-title { font-family: var(--sans); font-weight: 500; color: var(--text); }
+.hero-title:lang(zh-Hans) {
+  /* seven characters on one line, within the frame */
+  font-size: max(2rem, min(5.5rem, 11.5vw, var(--frame) / 7.6)); line-height: 1.1; letter-spacing: 0.02em;
 }
-.edition {
-  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 0.5rem 1.5rem;
-  padding: 2rem 0; border-top: 1px solid var(--line); color: var(--text); text-decoration: none;
+.hero-title:lang(en) {
+  margin-top: 1.75rem; font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.75rem); line-height: 1.15;
+  letter-spacing: -0.02em;
 }
-.edition:last-child { border-bottom: 1px solid var(--line); }
-.edition-title {
-  grid-column: 1; font-family: var(--sans); font-weight: 500; font-size: 2.5rem; line-height: 1.1;
-  letter-spacing: -0.02em; transition: color 150ms var(--ease);
+.hero-subtitle { margin-top: 0.5rem; font-family: var(--serif); font-weight: 400; color: var(--text-2); }
+.hero-subtitle:lang(zh-Hans) { font-size: clamp(1.25rem, 1rem + 1vw, 1.625rem); line-height: 1.4; }
+.hero-subtitle:lang(en) { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.4; }
+/* The author: the name, and a quiet note under it in each language */
+.hero-author { width: fit-content; max-width: 100%; margin-top: 1.75rem; font-family: var(--sans); }
+.hero-author p { margin: 0; }
+.hero-author-name { font-size: 1rem; font-weight: 500; line-height: 1.5rem; color: var(--text); }
+.hero-author-note { margin-top: 0.125rem; font-size: 0.8125rem; line-height: 1.25rem; color: var(--text-3); }
+.hero-author-name + .hero-author-note { margin-top: 0.25rem; }
+
+.hero-entries { display: flex; flex-wrap: wrap; gap: 0.75rem; width: fit-content; margin: 2rem 0 0; }
+.entry {
+  display: inline-flex; align-items: center; height: 2.75rem; padding: 0 1.25rem; border-radius: 8px;
+  background: var(--accent); color: var(--bg); font-family: var(--sans); font-size: 1rem; font-weight: 500;
+  text-decoration: none; transition: background-color 150ms var(--ease);
 }
-.edition-subtitle { grid-column: 1; font-family: var(--serif); font-size: 1.25rem; line-height: 1.75rem; color: var(--text-2); }
-.edition-lang { grid-column: 2; grid-row: 1; font-family: var(--sans); font-size: 1rem; color: var(--accent); }
-.edition:hover .edition-title { color: var(--accent); }
-.edition:lang(zh-Hans) .edition-title { font-family: "Noto Sans SC", "PingFang SC", sans-serif; letter-spacing: 0; }
-.edition:lang(zh-Hans) .edition-subtitle { font-family: "Noto Serif SC", "Songti SC", serif; }
-.landing-page .site-footer {
-  width: 100%; max-width: 48rem; margin-top: 0; padding: 0 1rem 2.5rem; border-top: 0;
+.entry:hover { background: var(--accent-strong); color: var(--bg); }
+
+/* The informed fraction, drawn as it rises */
+.hero-chart {
+  position: absolute; top: 1.5rem; right: 0; width: 9.5rem; margin: 0; visibility: hidden;
+  font-family: var(--sans);
+}
+.is-live .hero-chart { visibility: visible; }
+.hero-curve { display: block; width: 100%; height: 3rem; }
+.hero-chart figcaption {
+  display: grid; grid-template-columns: 1fr auto; column-gap: 0.5rem; margin-top: 0.5rem;
+  font-size: 0.75rem; line-height: 1rem; color: var(--text-3);
+}
+.hero-chart figcaption span { grid-column: 1; }
+.hero-chart .hero-share { grid-column: 2; grid-row: 1; color: var(--text-2); font-variant-numeric: tabular-nums; }
+
+/* The introduction, in both languages */
+.hero-intro { display: grid; gap: 1.5rem; padding-top: 2rem; }
+.hero-intro p { margin: 0; font-family: var(--serif); font-size: 1.0625rem; line-height: 1.75; }
+.hero-intro p:lang(zh-Hans) { line-height: 1.9; }
+
+/* The six parts */
+.home-parts { margin-top: 4rem; }
+.home-parts-heading {
+  margin: 0 0 1rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; line-height: 1.25rem;
+  color: var(--text-3);
+}
+.home-parts-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1rem;
+}
+.home-part {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; padding-top: 1rem;
+  border-top: 1px solid var(--line); font-family: var(--sans); font-size: 0.9375rem; line-height: 1.375rem;
+}
+.home-ticks { display: flex; gap: 3px; height: 0.75rem; margin-bottom: 0.5rem; }
+.home-ticks span { width: 3px; border-radius: 1px; background: var(--accent-rule); }
+.home-part a { color: var(--text); text-decoration: none; }
+.home-part a:hover { color: var(--accent); }
+.home-part-label { color: var(--text-3); }
+.home-part-count {
+  margin-top: 0.25rem; font-size: 0.8125rem; line-height: 1.25rem; color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 40rem) {
+  .home-parts-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 48rem) {
+  .hero-frame { padding: 14rem 0 3.5rem; }
+  .hero-chart { top: 2.5rem; width: 12rem; }
+  .hero-curve { height: 3.5rem; }
+}
+
+@media (min-width: 68rem) {
+  .hero-intro { grid-template-columns: 1fr 1fr; column-gap: 3rem; }
+  .home-parts-list { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 
 @media (max-width: 40rem) {
   .chapter-title { font-size: 1.875rem; }
-  .book-title, .edition-title { font-size: 2rem; letter-spacing: 0; }
-  .edition { grid-template-columns: 1fr; }
-  .edition-lang { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
+  .book-title { font-size: 2rem; letter-spacing: 0; }
 }

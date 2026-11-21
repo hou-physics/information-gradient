@@ -9,21 +9,91 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..700&amp;family=Noto+Serif+SC:wght@400..700&amp;family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
 <link rel="stylesheet" href="assets/style.css">
+<meta name="author" content="侯政旭 · Zhengxu Hou">
+<script src="assets/home.js" defer></script>
 </head>
-<body class="landing-page">
-
-<main class="landing-main">
-<h1 class="visually-hidden">信息梯度与传播 · Information Gradient and Propagation</h1>
-<a class="edition" href="zh/index.html" lang="zh-Hans" hreflang="zh-Hans">
-<span class="edition-title">信息梯度与传播</span>
-<span class="edition-subtitle">从直觉到交易</span>
-<span class="edition-lang">中文</span>
-</a>
-<a class="edition" href="en/index.html" lang="en" hreflang="en">
-<span class="edition-title">Information Gradient and Propagation</span>
-<span class="edition-subtitle">From Intuition to Trading</span>
-<span class="edition-lang">English</span>
-</a>
+<body class="home-page">
+<header class="site-header">
+<div class="site-header-inner">
+<a class="site-title" href="index.html" lang="zh-Hans">信息梯度与传播</a>
+<nav class="site-nav" aria-label="目录 · Contents">
+<a href="zh/index.html" hreflang="zh-Hans" lang="zh-Hans">目录</a>
+<a href="en/index.html" hreflang="en" lang="en">Contents</a>
+</nav>
+</div>
+</header>
+<main class="home-main">
+<section class="hero">
+<div class="hero-stage">
+<canvas class="hero-field" aria-hidden="true"></canvas>
+<div class="hero-frame">
+<figure class="hero-chart" aria-hidden="true" data-clear>
+<canvas class="hero-curve"></canvas>
+<figcaption><span lang="zh-Hans">知情比例</span> <span lang="en">informed fraction</span> <span class="hero-share"></span></figcaption>
+</figure>
+<h1 class="hero-titles" data-clear>
+<span class="hero-title" lang="zh-Hans">信息梯度与传播</span>
+<span class="hero-subtitle" lang="zh-Hans">从直觉到交易</span>
+<span class="hero-title" lang="en">Information Gradient and Propagation</span>
+<span class="hero-subtitle" lang="en">From Intuition to Trading</span>
+</h1>
+<div class="hero-author" data-clear>
+<p class="hero-author-name"><span lang="zh-Hans">侯政旭</span> · <span lang="en">Zhengxu Hou</span></p>
+<p class="hero-author-note" lang="zh-Hans">作者学物理出身，关注量化投资和基本面投资。</p>
+<p class="hero-author-note" lang="en">The author trained in physics and follows both quantitative and fundamental investing.</p>
+</div>
+<p class="hero-entries" data-clear>
+<a class="entry" href="zh/index.html" lang="zh-Hans" hreflang="zh-Hans">中文版</a>
+<a class="entry" href="en/index.html" lang="en" hreflang="en">English edition</a>
+</p>
+</div>
+</div>
+<div class="hero-intro">
+<p lang="zh-Hans">交易者觉得价格不对时，这个差距可能来自市场还没反映出来的信息，也可能来自他自己的误读。本书把前一部分叫作信息梯度。全书从一个最简单的根模型出发，每章去掉一两条理想假设，依次讲消息在人群中的传播、人对消息的理解和使用、消息进入价格的过程，最后检验哪些梯度可以拿来交易。每个结论都写明前提、适用范围和依据。</p>
+<p lang="en">When a trader thinks a price is wrong, the gap may come from information the market has not yet absorbed, or from the trader&#x27;s own misreading. The book calls the first part the information gradient. Starting from one simple root model and removing one or two idealised assumptions per chapter, it covers how news spreads through people, how people interpret and use it, and how it enters prices, and ends by testing which gradients can be traded. Every result states its premises, its scope and its sources.</p>
+</div>
+</section>
+<section class="home-parts">
+<h2 class="home-parts-heading"><span lang="zh-Hans">目录</span> · <span lang="en">Contents</span></h2>
+<ol class="home-parts-list">
+<li class="home-part">
+<span class="home-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+<a href="zh/index.html#part-1" lang="zh-Hans" hreflang="zh-Hans"><span class="home-part-label">第一部分</span>　根</a>
+<a href="en/index.html#part-1" lang="en" hreflang="en"><span class="home-part-label">Part I</span> Roots</a>
+<span class="home-part-count"><span lang="zh-Hans">5 章</span> · <span lang="en">5 chapters</span></span>
+</li>
+<li class="home-part">
+<span class="home-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+<a href="zh/index.html#part-2" lang="zh-Hans" hreflang="zh-Hans"><span class="home-part-label">第二部分</span>　树干一</a>
+<a href="en/index.html#part-2" lang="en" hreflang="en"><span class="home-part-label">Part II</span> Trunk One</a>
+<span class="home-part-count"><span lang="zh-Hans">7 章</span> · <span lang="en">7 chapters</span></span>
+</li>
+<li class="home-part">
+<span class="home-ticks" aria-hidden="true"><span></span><span></span><span></span></span>
+<a href="zh/index.html#part-3" lang="zh-Hans" hreflang="zh-Hans"><span class="home-part-label">第三部分</span>　树干二</a>
+<a href="en/index.html#part-3" lang="en" hreflang="en"><span class="home-part-label">Part III</span> Trunk Two</a>
+<span class="home-part-count"><span lang="zh-Hans">3 章</span> · <span lang="en">3 chapters</span></span>
+</li>
+<li class="home-part">
+<span class="home-ticks" aria-hidden="true"><span></span><span></span><span></span></span>
+<a href="zh/index.html#part-4" lang="zh-Hans" hreflang="zh-Hans"><span class="home-part-label">第四部分</span>　树冠</a>
+<a href="en/index.html#part-4" lang="en" hreflang="en"><span class="home-part-label">Part IV</span> The Canopy</a>
+<span class="home-part-count"><span lang="zh-Hans">3 章</span> · <span lang="en">3 chapters</span></span>
+</li>
+<li class="home-part">
+<span class="home-ticks" aria-hidden="true"><span></span><span></span><span></span></span>
+<a href="zh/index.html#part-5" lang="zh-Hans" hreflang="zh-Hans"><span class="home-part-label">第五部分</span>　桥梁</a>
+<a href="en/index.html#part-5" lang="en" hreflang="en"><span class="home-part-label">Part V</span> Bridges</a>
+<span class="home-part-count"><span lang="zh-Hans">3 章</span> · <span lang="en">3 chapters</span></span>
+</li>
+<li class="home-part">
+<span class="home-ticks" aria-hidden="true"><span></span><span></span><span></span></span>
+<a href="zh/index.html#part-6" lang="zh-Hans" hreflang="zh-Hans"><span class="home-part-label">第六部分</span>　果实</a>
+<a href="en/index.html#part-6" lang="en" hreflang="en"><span class="home-part-label">Part VI</span> The Fruit</a>
+<span class="home-part-count"><span lang="zh-Hans">3 章</span> · <span lang="en">3 chapters</span></span>
+</li>
+</ol>
+</section>
 </main>
 <footer class="site-footer"><p lang="zh-Hans">草稿，2026 年 11 月 21 日</p><p lang="en">Draft of November 21, 2026</p></footer>
 </body>
