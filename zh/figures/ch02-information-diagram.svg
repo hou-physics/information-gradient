@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="432" height="310" viewBox="0 0 432 310" font-family="sans-serif">
+  <desc>两个相交的圆。左边的圆标着世界状态 θ，它的熵 H(θ) = 0.881 比特；右边的圆标着信号 Y，它的熵 H(Y) = 0.958 比特。左圆在重叠部分以外的是 H(θ|Y) = 0.645，即看到 Y 以后关于 θ 还剩的不确定性。重叠部分是互信息 I(θ;Y) = 0.236。右圆在重叠部分以外的是 H(Y|θ) = 0.722，即给定 θ 时 Y 里的噪声。这些数取自新药的例子，成功的概率是 0.30，报告有 80% 的时候是对的；各块面积按这些数成比例画出。</desc>
+
+  <rect x="0" y="0" width="432" height="310" fill="#ffffff"/>
+
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="112" y="24" font-size="13" font-weight="bold">世界状态 <tspan font-style="italic">θ</tspan></text>
+    <text x="112" y="42" font-size="12"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">θ</tspan>) = 0.881</text>
+    <text x="320" y="24" font-size="13" font-weight="bold">信号 <tspan font-style="italic">Y</tspan></text>
+    <text x="320" y="42" font-size="12"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">Y</tspan>) = 0.958</text>
+  </g>
+
+  <circle cx="155.65" cy="160" r="91.12" fill="#d6e8c9"/>
+  <circle cx="272.47" cy="160" r="95" fill="#dbe3ee"/>
+  <path d="M 210.96 87.6 A 95 95 0 0 0 210.96 232.4 A 91.12 91.12 0 0 0 210.96 87.6 Z" fill="#f7dcb4"/>
+  <g fill="none" stroke-width="2">
+    <circle cx="155.65" cy="160" r="91.12" stroke="#4a7a3a"/>
+    <circle cx="272.47" cy="160" r="95" stroke="#4a5a7a"/>
+  </g>
+
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="121" y="158" font-size="13"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">θ</tspan> | <tspan font-style="italic">Y</tspan>)</text>
+    <text x="121" y="176" font-size="12">0.645</text>
+    <text x="212" y="158" font-size="13"><tspan font-style="italic">I</tspan>(<tspan font-style="italic">θ</tspan>; <tspan font-style="italic">Y</tspan>)</text>
+    <text x="212" y="176" font-size="12">0.236</text>
+    <text x="309" y="158" font-size="13"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">Y</tspan> | <tspan font-style="italic">θ</tspan>)</text>
+    <text x="309" y="176" font-size="12">0.722</text>
+  </g>
+
+  <g fill="#1f1f1f" font-size="11" text-anchor="middle">
+    <text x="104" y="284">看到 <tspan font-style="italic">Y</tspan> 以后，关于 <tspan font-style="italic">θ</tspan></text>
+    <text x="104" y="298">还剩的不确定性</text>
+    <text x="212" y="284">互信息</text>
+    <text x="322" y="284">给定 <tspan font-style="italic">θ</tspan> 时</text>
+    <text x="322" y="298"><tspan font-style="italic">Y</tspan> 里的噪声</text>
+  </g>
+  <g stroke="#4a4a4a" stroke-width="1">
+    <line x1="104" y1="225" x2="104" y2="270"/>
+    <line x1="212" y1="222" x2="212" y2="270"/>
+    <line x1="322" y1="231" x2="322" y2="270"/>
+  </g>
+</svg>

@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Chapter 5 The Root Model · Information Gradient and Propagation</title>
+<link rel="alternate" hreflang="zh-Hans" href="../zh/ch05.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="chapter-page">
+<header class="site-header">
+  <div class="site-header-inner">
+  <a class="site-title" href="index.html">Information Gradient and Propagation</a>
+  <nav class="site-nav" aria-label="Contents">
+    <a href="index.html">Contents</a>
+    <a href="../zh/ch05.html" hreflang="zh-Hans" lang="zh-Hans">中文</a>
+  </nav>
+  </div>
+</header>
+<div class="layout">
+<nav class="toc-side" aria-label="In this chapter">
+<p class="toc-heading">In this chapter</p>
+<ol>
+<li><a href="#the-model-in-brief"><span class="toc-num">5.1</span> <span class="toc-text">The model in brief</span></a></li>
+<li><a href="#the-spread-of-the-news"><span class="toc-num">5.2</span> <span class="toc-text">The spread of the news</span></a></li>
+<li><a href="#the-price-rule-and-its-limits"><span class="toc-num">5.3</span> <span class="toc-text">The price rule and its limits</span></a></li>
+<li><a href="#predictions-of-the-model"><span class="toc-num">5.4</span> <span class="toc-text">Predictions of the model</span></a></li>
+<li><a href="#range-of-application-and-time-scales"><span class="toc-num">5.5</span> <span class="toc-text">Range of application and time scales</span></a></li>
+<li><a href="#four-sources-of-s-curves"><span class="toc-num">5.6</span> <span class="toc-text">Four sources of S-curves</span></a></li>
+<li><a href="#the-first-paradigm-switch"><span class="toc-num">5.7</span> <span class="toc-text">The first paradigm switch</span></a></li>
+<li><a href="#a-map-of-relaxations"><span class="toc-num">5.8</span> <span class="toc-text">A map of relaxations</span></a></li>
+<li><a href="#evidence-cited-in-this-chapter"><span class="toc-num">5.9</span> <span class="toc-text">Evidence cited in this chapter</span></a></li>
+<li><a href="#a-traders-checklist"><span class="toc-num">5.10</span> <span class="toc-text">A trader’s checklist</span></a></li>
+<li><a href="#summary"><span class="toc-num">5.11</span> <span class="toc-text">Summary</span></a></li>
+<li><a href="#boxes-for-quantitative-readers"><span class="toc-num">5.12</span> <span class="toc-text">Boxes for quantitative readers</span></a></li>
+<li><a href="#references"><span class="toc-text">References</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">Notes</span></a></li>
+</ol>
+</nav>
+<main class="chapter-main">
+<details class="toc-top">
+<summary>In this chapter</summary>
+<ol>
+<li><a href="#the-model-in-brief"><span class="toc-num">5.1</span> <span class="toc-text">The model in brief</span></a></li>
+<li><a href="#the-spread-of-the-news"><span class="toc-num">5.2</span> <span class="toc-text">The spread of the news</span></a></li>
+<li><a href="#the-price-rule-and-its-limits"><span class="toc-num">5.3</span> <span class="toc-text">The price rule and its limits</span></a></li>
+<li><a href="#predictions-of-the-model"><span class="toc-num">5.4</span> <span class="toc-text">Predictions of the model</span></a></li>
+<li><a href="#range-of-application-and-time-scales"><span class="toc-num">5.5</span> <span class="toc-text">Range of application and time scales</span></a></li>
+<li><a href="#four-sources-of-s-curves"><span class="toc-num">5.6</span> <span class="toc-text">Four sources of S-curves</span></a></li>
+<li><a href="#the-first-paradigm-switch"><span class="toc-num">5.7</span> <span class="toc-text">The first paradigm switch</span></a></li>
+<li><a href="#a-map-of-relaxations"><span class="toc-num">5.8</span> <span class="toc-text">A map of relaxations</span></a></li>
+<li><a href="#evidence-cited-in-this-chapter"><span class="toc-num">5.9</span> <span class="toc-text">Evidence cited in this chapter</span></a></li>
+<li><a href="#a-traders-checklist"><span class="toc-num">5.10</span> <span class="toc-text">A trader’s checklist</span></a></li>
+<li><a href="#summary"><span class="toc-num">5.11</span> <span class="toc-text">Summary</span></a></li>
+<li><a href="#boxes-for-quantitative-readers"><span class="toc-num">5.12</span> <span class="toc-text">Boxes for quantitative readers</span></a></li>
+<li><a href="#references"><span class="toc-text">References</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">Notes</span></a></li>
+</ol>
+</details>
+<article class="chapter">
+<section id="chapter-5-the-root-model" class="level1">
+<h1><span class="chapter-number">Chapter 5 </span><span class="chapter-title">The Root Model</span></h1>
+<p>On a prediction market, a binary contract pays $1 if an event happens and nothing otherwise, so its final value is 0 or 1. Before the outcome is known, its price moves as news arrives and opinions change. Across the contracts that Page and Clemen (2013) studied on the Intrade exchange (Section 1.3), prices were reasonably well calibrated, matching how often events happened, when the time to expiration was relatively short, but significantly biased for events further in the future.<a href="#fn1" id="fnref1" class="noteref" role="doc-noteref"><sup>1</sup></a></p>
+<p>The root model is the book’s simplest information market: one yes-or-no fact, one message about it and one contract. Take the drug example of Section 2.3, whose contract pays $1 if a new drug passes its final trials and is priced at the prior, 0.30. A report that is right 80% of the time says success, and whoever hears of it puts the chance of success at about 0.632. Under the conditions of Section 5.3, the price is about 0.37 once 20% of traders have heard, 0.45 at 46% and 0.57 at 80% (our calculation; Figure 5.1).</p>
+<section id="the-model-in-brief" class="level2">
+<h2><span class="secnum">5.1</span> The model in brief</h2>
+<p>The root model adopts all nineteen default assumptions, settings that later chapters drop one or more at a time to see what changes, which makes it the book’s reference point (our judgment). The defaults fall into four groups: about information itself (A), about how it spreads (B), about how people process it (C) and about prices and trading (D). Their codes, A1 to D6, appear only in this chapter and the appendix; the map of relaxations, Table 5.1 in Section 5.8, lists all nineteen, each with the chapters whose main relaxations drop it.</p>
+<p>The root model has four parts (Box 5.1).</p>
+<ul>
+<li>One fact. A yes-or-no fact <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> has a true value that trading does not change, the single exogenous fact (A1), and the contract settles on it when it expires.</li>
+<li>One source. The informed all learn the same signal, which the book calls a single information source and treats as a candidate default, one kept outside the nineteen numbered defaults (Section 5.2).</li>
+<li>Spreading in Bass form. As in Bass’s (1969) model of first purchases of new products, those who have not yet heard, the share <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">1 - I</annotation></semantics></math>,</span> hear from an external source, such as the press or a filing, at the rate <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>,</span> and by word of mouth, from those who know, at the rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">\beta I</annotation></semantics></math> (Section 1.5; Box 1.2).<a href="#fn2" id="fnref2" class="noteref" role="doc-noteref"><sup>2</sup></a></li>
+<li>One binary contract on <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>.</span> Under the conditions of Section 5.3, its price-implied probability, the chance the price gives the event, is the wealth-weighted average belief, the traders’ beliefs averaged with their wealth as weights, plus a disturbance from noise traders, who trade for reasons unrelated to the news. The informed hold the belief <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,</span> the rest keep <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mn>0</mn></msub><annotation encoding="application/x-tex">q_0</annotation></semantics></math>,</span> and no one learns from the price, the default of no learning from prices (C5), so both groups are newswatchers. At a deadline <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> the fact is publicly disclosed and the contract settles, two events that Section 5.4 keeps apart.</li>
+</ul>
+<p>Chapter 4 dropped two of the defaults: that getting and processing information costs nothing, unlimited attention (C4), and that someone always trades for reasons other than information, an exogenous counterparty (D3), and with them, in Grossman and Stiglitz’s example, no learning from prices (C5; Table 5.2). The root model puts all three back. Chapter 4 kept price taking (D1), no trader’s orders moving the price, as a premise of its definitions of value, and the root model keeps it too; Chapter 17 drops it.</p>
+</section>
+<section id="the-spread-of-the-news" class="level2">
+<h2><span class="secnum">5.2</span> The spread of the news</h2>
+<p>The informed fraction <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math>,</span> the share of people who have heard the news, starts at zero and grows as <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>I</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{dI}{dt} = (\alpha + \beta I)(1 - I), \qquad I(0) = 0.</annotation></semantics></math></span> Only the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">1 - I</annotation></semantics></math> who have not heard can newly hear. If word of mouth is stronger than the external source, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>&gt;</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\beta &gt; \alpha</annotation></semantics></math>,</span> the number newly hearing rises, peaks and falls, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> traces an S-curve, slow, then fast, then slow; with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>≤</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\beta \le \alpha</annotation></semantics></math> it falls from the start (Section 1.5).</p>
+<p>The equation stands for one case, a single source copied. All the informed have seen the same signal, and people copy the message that carries it, so the more who know, the faster each of the rest hears it; that self-acceleration needs what people copy to carry the information (our judgment). If people copy one another’s actions instead, actions can grow alike while information stalls, the information cascade of Chapter 14. Information spread over many people, to be pooled before use, lies outside the root model (Chapters 13, 14 and 19).</p>
+<p>The book reads <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> as the rate of observing an external source, which fits the observation law, that new knowledge comes only from observing (Section 3.3); Bass read the same coefficient as people adopting independently of others, and both readings give the same total curve (our judgment; Section 1.5). An external source that sends the same message at a constant rate, with nothing announced later, is the default of one-time injection (B5), which Chapter 12 drops.<a href="#fn3" id="fnref3" class="noteref" role="doc-noteref"><sup>3</sup></a></p>
+<p>Both <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> are rates, so neither can be negative, though the coefficients of a regression in Bass form can be. Rzayev, Sakkas and Urquhart (2025) fit the Bass form to the daily number of active addresses of 77 cryptocurrencies. Estimated coin by coin, the coefficient in the place of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> is negative for more mature coins such as Bitcoin, Ethereum and Litecoin, which the authors say suggests a different dynamic. These are coefficients fitted to activity, addresses in use each day, rather than the root model’s rates (our judgment; Chapter 22).<a href="#fn4" id="fnref4" class="noteref" role="doc-noteref"><sup>4</sup></a></p>
+<p>The root model is also a projection of Duffie and Manso’s (2007) information percolation, in which people meet at random times at a common rate and pool their evidence. Under the conditions of Box 1.2, the share who have heard something, with pooled evidence other than zero, follows the root model with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha = 0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> the meeting rate (our derivation), to be checked in the appendix (Section 19.1.1); the projection drops how much evidence each holds.<a href="#fn5" id="fnref5" class="noteref" role="doc-noteref"><sup>5</sup></a></p>
+<p>Spreading is random for each person. Under permanent spreading (B3), those who know never stop telling, so the spread cannot die out early on, and chance only shifts the curve in time (our derivation). Under homogeneous mixing (B1), where anyone may meet anyone and two who meet draw on different sources, a cascade from a single seed can die out early with a chance that does not shrink as the population grows only if permanent spreading gives way to spontaneous stopping, spreaders falling silent after a while, whether or not those they meet already know (our derivation; Section 6.4); Sections 6.3 and 7.2 take up spreaders who stop on meeting others who already know. With an external source, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha &gt; 0</annotation></semantics></math>,</span> only a cascade from a single seed can die out, never the whole process (our derivation; Chapter 8).</p>
+<p>Sultan, Farley and Lehmann (1990) pooled 213 sets of estimates of diffusion models from 15 articles, all fitted to annual data. Bass’s coefficients of innovation and imitation, which stand where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> do, average .03 and .38, though values vary considerably. Reading them as the root model’s rates, for the shape and time scale of the curve, is our judgment, and the chapter cites no estimate of them for news; the fitted coefficient of imitation mixes in marketing and other outside influences, so it cannot be read as the strength of word of mouth (our judgment). On that reading the means give a ratio of the imitation to the innovation coefficient of about 12.7, a time scale <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\alpha + \beta)</annotation></semantics></math> of about 2.4 years and the most new adopters at about 6.2 years (our calculation), by the authors’ formula for the peak, though they print 5.3 years. Across the single-factor cells of their Table 2, the ratio runs from about 5 to 20, the peak from 3.4 to 6.6 years, and 40% to 47% have adopted at the peak (our derivation).<a href="#fn6" id="fnref6" class="noteref" role="doc-noteref"><sup>6</sup></a></p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> The estimates cover only new products that had at least some market success, fitted to annual data on first purchases. The ranges 5 to 20, 3.4 to 6.6 years and 40% to 47% are the book’s conversion of the single-factor cells of Table 2 (our derivation); the authors report no distribution of the 213 estimates. The coefficient of imitation mixes in marketing and other outside influences and cannot be read as the strength of word of mouth. The peak time quoted is 6.2 years, from the authors’ own formula; the paper prints 5.3 years.</p>
+</blockquote>
+</div>
+</section>
+<section id="the-price-rule-and-its-limits" class="level2">
+<h2><span class="secnum">5.3</span> The price rule and its limits</h2>
+<p>With equal wealth, and the noise traders’ demand set aside, the price at time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> is <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>t</mi></msub><mo>=</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>p</mi><mo>+</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mspace width="0.167em"></mspace><msub><mi>q</mi><mn>0</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">q_t = I(t)\,p + [1 - I(t)]\,q_0.</annotation></semantics></math></span> In Wolfers and Zitzewitz’s (2006) model, prices are a wealth-weighted average of beliefs when traders take the price as given, have no motive to hedge and have log utility, valuing wealth by its logarithm (working-paper version). The rule adds equal wealth that stays fixed, part of the default of log utility (D2); noise traders (D3); a fact unrelated to aggregate risk, the risk of the market as a whole (D5); no learning from prices (C5); and short selling being allowed, part of frictionless trading (D4). Section 1.5 derives the rule, which has six limits.<a href="#fn7" id="fnref7" class="noteref" role="doc-noteref"><sup>7</sup></a></p>
+<ul>
+<li>It needs short selling, selling borrowed shares. In Miller’s (1977) setting, a market with restricted short selling and differing opinions, the price can sit above the average belief (our judgment; Section 20.1.3).</li>
+<li>It is one of three channels through which awareness reaches a price, beside risk sharing among the investors who know a stock (working-paper version) and Miller’s hypothesis that, in such a market, awareness raises a price (Section 1.5); Section 19.3.6 sets the three side by side. In the root model’s price, the share each person’s starting information gets, its influence weight, is set by wealth; in models that average opinions repeatedly over a network it is set by network position (Chapter 13), and in Pedersen’s model, which adds prices, by thought leadership, a share of wealth plus naive agents’ attention (Section 19.3.4); neither need match how precise the information is (our judgment).</li>
+<li>Moving the price continuously with the informed fraction is a constitutive assumption, a rule the model chooses for how the price responds to what people know, which another rule could replace (Section 1.5). Under a rule like Abreu and Brunnermeier’s (2003), the price can stay put after enough people to correct a mispricing already know (Section 1.6.3; Chapter 21).</li>
+<li>It assumes one market with one public price, a candidate default the book calls centralized trading with public prices. In Duffie and Manso’s private auctions, bids reveal information only to the bidders, so trading itself spreads it (Chapter 19).</li>
+<li>It takes noise traders’ demand to be unpredictable to everyone, the default of an exogenous counterparty. If public content predicts that demand and the push it gives the price later reverses, knowing future prices can pay too (our judgment; Sections 2.5 and 4.1).</li>
+<li>It has no frictions, so the calibration gaps of prediction markets cannot be read directly as a gap between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>:</span> the cost of money tied up, fees and the bid–ask spread, the gap between the best offers to buy and to sell, come off first (Section 1.3; Chapter 18).<a href="#fn8" id="fnref8" class="noteref" role="doc-noteref"><sup>8</sup></a></li>
+</ul>
+<p>Knowing, acting and the price are three quantities, to be measured and modeled apart. The root model ties them together, since the informed trade on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> as soon as they know and the price moves with the informed fraction. People who know may still not act, for at least five reasons (our judgment): a belief threshold, waiting to hear from several sources (Chapter 11); strategic timing, waiting until enough others know to correct a mispricing, yet wanting to move first (Chapter 21); a friction threshold, fixed trading costs that mild news cannot cover (Chapter 21); waiting to learn from those who move first (Chapter 14); and an attention cycle, only some investors being present to decide at any moment (Chapter 19).</p>
+</section>
+<section id="predictions-of-the-model" class="level2">
+<h2><span class="secnum">5.4</span> Predictions of the model</h2>
+<p>Differentiating the price rule gives its drift, <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>q</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msub><mi>q</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mfrac><mrow><mi>d</mi><mi>I</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{dq}{dt} = (p - q_0)\,\frac{dI}{dt},</annotation></semantics></math></span> so the price path is predictable to anyone who knows <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mn>0</mn></msub><annotation encoding="application/x-tex">q_0</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math>,</span> and the price moves fastest when the most people are newly hearing (Figure 5.1). No market reports <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math>;</span> search counts and other attention data are possible stand-ins, with the cautions of Chapter 10 (our judgment). Since the price carries noise, the predictable part is a statistical arbitrage, a trade that pays on average but carries risk each time. It does not break the no-arbitrage law, by which public information alone offers no gain without risk or capital (Section 3.7), subject to the qualifications below.</p>
+<ul>
+<li>The market price of risk, the extra expected return per unit of risk, has to be square-integrable, its square summed over time staying finite. That condition is borrowed by analogy from Harrison and Kreps’s (1979) Theorem 3; it is not a direct application of the theorem (our judgment; Box 5.1).</li>
+<li>The root model ends at <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,</span> and whoever holds to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> bears only the risk in <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>,</span> none in the resale price, which implies a candidate default, holding until disclosure (our judgment). A holder who must sell before the news comes out bears the resale price’s risk instead, a form of noise trader risk, the risk that noise traders push the price further off first (our judgment; Chapter 23).</li>
+<li>With frictions, a predictable move without risk can also be no arbitrage, while it stays within a band set by the frictions; two examples of Jouini and Kallal give its two halves. With a bid–ask spread (1995b), prices that at one point have no volatility and a drift unequal to the riskless rate, an arbitrage without frictions, offer none once the bid is strictly below the ask. With short sellers paying a cost <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> in return (1995a), a security that earns less than the lending rate even in its better state offers none while that shortfall stays below <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,</span> which follows from their condition (our derivation). A risky drift is not bound by this band (our judgment); the root model has no frictions, and the band matters where frictionless trading is dropped (Chapters 20 and 23).<a href="#fn9" id="fnref9" class="noteref" role="doc-noteref"><sup>9</sup></a></li>
+</ul>
+<figure>
+<img src="figures/ch05-root-model.svg" width="840" height="549" loading="lazy" alt="Figure 5.1 Who has heard and the price. The share who have heard the news follows an S-curve, and the price of the contract in the drug example of Section 2.3 rises from the prior, 0.30, toward the belief after a positive report, 0.632, over time measured in units of 1/(\alpha + \beta). The ratio \beta/\alpha = 12.7 is borrowed from Sultan, Farley and Lehmann’s mean coefficients of imitation and innovation for successful new products, only to give the curve its shape; it is not an estimate for news, and the coefficient of imitation cannot be read as the strength of word of mouth. The report is right 80% of the time. The dashed vertical line marks 2.54, when the most people newly hear and 46% have heard, and the price climbs fastest then; the two curves share the vertical axis only for display, and where they cross has no meaning. At settlement, at 8, the price of 0.630 jumps to 1 if the drug works, with probability 0.632 given the report, and to 0 if not (our calculation)." />
+<figcaption aria-hidden="true">Figure 5.1 Who has heard and the price. The share who have heard the news follows an S-curve, and the price of the contract in the drug example of Section 2.3 rises from the prior, 0.30, toward the belief after a positive report, 0.632, over time measured in units of <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\alpha + \beta)</annotation></semantics></math>.</span> The ratio <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mi>/</mi><mi>α</mi><mo>=</mo><mn>12.7</mn></mrow><annotation encoding="application/x-tex">\beta/\alpha = 12.7</annotation></semantics></math> is borrowed from Sultan, Farley and Lehmann’s mean coefficients of imitation and innovation for successful new products, only to give the curve its shape; it is not an estimate for news, and the coefficient of imitation cannot be read as the strength of word of mouth. The report is right 80% of the time. The dashed vertical line marks 2.54, when the most people newly hear and 46% have heard, and the price climbs fastest then; the two curves share the vertical axis only for display, and where they cross has no meaning. At settlement, at 8, the price of 0.630 jumps to 1 if the drug works, with probability 0.632 given the report, and to 0 if not (our calculation).</figcaption>
+</figure>
+<p>The drift comes from the orders of those who hear later and trade on news about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> as it reaches them, so whoever knows <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> knows who will buy next (our judgment). Section 4.1 called this information about order flow, the net of buy and sell orders. Section 4.1’s pumps, group buying announced in advance, are a counterexample to the root model’s account of value, which counts only information about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> and so assumes holding to settlement or unpredictable noise demand: early buyers knew later buyers’ orders, with no information about the coin’s value (our judgment; Section 4.1).</p>
+<p>Settlement, when the contract pays out on how <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> turned out, clears all information whoever is watching, while a public disclosure reaches the price only through those who see it (our judgment; Section 1.5). A deadline that means settlement thus does not depend on unlimited attention, and one that means disclosure does (Chapters 10 and 12).</p>
+<p>Value follows the two definitions of Section 4.2. Under definition one, a signal’s worth at the same prices against publicly available information, the root model gives exactly the amount of information, because a binary contract amounts to a two-horse race, a bet on either outcome at odds with no bookmaker’s cut, and is complete by construction, which implies the candidate default of a complete market (Section 4.2 gives the other premises). Definition two, betting a correct belief against the price, adds the price’s own error, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">∥</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(\pi \| q)</annotation></semantics></math>,</span> from news the price-setters have seen but not absorbed correctly; measured against the same information, the two differ by exactly that term and agree only when the price is calibrated (Box 5.1). The root model also assumes the public cannot work out <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> from the price (Box 1.1).</p>
+</section>
+<section id="range-of-application-and-time-scales" class="level2">
+<h2><span class="secnum">5.5</span> Range of application and time scales</h2>
+<p>The root model fits three cases best (our judgment; Section 1.5): soft information, which is hard to quantify; private information; and assets that draw little attention. Four time scales, the time a process takes to run most of its course, mark the edges of its range, each lying outside word of mouth (our judgment): delays in a first reaction to broadcast news or in a pump come from attention and execution, the timing of a drift after earnings news partly from the calendar of announcements, and the speed of a recovery from when capital is present to trade. Spreading’s own time scale, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\alpha + \beta)</annotation></semantics></math>,</span> is about 2.4 years at the mean coefficients for successful new products, read as the root model’s rates (our calculation; Section 5.2).</p>
+<p>Busse and Green (2002) videotaped CNBC’s two segments of analysts’ stock reports from June 12 to October 27, 2000. They find that prices of stocks discussed positively began to respond seconds after the first mention and kept responding for approximately one minute.<a href="#fn10" id="fnref10" class="noteref" role="doc-noteref"><sup>10</sup></a></p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> This holds only for the 125 positive reports of the midday segment; after positive morning reports, the first minute’s return averaged only 6.8 basis points, against 41 basis points after midday ones, and the morning half-hour return was negative. Midday prices began to respond within 15 seconds and finished in about a minute. More than 80% of the reports were on firms in the top two NYSE size deciles, so the authors call their results an upper bound on the speed with which prices respond to information. The roughly 15 minutes after negative reports rest on only 19 morning and 23 midday reports, 42 in all, and may be part of a gradual response to other negative public news, so they are not read as a speed of spreading. Tick sizes and execution speeds in 2000 differed from today’s.</p>
+</blockquote>
+</div>
+<p>In Dhawan and Putniņš’s 355 pumps on two exchanges in 2017 and 2018, prices took around eight minutes on average to peak after the signal, with a median of 1.54 minutes (working-paper version; Section 4.1); the book has not yet tested whether price impact accounts for the size of the peaks. Bernard and Thomas (1989) measured post-earnings-announcement drift, prices moving for months in the direction of an earnings surprise, in NYSE and AMEX stocks from 1974 to 1986: assuming that all of it occurs within 480 days, approximately 100% occurs within nine months for small firms and six months for large ones; the book has not yet tested an account of this timing from separately measured inputs. Duffie (2010) writes that the arrival of new capital can be delayed by fractions of a second in an electronic limit-order book and by months in catastrophe risk insurance; in his simple illustrative model of slow-moving capital, prices recover from a supply shock as that capital arrives, and the book has not yet tested the recovery time in his model.</p>
+</section>
+<section id="four-sources-of-s-curves" class="level2">
+<h2><span class="secnum">5.6</span> Four sources of S-curves</h2>
+<p>Young (2009) sorts diffusion models into contagion, social influence and social learning; models driven mainly by outside factors such as price and quality, sometimes called moving equilibrium models, depend on how those factors change (working-paper version). The book counts these as a fourth source of S-curves and tells the four apart by their footprints, since a fit alone cannot (our judgment).<a href="#fn11" id="fnref11" class="noteref" role="doc-noteref"><sup>11</sup></a></p>
+<ul>
+<li>Contagion. People adopt on contact with adopters (working-paper version), as in the root model, over a time scale near <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\alpha + \beta)</annotation></semantics></math>;</span> Bass’s imitation term belongs here (our judgment; Section 5.2). With a positive external influence and rates that differ across people but not over time, the relative hazard rate, new adoption divided by the share adopted times the share not yet adopted, decreases, so the process cannot accelerate beyond half adopted (working-paper version).</li>
+<li>Social influence. People adopt once enough others in the group have (working-paper version). If adoption driven purely by social influence speeds up at first, it typically grows faster than exponentially for a while, and it peters out near the first fixed point of the distribution of thresholds, where adoption triggers no one new (working-paper version).</li>
+<li>Social learning. People adopt once earlier adopters’ outcomes convince them (working-paper version). Adoption driven purely by social learning usually begins slowly and may even decelerate at first, and its speed rises with the expected payoff (working-paper version).</li>
+<li>Moving equilibrium. Adoption depends only on the current values of the outside factors and reverses when they fall back (our judgment).</li>
+</ul>
+<p>The footprints are whether a public disclosure cuts the curve short, whether adoption reverses when outside factors fall back, and whether it tracks only their current values; a rising relative hazard rate points to thresholds, learning or a changing external source (our judgment). Growth faster than exponential cannot by itself rule out contagion: Young’s Proposition 1 concerns only the relative hazard rate, and contagion that differs across people can grow that fast (our derivation). A test of shape needs a fixed external source and frequent data from the start; an external source that moves with the price has to be measured first (our judgment; Chapter 22).</p>
+<p>In DeGroot learning, people update their beliefs by listening to others in their social network, taking weighted averages. With no <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">\beta I</annotation></semantics></math> term, how fast a view spreads does not depend on how many hold it, so this word of mouth does not speed itself up (our judgment; Chapters 13 and 19).</p>
+</section>
+<section id="the-first-paradigm-switch" class="level2">
+<h2><span class="secnum">5.7</span> The first paradigm switch</h2>
+<p>Dropping no learning from prices (C5) is the book’s first paradigm switch, a relaxation that changes the state space or the equilibrium concept, here the latter, since beliefs then depend on the price they help set (our judgment).</p>
+<p>The new equilibrium need not reveal more. In Manski’s (2006) prediction market, traders are risk-neutral price takers with differing beliefs, budgets are independent of revised beliefs, and each revises his belief on seeing the price, staying on the same side of it, for example by averaging it with the price; then “the equilibrium price using posterior beliefs is the same as the one using prior beliefs” (working-paper version). Collapse into full revelation, a price that expresses everyone’s private information, comes only when traders learn the rational-expectations way, inferring from the price what others know, with a common prior and Bayes’ rule (our judgment; Box 5.2).<a href="#fn12" id="fnref12" class="noteref" role="doc-noteref"><sup>12</sup></a></p>
+<p>With such learning and the noise traders (D3) dropped as well, Grossman (1976) finds that the equilibrium price summarizes all the information in the market. This full revelation needs eight premises, listed in Box 5.2, including constant absolute risk aversion, a dislike of risk that does not change with wealth, with normal distributions; a known total supply with no noise; and price taking. It describes the limit as noise vanishes: Hellwig (1980) shows that Grossman’s result approximately describes communication through the market when supply noise is small and that with no noise “the communication process simply is not well defined”. Milgrom (1981) adds that “naive mechanisms leading to such equilibria can be severely manipulable”, even by a single trader.</p>
+<p>In the root model the collapse would be a relay, the price passing the informed traders’ common <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> to the rest: working <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> out of the price needs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> (Box 5.1), but with no noise and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> one of two known values, the direction of the price’s move from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mn>0</mn></msub><annotation encoding="application/x-tex">q_0</annotation></semantics></math> reveals which (our derivation; Box 5.2). One-dimensional uncertainty and an uninformed public that knows <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> thus matter to how revelation proceeds only when noise is kept (our derivation).</p>
+<p>Dropping only the noise traders, without rational-expectations learning, still leaves trade, the naive case of Section 4.4; the no-trade theorem needs every premise listed there. With such learning and no noise, each trader’s equilibrium demand depends only on the price, and the private incentive to collect information goes.</p>
+<p>Rational expectations need the noise kept, and the root model has it (our judgment). In a large market with noise, the price reflects only information common to many agents, and individuals, unable to tell a high payoff from a low supply, use their own signals as well as the price. This is partial revelation, the price showing only part of what is known. How revelation proceeds then depends on how many unknowns the uninformed face (our judgment): <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> (or <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>),</span> <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math>,</span> and whether there is news at all, which Easley and O’Hara (1992) call event uncertainty (Chapter 17). In Avery and Zemsky’s model, herding, many acting alike without judging independently, becomes prevalent as the dimensions of uncertainty increase (working-paper version). With three unknowns and one price, revelation in the root model may be neither instant nor monotone (our derivation); the question stays open, unchecked against the models of Chapters 16 and 19.</p>
+<p>Reaching Andrei and Cujean’s (2017) model takes four more changes, set out in Box 5.2 (our judgment): signals pooled in random meetings, leaving no informed fraction and no S-curve; constant absolute risk aversion; a risk premium; and inference from prices in place of first-order knowledge (A3), knowing only the fact. Their meetings are uniformly random, so homogeneous mixing stays (our judgment). In their model momentum, recent winners continuing to rise, needs information to flow at an increasing rate; Box 19.3 puts the root model’s Bass curve into that condition as the book’s own modeling (our derivation). Chapter 19 sets this route beside Pedersen’s (2022); tying a real spreading process to prices remains an open problem of the book (Chapters 19 and 21).</p>
+</section>
+<section id="a-map-of-relaxations" class="level2">
+<h2><span class="secnum">5.8</span> A map of relaxations</h2>
+<p>Table 5.1 gives the nineteen default assumptions, and Table 5.2 known models reached by joint relaxations, which drop two or more defaults in one model. The appendix lists all 160 pairs of defaults dropped together in the papers behind this book (our calculation).<a href="#fn13" id="fnref13" class="noteref" role="doc-noteref"><sup>13</sup></a></p>
+<div class="table-caption">
+<p>Table 5.1 The nineteen default assumptions</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 26%" />
+<col style="width: 36%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th>Code</th>
+<th>Plain name</th>
+<th>Default</th>
+<th>Dropped in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>Single exogenous fact</td>
+<td>One fact, its true value untouched by trading</td>
+<td>13, 16, 20, 21, 22, 23 (10)</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Unbiased transmission</td>
+<td>News passes on unchanged, whatever its truth or novelty</td>
+<td>9 (15)</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>First-order knowledge</td>
+<td>Traders need to know only the fact</td>
+<td>12, 19, 21</td>
+</tr>
+<tr>
+<td>B1</td>
+<td>Homogeneous mixing</td>
+<td>Anyone meets anyone at random; no shared sources</td>
+<td>7 (6, 11, 13, 19)</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>Non-strategic forwarding</td>
+<td>Forwarding at a fixed rate, whatever the news is worth</td>
+<td>15</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>Permanent spreading</td>
+<td>Those who know never stop telling or forget</td>
+<td>6, 22 (7)</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>Deterministic mean field</td>
+<td>Spreading follows its average path at fixed contact rates</td>
+<td>8, 14, 17, 22 (19)</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>One-time injection</td>
+<td>News present at the start, a constant external source, no later announcements</td>
+<td>8, 12, 19, 20, 21, 24 (22)</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>Simple contagion</td>
+<td>Hearing once is enough to believe and act</td>
+<td>11</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>Bayesian updating</td>
+<td>A common prior, Bayes’ rule, fixed processing</td>
+<td>13, 20, 24 (18, 19)</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>No observational learning</td>
+<td>People see signals and do not see others’ actions</td>
+<td>14 (17, 21)</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>Unlimited attention</td>
+<td>All information seen and used at no cost</td>
+<td>4, 10, 24 (6, 12, 16, 19, 20)</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>No learning from prices</td>
+<td>The price is not read for others’ information</td>
+<td>16, 19 (4, 14, 17, 20, 21)</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>Price taker</td>
+<td>No trader’s orders move the price</td>
+<td>17</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>Log utility</td>
+<td>Log utility; equal, fixed wealth</td>
+<td>17, 18, 19, 22, 23</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>Exogenous counterparty</td>
+<td>Unpredictable trade for reasons other than information</td>
+<td>4, 13, 15, 16, 18</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>Frictionless trading</td>
+<td>Short selling allowed; no capital constraints or trading costs</td>
+<td>18, 20, 21, 23</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>Fact unrelated to aggregate risk</td>
+<td>With full information the price equals the probability</td>
+<td>18, 19</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>Spreaders as traders</td>
+<td>Those who spread news trade on it</td>
+<td>19 (23)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Chapters in parentheses drop the default only together with another. Beyond the main relaxations listed here, several chapters drop further defaults in passing, and a model in Table 5.2 can drop more defaults than its row names; each chapter names such relaxations in its opening or model section.</p>
+<div class="table-caption">
+<p>Table 5.2 Dropping several defaults at once</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 56%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th>Defaults dropped</th>
+<th>Model reached</th>
+<th>Chapters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C5, D3</td>
+<td>Grossman (1976): full revelation</td>
+<td>16</td>
+</tr>
+<tr>
+<td>C4, C5, D3</td>
+<td>Grossman and Stiglitz (1980): costly information; without noise, no equilibrium below a cost bound</td>
+<td>4, 16</td>
+</tr>
+<tr>
+<td>C2, C5</td>
+<td>Manski (2006): beliefs averaged toward a price that need not move</td>
+<td>16</td>
+</tr>
+<tr>
+<td>C4, C5</td>
+<td>Hong and Stein (1999): momentum traders using past prices</td>
+<td>16, 20</td>
+</tr>
+<tr>
+<td>C3, C5</td>
+<td>Glosten and Milgrom (1985), Avery and Zemsky (1998): learning from order flow</td>
+<td>14, 17</td>
+</tr>
+<tr>
+<td>C3, C5, D1, D2</td>
+<td>Kyle (1985): a strategic insider and a market maker</td>
+<td>17</td>
+</tr>
+<tr>
+<td>C2, D4</td>
+<td>Harrison and Kreps (1978), Scheinkman and Xiong (2003): prices above the average belief under short-sale limits</td>
+<td>20, 21</td>
+</tr>
+<tr>
+<td>A1, A3, B5, C5, D4</td>
+<td>Abreu and Brunnermeier (2003): arbitrageurs riding a bubble</td>
+<td>21</td>
+</tr>
+<tr>
+<td>B1, C2</td>
+<td>DeGroot (1974): averaging on networks; Pedersen (2022): the same with prices</td>
+<td>13, 19</td>
+</tr>
+<tr>
+<td>B1, B3</td>
+<td>Epidemic thresholds on networks, with spreaders who stop</td>
+<td>6, 7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Miller (1977) reaches a price above the average belief by dropping only the short-selling part of frictionless trading, with traders who, as in the root model, do not learn from prices (our judgment; Section 20.1.3).</p>
+<p>The root model also meets four candidate defaults, kept outside both tables: a single information source (Chapters 13, 14 and 19; Section 5.2), centralized trading with public prices (Chapter 19), holding until disclosure (Sections 3.4 and 10.6; Chapter 23) and a complete market (Chapter 18).</p>
+</section>
+<section id="evidence-cited-in-this-chapter" class="level2">
+<h2><span class="secnum">5.9</span> Evidence cited in this chapter</h2>
+<p>Sultan, Farley and Lehmann (1990) pool 213 sets of estimates from 15 articles published from the 1950s to the 1980s, all on annual data for products with at least some market success. Busse and Green (2002) cover 322 CNBC reports from June 12 to October 27, 2000, and Bernard and Thomas (1989) NYSE and AMEX firms from 1974 to 1986. Rzayev, Sakkas and Urquhart (2025) study 77 cryptocurrencies, with their estimates for each coin in an online appendix we have not obtained. Sections 4.9 and 1.3 give the samples of Dhawan and Putniņš (working-paper version) and of Page and Clemen; the rest is mainly theory. Two of the chapter’s five time scales carry scope boxes as measurements; for the other three, the book’s accounts are not yet tested.</p>
+</section>
+<section id="a-traders-checklist" class="level2">
+<h2><span class="secnum">5.10</span> A trader’s checklist</h2>
+<p>None of these questions says what to buy or sell, and good answers do not make a trade safe (our judgment).</p>
+<ol type="1">
+<li><strong>One message or many signals?</strong> Check: are people passing on one message carrying the news, or does each hold a signal to be pooled (Section 5.2)? The root model covers only the first.</li>
+<li><strong>Is the curve contagion?</strong> Testable: in Young’s model, with a positive external influence and rates that differ across people but not over time, the relative hazard rate decreases (working-paper version). A rising one points to thresholds, learning or a changing external source; the test needs a fixed external source and frequent data from the start (our judgment; Section 5.6).</li>
+<li><strong>Whose orders make the drift?</strong> Check: who will buy after you (Section 5.4)? In the root model, later hearers trading on news about <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>;</span> in Section 4.1’s pumps, buyers answering a signal with no information about the coin’s value (our judgment).</li>
+<li><strong>Which clock runs?</strong> Testable: time how fast prices respond to the broadcasts you trade on. After CNBC’s positive midday reports in 2000, mostly on large firms, prices kept responding for about a minute, an upper bound on speed in the authors’ reading (Section 5.5); if those prices respond as fast, they have finished within about a minute of the broadcast (our inference).</li>
+<li><strong>Which default fails first?</strong> Check: find in Table 5.1 the default your market breaks first and read the chapters the table lists for it.</li>
+</ol>
+</section>
+<section id="summary" class="level2">
+<h2><span class="secnum">5.11</span> Summary</h2>
+<ul>
+<li>The root model has one yes-or-no fact, one message copied from a single source and spreading in Bass form, and one binary contract. It adopts all nineteen default assumptions, restoring the three that Chapter 4 dropped, unlimited attention, an exogenous counterparty and, in Grossman and Stiglitz’s example, no learning from prices, and keeping price taking.</li>
+<li>Read as the root model’s rates, Sultan, Farley and Lehmann’s coefficients for successful new products, on annual data on first purchases and with the coefficient of imitation mixing in marketing, put the peak of new adoption 3.4 to 6.6 years out across the single-factor cells of their Table 2 (our derivation; Section 5.2).</li>
+<li>Under the premises of Section 5.3 the price is the wealth-weighted average belief, with six limits, among them the constitutive assumption that it moves continuously with the informed fraction.</li>
+<li>The price’s drift comes from later hearers’ orders and offers whoever knows <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mn>0</mn></msub><annotation encoding="application/x-tex">q_0</annotation></semantics></math> and the unreported <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> a risky statistical arbitrage, consistent with the no-arbitrage law under the qualifications of Section 5.4; Section 4.1’s pumps are a counterexample to the model’s account of value (our judgment; Section 5.4).</li>
+<li>After CNBC’s 125 positive midday reports in 2000, mostly on large firms, prices began to respond within 15 seconds and kept responding for about a minute, an upper bound on speed in the authors’ reading.</li>
+<li>S-curves have four sources, told apart by their footprints; a test of shape needs a fixed external source and frequent data from the start (our judgment).</li>
+<li>Dropping no learning from prices need not move the price, as under Manski’s premises (working-paper version). Full revelation needs rational-expectations learning (our judgment); Grossman’s needs eight premises, among them no noise; Hellwig shows it describes the limit as noise vanishes.</li>
+</ul>
+</section>
+<section id="boxes-for-quantitative-readers" class="level2">
+<h2><span class="secnum">5.12</span> Boxes for quantitative readers</h2>
+<section id="box-5.1-the-root-model-in-symbols" class="level4 box">
+<h4><span class="box-label">Box 5.1</span> The root model in symbols</h4>
+<p>Here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\theta \in \{0, 1\}</annotation></semantics></math> is the fact, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> the informed fraction, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> the rates of the external source and of word of mouth, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> the belief of the informed, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mn>0</mn></msub><annotation encoding="application/x-tex">q_0</annotation></semantics></math> that of the rest and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>t</mi></msub><annotation encoding="application/x-tex">q_t</annotation></semantics></math> the price. The deadline is <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>;</span> Section 1.5 wrote the time of disclosure as <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>.</span> Bass’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math> mean something else here (Box 1.2); Sultan, Farley and Lehmann’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,</span> their coefficients of innovation and imitation, stand where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> do (our judgment).<a href="#fn14" id="fnref14" class="noteref" role="doc-noteref"><sup>14</sup></a></p>
+<p><strong>Spreading.</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>I</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">dI/dt = (\alpha + \beta I)(1 - I)</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I(0) = 0</annotation></semantics></math> is Bass’s equation, solved in Box 1.2. Here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> is instead the dimensionless time <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">(\alpha + \beta) t</annotation></semantics></math>,</span> with <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>β</mi><mi>/</mi><mi>α</mi></mrow><annotation encoding="application/x-tex">r = \beta / \alpha</annotation></semantics></math>,</span> <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>I</mi></mrow><mrow><mi>d</mi><mi>τ</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>1</mn><mo>+</mo><mi>r</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>τ</mi></mrow></msup></mrow><mrow><mn>1</mn><mo>+</mo><mi>r</mi><msup><mi>e</mi><mrow><mi>−</mi><mi>τ</mi></mrow></msup></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{dI}{d\tau} = \frac{(1 + rI)(1 - I)}{1 + r}, \qquad I(\tau) = \frac{1 - e^{-\tau}}{1 + r e^{-\tau}},</annotation></semantics></math></span> so the shape has one parameter, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> (our derivation). In these units Bass’s peak comes at <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>τ</mi><mo>*</mo></msup><mo>=</mo><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">\tau^* = \ln r</annotation></semantics></math>,</span> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>I</mi><mo>*</mo></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I^* = (r - 1)/(2r)</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>I</mi><mi>/</mi><mi>d</mi><mi>τ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">dI/d\tau = (1 + r)/(4r)</annotation></semantics></math>,</span> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>τ</mi><mo>*</mo></msup><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau^* &gt; 0</annotation></semantics></math> only if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r &gt; 1</annotation></semantics></math> (our derivation). At Sultan, Farley and Lehmann’s mean coefficients, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≈</mo><mn>12.7</mn></mrow><annotation encoding="application/x-tex">r \approx 12.7</annotation></semantics></math>,</span> so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>τ</mi><mo>*</mo></msup><mo>≈</mo><mn>2.54</mn></mrow><annotation encoding="application/x-tex">\tau^* \approx 2.54</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>I</mi><mo>*</mo></msup><mo>≈</mo><mn>0.46</mn></mrow><annotation encoding="application/x-tex">I^* \approx 0.46</annotation></semantics></math>;</span> times <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">1/(\alpha + \beta) \approx 2.4</annotation></semantics></math> years, the peak comes at about 6.2 years (our calculation; Section 5.2).</p>
+<p><strong>Price.</strong> Under the premises of Section 5.3, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>t</mi></msub><mo>=</mo><mi>I</mi><mi>p</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">q_t = I p + (1 - I) q_0</annotation></semantics></math>.</span> Inverted, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>q</mi><mi>t</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>q</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">]</mo><mi>/</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">p = [q_t - (1 - I) q_0]/I</annotation></semantics></math>,</span> which needs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> (our derivation). The belief gap is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>−</mo><msub><mi>q</mi><mi>t</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msub><mi>q</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p - q_t = (1 - I)(p - q_0)</annotation></semantics></math> (Section 1.5).</p>
+<p><strong>Drift.</strong> <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>q</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msub><mi>q</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>I</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msub><mi>q</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">dq/dt = (p - q_0)\, dI/dt = (p - q_0)(\alpha + \beta I)(1 - I)</annotation></semantics></math>,</span> largest in size at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>τ</mi><mo>*</mo></msup><annotation encoding="application/x-tex">\tau^*</annotation></semantics></math> (our derivation); in Figure 5.1, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>q</mi><mi>/</mi><mi>d</mi><mi>τ</mi><mo>≈</mo><mn>0.089</mn></mrow><annotation encoding="application/x-tex">dq/d\tau \approx 0.089</annotation></semantics></math> there (our calculation).</p>
+<p><strong>Value.</strong> In a binary contract, a two-horse race at margin-free odds, definition one is <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo>;</mo><mi>Y</mi><mo>∣</mo><mi mathvariant="script">ℱ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta = I(\theta; Y \mid \mathcal{F})</annotation></semantics></math>,</span> the horse-race equality given <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℱ</mi><annotation encoding="application/x-tex">\mathcal{F}</annotation></semantics></math> (Box 4.1). Definition two is <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">𝔼</mi><mi>Y</mi></msub><mo stretchy="false" form="prefix">[</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>Y</mi></msub><mo stretchy="false" form="postfix">∥</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo>;</mo><mi>Y</mi><mo>∣</mo><msup><mi mathvariant="script">ℱ</mi><mtext mathvariant="normal">seen</mtext></msup><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">∥</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbb{E}_Y[D(p_Y \| q)] = I(\theta; Y \mid \mathcal{F}^{\text{seen}}) + D(\pi \| q)</annotation></semantics></math>,</span> and with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℱ</mi><mo>=</mo><msup><mi mathvariant="script">ℱ</mi><mtext mathvariant="normal">seen</mtext></msup></mrow><annotation encoding="application/x-tex">\mathcal{F} = \mathcal{F}^{\text{seen}}</annotation></semantics></math> the two differ by exactly <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">∥</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(\pi \| q)</annotation></semantics></math> (our derivation; Box 4.1).</p>
+<p><strong>Square integrability.</strong> For a diffusion model, Harrison and Kreps’s Theorem 3 gives conditions under which an equivalent martingale measure, a set of probabilities under which discounted prices have no drift, exists (Section 3.7): among them, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mi>T</mi></msubsup><msup><mi>α</mi><mn>2</mn></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\int_0^T \alpha^2 \, dt &lt; \infty</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">E(\rho^2) &lt; \infty</annotation></semantics></math>,</span> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> built from <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.</span> Their <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> solves <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>α</mi><mo>+</mo><mi>μ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma \alpha + \mu = 0</annotation></semantics></math>,</span> their equation (5.1), so it is the market price of risk with its sign reversed (our derivation) and has nothing to do with the root model’s <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.</span> Asking the same of the root model’s drift is an analogy to the theorem; it is not a direct application (our judgment).</p>
+<p>The rigorous versions of these statements and their proofs are in the appendix.</p>
+</section>
+<section id="box-5.2-the-first-paradigm-switch-in-symbols" class="level4 box">
+<h4><span class="box-label">Box 5.2</span> The first paradigm switch in symbols</h4>
+<p><strong>Full revelation.</strong> Grossman’s (1976) price summarizes all the information in the market under eight premises: (1) constant absolute risk aversion, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>W</mi><mo accent="true">̃</mo></mover><mrow><mn>1</mn><mi>i</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><msup><mi>e</mi><mrow><mi>−</mi><msub><mi>a</mi><mi>i</mi></msub><msub><mover><mi>W</mi><mo accent="true">̃</mo></mover><mrow><mn>1</mn><mi>i</mi></mrow></msub></mrow></msup></mrow><annotation encoding="application/x-tex">U_i(\tilde{W}_{1i}) = -e^{-a_i \tilde{W}_{1i}}</annotation></semantics></math> with <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_i &gt; 0</annotation></semantics></math>;</span> (2) a normal prior and normal signals, (3) whose errors are independent across traders and of equal precision; (4) a common prior, with every trader knowing how the price depends on the signals, argued as a self-fulfilling expectation; (5) a known total supply, since with a random supply the price cannot reveal the average signal; (6) price taking; (7) prices with at least as many dimensions as the sufficient statistic, a summary that keeps all the signals say about the payoff; and (8) an equilibrium shown unique only among linear functions of the signals: “We do not know whether” there are others.</p>
+<p><strong>The limit.</strong> As supply noise disappears, Hellwig’s (1980) equilibrium price becomes a sufficient statistic for the signals, but Grossman’s result is not exact at zero noise (Section 5.7).</p>
+<p><strong>Unknowns.</strong> The uninformed face <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> (or <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>),</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> and whether there is news, three unknowns for one price; with no noise and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>p</mi><mi>H</mi></msub><mo>,</mo><msub><mi>p</mi><mi>L</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">p \in \{p_H, p_L\}</annotation></semantics></math> known, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sign</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>t</mi></msub><mo>−</mo><msub><mi>q</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{sign}(q_t - q_0)</annotation></semantics></math> reveals which, whatever <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> (our derivation).</p>
+<p><strong>Andrei and Cujean’s four changes.</strong> Agents meet at Poisson times with intensity <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math> and pool their signals; utility is exponential (D2), with risk aversion <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">1/\tau</annotation></semantics></math>,</span> their <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> being risk tolerance, a different quantity from the time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> of Box 5.1; the price carries a risk premium for noise trading risk (D5); and prices carry public information, from which agents infer what others know (A3).<a href="#fn15" id="fnref15" class="noteref" role="doc-noteref"><sup>15</sup></a></p>
+</section>
+</section>
+<section id="references" class="level2 references">
+<h2 class="references">References</h2>
+<p>Works cited in this chapter. Where the version read is not the journal version, the entry says which version was read; page numbers in the notes follow that version.</p>
+<ul>
+<li>Abreu, D., and M. K. Brunnermeier (2003). Bubbles and Crashes. <em>Econometrica</em> 71(1): 173–204.</li>
+<li>Andrei, D., and J. Cujean (2017). Information Percolation, Momentum and Reversal. <em>Journal of Financial Economics</em> 123(3): 617–645.</li>
+<li>Avery, C., and P. Zemsky (1998). Multidimensional Uncertainty and Herd Behavior in Financial Markets. <em>American Economic Review</em> 88(4): 724–748. Read as INSEAD Working Paper 96/79/FIN/SM, November 1, 1996; the journal version was not checked.</li>
+<li>Barron, A. R., and T. M. Cover (1988). A Bound on the Financial Value of Information. <em>IEEE Transactions on Information Theory</em> 34(5): 1097–1100.</li>
+<li>Bass, F. M. (1969). A New Product Growth Model for Consumer Durables. <em>Management Science</em> 15(5): 215–227. The title page prints the words in the order “A New Product Growth for Model Consumer Durables”.</li>
+<li>Bernard, V. L., and J. K. Thomas (1989). Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium? <em>Journal of Accounting Research</em> 27, Supplement: 1–36.</li>
+<li>Busse, J. A., and T. C. Green (2002). Market Efficiency in Real Time. <em>Journal of Financial Economics</em> 65(3): 415–437.</li>
+<li>DeGroot, M. H. (1974). Reaching a Consensus. <em>Journal of the American Statistical Association</em> 69(345): 118–121.</li>
+<li>Dhawan, A., and T. J. Putniņš (2023). A New Wolf in Town? Pump-and-Dump Manipulation in Cryptocurrency Markets. <em>Review of Finance</em> 27(3). Read in the working paper of November 16, 2020; the journal version was not checked.</li>
+<li>Duffie, D. (2010). Presidential Address: Asset Price Dynamics with Slow-Moving Capital. <em>Journal of Finance</em> 65(4): 1237–1267.</li>
+<li>Duffie, D., and G. Manso (2007). Information Percolation in Large Markets. <em>American Economic Review</em> 97(2), Papers and Proceedings: 203–209.</li>
+<li>Easley, D., and M. O’Hara (1992). Time and the Process of Security Price Adjustment. <em>Journal of Finance</em> 47(2): 577–605.</li>
+<li>Glosten, L. R., and P. R. Milgrom (1985). Bid, Ask and Transaction Prices in a Specialist Market with Heterogeneously Informed Traders. <em>Journal of Financial Economics</em> 14(1): 71–100.</li>
+<li>Grossman, S. (1976). On the Efficiency of Competitive Stock Markets Where Trades Have Diverse Information. <em>Journal of Finance</em> 31(2): 573–585.</li>
+<li>Grossman, S. J., and J. E. Stiglitz (1980). On the Impossibility of Informationally Efficient Markets. <em>American Economic Review</em> 70(3): 393–408.</li>
+<li>Harrison, J. M., and D. M. Kreps (1978). Speculative Investor Behavior in a Stock Market with Heterogeneous Expectations. <em>Quarterly Journal of Economics</em> 92(2): 323–336.</li>
+<li>Harrison, J. M., and D. M. Kreps (1979). Martingales and Arbitrage in Multiperiod Securities Markets. <em>Journal of Economic Theory</em> 20(3): 381–408.</li>
+<li>Hellwig, M. F. (1980). On the Aggregation of Information in Competitive Markets. <em>Journal of Economic Theory</em> 22(3): 477–498.</li>
+<li>Hong, H., and J. C. Stein (1999). A Unified Theory of Underreaction, Momentum Trading, and Overreaction in Asset Markets. <em>Journal of Finance</em> 54(6): 2143–2184. Read as NBER Working Paper 6324, December 1997; the journal version was not checked.</li>
+<li>Jouini, E., and H. Kallal (1995a). Arbitrage in Securities Markets with Short-Sales Constraints. <em>Mathematical Finance</em> 5(3): 197–232.</li>
+<li>Jouini, E., and H. Kallal (1995b). Martingales and Arbitrage in Securities Markets with Transaction Costs. <em>Journal of Economic Theory</em> 66: 178–197.</li>
+<li>Kyle, A. S. (1985). Continuous Auctions and Insider Trading. <em>Econometrica</em> 53(6): 1315–1335.</li>
+<li>Manski, C. F. (2006). Interpreting the Predictions of Prediction Markets. <em>Economics Letters</em>. Read as NBER Working Paper 10359, March 2004; the journal version was not checked.</li>
+<li>Merton, R. C. (1987). A Simple Model of Capital Market Equilibrium with Incomplete Information. <em>Journal of Finance</em> 42(3). Read as MIT Sloan School of Management Working Paper 1869-87, March 1987.</li>
+<li>Milgrom, P. R. (1981). Rational Expectations, Information Acquisition, and Competitive Bidding. <em>Econometrica</em> 49(4): 921–943.</li>
+<li>Miller, E. M. (1977). Risk, Uncertainty, and Divergence of Opinion. <em>Journal of Finance</em> 32(4): 1151–1168.</li>
+<li>Page, L., and R. T. Clemen (2013). Do Prediction Markets Produce Well-Calibrated Probability Forecasts? <em>Economic Journal</em> 123(568): 491–513.</li>
+<li>Pedersen, L. H. (2022). Game On: Social Networks and Markets. <em>Journal of Financial Economics</em> 146: 1097–1119.</li>
+<li>Rzayev, K., A. Sakkas and A. Urquhart (2025). An Adoption Model of Cryptocurrencies. <em>European Journal of Operational Research</em> 323(1): 253–266.</li>
+<li>Scheinkman, J. A., and W. Xiong (2003). Overconfidence and Speculative Bubbles. <em>Journal of Political Economy</em> 111(6): 1183–1219.</li>
+<li>Sultan, F., J. U. Farley and D. R. Lehmann (1990). A Meta-Analysis of Applications of Diffusion Models. <em>Journal of Marketing Research</em> 27(1): 70–77.</li>
+<li>Wolfers, J., and E. Zitzewitz (2006). Interpreting Prediction Market Prices as Probabilities. NBER Working Paper 12200, April 2006; no journal version was found.</li>
+<li>Young, H. P. (2009). Innovation Diffusion in Heterogeneous Populations: Contagion, Social Influence, and Social Learning. <em>American Economic Review</em> 99(5). Read in the author’s final manuscript, the second revision of AER manuscript 2007-1161, October 2008; the journal version was not checked.</li>
+</ul>
+</section>
+<section id="notes-1" class="level2 unnumbered">
+<h2 class="unnumbered">Notes</h2>
+<div class="endnotes">
+<div id="fn1" class="endnote">
+<p><a href="#fnref1" class="backlink" role="doc-backlink">1.</a> Page and Clemen (2013), journal version: the final value of a contract in §4.1, p. 500; calibration and time to expiration in the abstract, p. 491. Section 1.3 gives their sample.</p>
+</div>
+<div id="fn2" class="endnote">
+<p><a href="#fnref2" class="backlink" role="doc-backlink">2.</a> Bass (1969), journal version: the model of initial purchases in the abstract, p. 215.</p>
+</div>
+<div id="fn3" class="endnote">
+<p><a href="#fnref3" class="backlink" role="doc-backlink">3.</a> Bass (1969), journal version: the peak and the condition for it on p. 218; innovators on p. 216.</p>
+</div>
+<div id="fn4" class="endnote">
+<p><a href="#fnref4" class="backlink" role="doc-backlink">4.</a> Rzayev, Sakkas and Urquhart (2025), journal version: the 77 cryptocurrencies in §1, p. 253; their equation (2), fitted to the daily number of active addresses, in §2.2, p. 257; the estimates coin by coin, with the negative coefficient, in §3.2, p. 259. The estimates themselves are in the paper’s online appendix (Table A3), which we have not obtained. The monthly estimates for each coin in §3.2, p. 258, feed their tests of returns, not the coefficients cited here. Our derivation: with the potential count fixed, the right side of their equation (2), which also has terms in the previous day’s count and return, is a quadratic in the previous day’s count and linear in the parameters, so the fit is a least-squares fit of that quadratic, which ties the intercept to the curvature mechanically; exits at a rate proportional to <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>,</span> a relaxation of permanent spreading, add a term in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> alone and leave the intercept at <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha \ge 0</annotation></semantics></math>,</span> so they cannot explain a negative intercept.</p>
+</div>
+<div id="fn5" class="endnote">
+<p><a href="#fnref5" class="backlink" role="doc-backlink">5.</a> Duffie and Manso (2007), journal version: types and Proposition 3 in §I, p. 204; the meeting rate in §II, p. 204.</p>
+</div>
+<div id="fn6" class="endnote">
+<p><a href="#fnref6" class="backlink" role="doc-backlink">6.</a> Sultan, Farley and Lehmann (1990), journal version: the 213 sets of estimates on p. 70; the mean coefficients on pp. 70–71; annual data on p. 71; Table 2 on p. 73; the formula for the peak and the printed 5.3 years on p. 74; successful products on p. 75. By their formula, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>.38</mn><mi>/</mi><mn>.03</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>.03</mn><mo>+</mo><mn>.38</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ln(.38/.03)/(.03 + .38)</annotation></semantics></math> is about 6.2 years (our calculation). By ordinary least squares (OLS), the coefficient of imitation is .076 lower when marketing variables are included in the estimated model, which is why we read it as mixing in outside influences (our judgment). Each cell of Table 2 used here, from its OLS columns, is the intercept plus one factor’s effect, plus the .165 (OLS; .170 by weighted least squares) by which the coefficient of imitation rises when the coefficient of innovation is estimated too, since a Bass curve needs both; the cells are not averages over any group of studies (our derivation). The ratio, time scale and peak of the mean coefficients come from <code>bass_peak</code>, and the three ranges from <code>sultan_ranges(sultan_table2_cells())</code>, all in <code>book/code/btc_pilot/bass.py</code>, with tests in <code>book/code/tests/test_bass.py</code>.</p>
+</div>
+<div id="fn7" class="endnote">
+<p><a href="#fnref7" class="backlink" role="doc-backlink">7.</a> Wolfers and Zitzewitz (2006) were read as NBER Working Paper 12200 of April 2006; no journal version was found. The assumptions are in §2, p. 2, and the wealth-weighted average, with its dependence on log utility, in §3, p. 3.</p>
+</div>
+<div id="fn8" class="endnote">
+<p><a href="#fnref8" class="backlink" role="doc-backlink">8.</a> Miller (1977), journal version: the setting of the paper in its opening section, p. 1151; the visibility hypothesis on p. 1166. Merton (1987) was read as MIT Sloan School of Management Working Paper 1869-87 of March 1987; the <em>Journal of Finance</em> version was not checked. The assumption that investors use only the securities they know about is on p. 10. Duffie and Manso (2007), journal version: the private auctions in §III, p. 205.</p>
+</div>
+<div id="fn9" class="endnote">
+<p><a href="#fnref9" class="backlink" role="doc-backlink">9.</a> Harrison and Kreps (1979), journal version: Theorem 3, p. 396. Jouini and Kallal (1995b), journal version: the example in §3, p. 188. Jouini and Kallal (1995a), journal version: the binomial example in §2.2, pp. 205–206. There a risky security’s log return is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math> in state “up” and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> in state “down”, and the lending and borrowing rates are <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>L</mi></msub><annotation encoding="application/x-tex">r_L</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>B</mi></msub><annotation encoding="application/x-tex">r_B</annotation></semantics></math>;</span> the model is free of arbitrage if and only if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c \ge 0</annotation></semantics></math> and some riskless rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mn>0</mn></msub><annotation encoding="application/x-tex">r_0</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>L</mi></msub><mo>≤</mo><msub><mi>r</mi><mn>0</mn></msub><mo>≤</mo><msub><mi>r</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">r_L \le r_0 \le r_B</annotation></semantics></math> has <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&lt;</mo><msub><mi>r</mi><mn>0</mn></msub><mo>&lt;</mo><mi>u</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">d &lt; r_0 &lt; u + c</annotation></semantics></math>.</span> For a security with <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&lt;</mo><msub><mi>r</mi><mi>L</mi></msub></mrow><annotation encoding="application/x-tex">u &lt; r_L</annotation></semantics></math>,</span> taking <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>0</mn></msub><mo>=</mo><msub><mi>r</mi><mi>L</mi></msub></mrow><annotation encoding="application/x-tex">r_0 = r_L</annotation></semantics></math> shows that this holds if and only if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>L</mi></msub><mo>−</mo><mi>u</mi><mo>&lt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">r_L - u &lt; c</annotation></semantics></math> (our derivation).</p>
+</div>
+<div id="fn10" class="endnote">
+<p><a href="#fnref10" class="backlink" role="doc-backlink">10.</a> Busse and Green (2002), journal version: the summary of results on p. 416; the sample period on p. 418; Table 1, with the reports by segment and sign, and the share of large firms on p. 419; the morning segment’s positive reports on p. 422; the first 15-second interval and the caution on negative reports on p. 423; the gradual response to other negative news on p. 427. Dhawan and Putniņš (2023) were read in their working paper of November 16, 2020; the <em>Review of Finance</em> version was not checked. Working paper: the sample by exchange and its dates on p. 25; the time from signal to peak on p. 26. Bernard and Thomas (1989), journal version: the sample on p. 6; the timing of the drift on pp. 11–12. Duffie (2010), journal version: price responses to supply shocks and the illustrative model in the abstract, p. 1237; the delays of new capital on p. 1237.</p>
+</div>
+<div id="fn11" class="endnote">
+<p><a href="#fnref11" class="backlink" role="doc-backlink">11.</a> Young (2009) was read in the author’s final manuscript, the second revision of AER manuscript 2007-1161, dated October 2008; the <em>American Economic Review</em> version was not checked, and pages follow the manuscript: the three classes, outside factors and moving equilibrium (his note 4) on p. 3; social influence and social learning on p. 5; Proposition 1 on p. 11; the first fixed point on p. 14. Our derivation: if a small group adopts on its own at a high rate while the rest adopt mainly by contagion, early adoption per unit of time is roughly the sum of a falling and a rising exponential, so its relative acceleration, the growth rate of that adoption rate, rises as the weight moves to the rising term, which Young counts as growth faster than exponential. Pedersen (2022), journal version: the DeGroot model in the introduction, p. 1098.</p>
+</div>
+<div id="fn12" class="endnote">
+<p><a href="#fnref12" class="backlink" role="doc-backlink">12.</a> Manski (2006) was read as NBER Working Paper 10359 of March 2004; the <em>Economics Letters</em> version was not checked. Working paper: the traders in the abstract; the two assumptions, his equation (5) and the weighted average in §3, p. 7; the unchanged price on p. 8. Grossman (1976), journal version: the price that summarizes all the information, and the lost incentive, in §1, pp. 573–574; equilibrium demand in note 1 of §3, p. 582. Hellwig (1980), journal version: the large market in §1, p. 479; the approximate description and the undefined process in §4, p. 491; own signals and the price in §5, p. 493. Milgrom (1981), journal version: manipulability in the abstract, p. 921; the single trader in §1, p. 923. Easley and O’Hara (1992), journal version: event uncertainty in the introduction, p. 578. Avery and Zemsky (1998) were read as INSEAD Working Paper 96/79/FIN/SM of November 1, 1996; the <em>American Economic Review</em> version was not checked. Working paper: more dimensions of uncertainty in §1.2, p. 4. Andrei and Cujean (2017), journal version: the condition for momentum in the abstract, p. 617.</p>
+</div>
+<div id="fn13" class="endnote">
+<p><a href="#fnref13" class="backlink" role="doc-backlink">13.</a> Our calculation counts a pair of defaults when the card of at least one paper read for this book records both as dropped; the count comes from this book’s summary of the relaxations recorded on its cards, regenerated on October 27, 2026.</p>
+</div>
+<div id="fn14" class="endnote">
+<p><a href="#fnref14" class="backlink" role="doc-backlink">14.</a> Bass (1969), journal version: the equation, assumption b), p. 217; the solution and the peak on p. 218, with the sales and cumulative sales at the peak on pp. 218–219. Barron and Cover (1988), equation (42), p. 1100. Harrison and Kreps (1979), journal version: equation (5.1), p. 395, and Theorem 3, p. 396.</p>
+</div>
+<div id="fn15" class="endnote">
+<p><a href="#fnref15" class="backlink" role="doc-backlink">15.</a> Grossman (1976), journal version: utility, his equation (5), in §2, p. 575; the self-fulfilling expectations equilibrium on p. 577; the signals and the prior in §3, p. 577; price taking and the dimension of the price system on p. 582; uniqueness and a random supply on p. 583. Hellwig (1980), journal version: vanishing noise and the exact result in §4, pp. 490–491. Easley and O’Hara (1992), journal version: event uncertainty in the introduction, p. 578. Andrei and Cujean (2017), journal version: prices as public information in §1, p. 618; meetings and the signals exchanged in §2, p. 619; utility on p. 620; the price discount on p. 622.</p>
+</div>
+</div>
+</section>
+</section>
+
+</article>
+<nav class="pager" aria-label="Previous chapter / Next chapter">
+<a class="pager-prev" href="ch04.html" rel="prev"><span class="pager-label">Previous chapter</span><span class="pager-title">Chapter 4 The Value of Information</span></a>
+<a class="pager-next" href="ch06.html" rel="next"><span class="pager-label">Next chapter</span><span class="pager-title">Chapter 6 Forgetting and Attention Decay</span></a>
+</nav>
+</main>
+</div>
+<footer class="site-footer"><p>Draft of November 21, 2026</p></footer>
+</body>
+</html>

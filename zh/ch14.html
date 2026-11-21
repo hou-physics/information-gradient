@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>第 14 章　信息瀑布与羊群行为 · 信息梯度与传播</title>
+<link rel="alternate" hreflang="en" href="../en/ch14.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..700&amp;family=Noto+Serif+SC:wght@400..700&amp;family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="chapter-page">
+<header class="site-header">
+  <div class="site-header-inner">
+  <a class="site-title" href="index.html">信息梯度与传播</a>
+  <nav class="site-nav" aria-label="目录">
+    <a href="index.html">目录</a>
+    <a href="../en/ch14.html" hreflang="en" lang="en">English</a>
+  </nav>
+  </div>
+</header>
+<div class="layout">
+<nav class="toc-side" aria-label="本章各节">
+<p class="toc-heading">本章各节</p>
+<ol>
+<li><a href="#观察行动来代替信号"><span class="toc-num">14.1</span> <span class="toc-text">观察行动来代替信号</span></a></li>
+<li><a href="#行动一致而信息停滞"><span class="toc-num">14.2</span> <span class="toc-text">行动一致而信息停滞</span></a></li>
+<li><a href="#瀑布的条件"><span class="toc-num">14.3</span> <span class="toc-text">瀑布的条件</span></a></li>
+<li><a href="#混淆学习"><span class="toc-num">14.4</span> <span class="toc-text">混淆学习</span></a></li>
+<li><a href="#聚合停止的三种形态"><span class="toc-num">14.5</span> <span class="toc-text">聚合停止的三种形态</span></a></li>
+<li><a href="#网络中的学习"><span class="toc-num">14.6</span> <span class="toc-text">网络中的学习</span></a></li>
+<li><a href="#从他人的结果中学习"><span class="toc-num">14.7</span> <span class="toc-text">从他人的结果中学习</span></a></li>
+<li><a href="#学习与无界信号的四个结果"><span class="toc-num">14.8</span> <span class="toc-text">学习与无界信号的四个结果</span></a></li>
+<li><a href="#随交易变动的价格"><span class="toc-num">14.9</span> <span class="toc-text">随交易变动的价格</span></a></li>
+<li><a href="#看已采纳人数来行动"><span class="toc-num">14.10</span> <span class="toc-text">看已采纳人数来行动</span></a></li>
+<li><a href="#等别人先动"><span class="toc-num">14.11</span> <span class="toc-text">等别人先动</span></a></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">14.12</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">14.13</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">14.14</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">14.15</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</nav>
+<main class="chapter-main">
+<details class="toc-top">
+<summary>本章各节</summary>
+<ol>
+<li><a href="#观察行动来代替信号"><span class="toc-num">14.1</span> <span class="toc-text">观察行动来代替信号</span></a></li>
+<li><a href="#行动一致而信息停滞"><span class="toc-num">14.2</span> <span class="toc-text">行动一致而信息停滞</span></a></li>
+<li><a href="#瀑布的条件"><span class="toc-num">14.3</span> <span class="toc-text">瀑布的条件</span></a></li>
+<li><a href="#混淆学习"><span class="toc-num">14.4</span> <span class="toc-text">混淆学习</span></a></li>
+<li><a href="#聚合停止的三种形态"><span class="toc-num">14.5</span> <span class="toc-text">聚合停止的三种形态</span></a></li>
+<li><a href="#网络中的学习"><span class="toc-num">14.6</span> <span class="toc-text">网络中的学习</span></a></li>
+<li><a href="#从他人的结果中学习"><span class="toc-num">14.7</span> <span class="toc-text">从他人的结果中学习</span></a></li>
+<li><a href="#学习与无界信号的四个结果"><span class="toc-num">14.8</span> <span class="toc-text">学习与无界信号的四个结果</span></a></li>
+<li><a href="#随交易变动的价格"><span class="toc-num">14.9</span> <span class="toc-text">随交易变动的价格</span></a></li>
+<li><a href="#看已采纳人数来行动"><span class="toc-num">14.10</span> <span class="toc-text">看已采纳人数来行动</span></a></li>
+<li><a href="#等别人先动"><span class="toc-num">14.11</span> <span class="toc-text">等别人先动</span></a></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">14.12</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">14.13</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">14.14</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">14.15</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</details>
+<article class="chapter">
+<section id="第-14-章-信息瀑布与羊群行为" class="level1">
+<h1><span class="chapter-number">第 14 章　</span><span class="chapter-title">信息瀑布与羊群行为</span></h1>
+<p>Joel Hasbrouck（1991）测量了 1989 年第一季度里各笔交易怎样一笔接着一笔出现。对他的代表性股票 Ames Department Stores，他把每笔交易的方向（买入或卖出）与此前各笔交易的方向、此前报价的变动联系起来，用的是这个季度里的全部交易。前三笔交易的方向上的系数是 .167、.120 和 .078，往前第四笔和第五笔的系数较小，是 .021 和 .034，其中第四笔在通常的水平上与零没有显著差别（本书的判断）。他把这些估计读作交易中很强的正自相关：买入之后往往又是买入，卖出也类似，低滞后阶上的这种格局他称为极为典型。在低阶和中阶滞后上，他发现存货控制（inventory control）本会产生的反转（reversal）明显缺失，存货控制指交易商（dealer）调整报价，消化她不想持有的头寸，他还发现，短期内正自相关占上风，更符合对新信息的滞后调整。<a href="#fn1" id="fnref1" class="noteref" role="doc-noteref"><sup>1</sup></a></p>
+<p>这样的连串有几种可能的来源（本书的判断）。Hasbrouck 写道，存货控制会使交易出现序列相关，价格压力（price pressure）和拆单（order fragmentation）也一样，拆单指把一笔大单拆成许多小单；对信息的滞后调整和交易所规定的价格平滑（price smoothing）也涉及序列相关，价格平滑是一条让价格不出现大幅跳动的规则。因为别人买了而买的人也会给出连串，又因为只看交易的方向分不开这些来源，本书不把这些连串读作交易者有羊群行为（herding）的证据（本书的判断）。</p>
+<p>根模型（root model）假设无观察学习（no observational learning）：没有人看到别人的行动或行动的结果。5.8 节的表 5.1 把这一条默认与其他默认一起列出，本章去掉它，问的是看着别人在什么条件下会使行动趋同、趋同之后信息会怎样、价格随交易变动时又有什么变化（14.9 节）。</p>
+<section id="观察行动来代替信号" class="level2">
+<h2><span class="secnum">14.1</span> 观察行动来代替信号</h2>
+<p>Banerjee（1992）给出一个例子。两家餐馆 A 和 B 紧挨着，A 更好的先验概率（prior probability）是 51%，B 更好的是 49%。人们一个接一个到来，看到前面的人的选择，然后在两家里挑一家，每个人各有一个同样质量的私人信号（private signal）。100 个人里，99 个人的信号说 B 更好，但信号偏向 A 的那一个人最先选。对信号偏向 B 的第二个人，两个信号相互抵消，所以她按先验走，选了 A；她的选择对第三个人没有带来新东西，此后每个人也一样。结果人人都落在 A，尽管 100 个人的信息合起来几乎可以确定 B 更好。</p>
+<p>Banerjee 称之为 herd behavior，即人人都做别人在做的事，即使自己的私人信息（private information）提示他们做相当不同的事；本书的用词是羊群行为。第二个人决定不理会自己的信息，给其余的人带来负的外部性。这是表 13.1 里对应从他人行动中做贝叶斯学习的那一格。</p>
+<p>Bikhchandani、Hirshleifer 与 Welch（1992）集中讨论信息最少的情形，即人们只观察到前面的人的行动。在他们的二元例子里，每个人采纳的成本相同，都是 1/2，采纳的收益也相同，是 0 或 1，先验概率各占一半。每个人的私人信号是 H 或 L；收益为 1 时 H 以概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">p &gt; 1/2</annotation></semantics></math> 出现，收益为 0 时以概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">1 - p</annotation></semantics></math> 出现，人人的精度都是同一个 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>。</span>对采纳与拒绝无所谓的人，以相等的概率选其中之一。如果第三个人前面的两个人都采纳了，他即使拿到 L 信号也会采纳，这开启一个 UP 瀑布；如果两人都拒绝了，他即使拿到 H 信号也会拒绝，这是 DOWN 瀑布；如果一人采纳、另一人拒绝，单看行动，他的处境与第一个人相同，采纳的期望值是 1/2，所以由他的信号决定。</p>
+<p>按他们的定义，一个人的行动不依赖他的私人信号时，就出现了信息瀑布（information cascade）。后面每个信号都来自同一个分布，所以下一个人也在瀑布里，瀑布一旦开始就永远持续，即使它是错的。作者补充说，如果信号的分布不同，如果后来有公共信息（public information）到来，或者基础的价值会变，瀑布可能很容易中断（后来的公共信息在 14.3 节讲）。</p>
+<p>这里每个人都按贝叶斯法则（Bayes<span class="latin-apos">’</span> rule）从共同先验（common prior）出发更新，去掉的那一条默认是无观察学习（本书的判断）。一个人的收益不取决于后面的人怎么做，所以没有人有理由违背均衡（equilibrium）去影响跟在后面的人，均衡可以从第一个人起，一个人一个人地解出来（本书的判断）。<a href="#fn2" id="fnref2" class="noteref" role="doc-noteref"><sup>2</sup></a></p>
+</section>
+<section id="行动一致而信息停滞" class="level2">
+<h2><span class="secnum">14.2</span> 行动一致而信息停滞</h2>
+<p>在二元例子里，瀑布来得很快。两个人之后，出现 UP 瀑布、没有瀑布和出现 DOWN 瀑布的概率分别是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1 - p + p^2)/2</annotation></semantics></math>、</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">p - p^2</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1 - p + p^2)/2</annotation></semantics></math>；</span>人数 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 为偶数时，没有瀑布的概率是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(p - p^2)^{n/2}</annotation></semantics></math>，</span>其余的概率在两种瀑布之间平分。所以不在瀑布里的概率随人数指数下降；即使信号只比抛硬币好一点点，只要 10 个人，这个概率就低于 0.1%。信号越精确，瀑布往往开始得越早，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 越接近 1/2，开始得越晚。</p>
+<p>这个瀑布完全可能是错的。在收益为 1 的条件下，作者给出了正确瀑布、没有瀑布和错误瀑布的概率的闭式（数学框 14.1），并发现即使信号的信息量很大，错误瀑布的概率也高得惊人；随着人不断到来，它在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">p = 0.6</annotation></semantics></math> 时趋向 0.368，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">p = 0.75</annotation></semantics></math> 时趋向 0.192（本书的计算）。在他们的一般模型里，信号取有限多个值，信号满足单调似然比（monotone likelihood ratio），即信号越高，推断的收益越高，并且没有长期的持平，即学得足够多的人对采纳和拒绝不再无所谓，这时瀑布最终开始的概率随人数增多趋近于 1，而且很可能发生在许多有信息量的行动足以把收益几乎完全揭示出来之前，常常是一个很早就开始的错误瀑布。</p>
+<p>瀑布一旦开始，行动就不传达私人信号的信息，所以一个人的行动改善不了后面的决定。公共信念（public belief）是新来的人只根据行动的历史，对瀑布所偏向的那个收益所给的概率，它停在瀑布开始时的位置，即 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mn>2</mn></msup><mo>−</mo><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">p(p + 1)/[2(p^2 - p + 1)]</annotation></semantics></math>，</span>不论是哪两个人开启了它。如果前面的人的信号换成可以观察到，即使信号的主人自己不照它去做，这个信号也会加入共同的知识库，所以足够长的一串相反的信号最终会改变行为；对任何一串信号，在行动可观察的制度里瀑布开始之前，两种制度的行为完全一样，瀑布开始以后，它再也不会逆转。</p>
+<p>这里分出两层（本书的判断）。采纳的比例倒向一边并停在那里，而公共历史对收益说的话停在瀑布开始的地方。根模型的自我加速（self-acceleration）要求人们复制的东西带着信息（5.2 节），而在瀑布里，复制来的行动不带任何信息（本书的判断）。对数几率（log-odds）是几率的对数，相互独立的信号在它上面直接相加。在对数几率上，瀑布的公共信念在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">p = 0.6</annotation></semantics></math> 时抵得上 1.33 个私人信号，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">p = 0.75</annotation></semantics></math> 时抵得上 1.31 个，不论有多少人跟随（本书的计算；数学框 14.1），这与作者的直觉一致，即瀑布聚合的只是少数几个早期个人的行动所含的信息。贝叶斯的新来者对加入瀑布的人不给任何权重，说服偏差（persuasion bias）把每一次重复都算作又一条证据，做法正好相反（本书的判断；13.6.3 节）。</p>
+<p>图 14.1 把这两层在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">p = 0.6</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">p = 0.75</annotation></semantics></math> 下画出来，第二个是作者自己的数值例子。按比特（bit）计，即一个比特把可能性减半，所以收益起初有一个比特的不确定性，行动在极限处带有的关于它的信息是 0.051 和 0.294 比特；而同样这些人的信号，如果是公开的，30 个人之后会带有 0.554 和 0.993 比特，一个信号则是 0.029 和 0.189 比特（本书的计算）。<a href="#fn3" id="fnref3" class="noteref" role="doc-noteref"><sup>3</sup></a></p>
+<figure>
+<img src="figures/ch14-cascades.svg" width="605" height="645" loading="lazy" alt="图 14.1　二元瀑布里的行动与信息。在 Bikhchandani、Hirshleifer 与 Welch 的二元例子里，采纳的成本是 1/2，收益是 0 或 1，先验概率各占一半，每个信号以概率 0.6（橙色）或 0.75（深色）是正确的，无所谓的人以相等的概率采纳或拒绝，每个人只看到前面的人的行动；两格都画到前 30 个人。上格是瀑布已经开始的概率（实线）和错误瀑布已经开始的概率（虚线）；瀑布只可能在偶数个人之后开始，所以人数为奇数时的每个值等于前一个值，整数点之间用直线连接。下格是已经行动的人的行动里所含的关于收益的比特数（实线），以及这些人的私人信号里所含的比特数（虚线）；瀑布一旦开始，行动不再增加信息，所以它们的比特数趋平在 0.051 和 0.294，而信号的比特数向收益的一个比特的不确定性上升。精度和人数是本书选的；净采纳数的链和比特数是本书的推导，每个数字都是本书的计算。" />
+<figcaption aria-hidden="true">图 14.1　二元瀑布里的行动与信息。在 Bikhchandani、Hirshleifer 与 Welch 的二元例子里，采纳的成本是 1/2，收益是 0 或 1，先验概率各占一半，每个信号以概率 0.6（橙色）或 0.75（深色）是正确的，无所谓的人以相等的概率采纳或拒绝，每个人只看到前面的人的行动；两格都画到前 30 个人。上格是瀑布已经开始的概率（实线）和错误瀑布已经开始的概率（虚线）；瀑布只可能在偶数个人之后开始，所以人数为奇数时的每个值等于前一个值，整数点之间用直线连接。下格是已经行动的人的行动里所含的关于收益的比特数（实线），以及这些人的私人信号里所含的比特数（虚线）；瀑布一旦开始，行动不再增加信息，所以它们的比特数趋平在 0.051 和 0.294，而信号的比特数向收益的一个比特的不确定性上升。精度和人数是本书选的；净采纳数的链和比特数是本书的推导，每个数字都是本书的计算。</figcaption>
+</figure>
+</section>
+<section id="瀑布的条件" class="level2">
+<h2><span class="secnum">14.3</span> 瀑布的条件</h2>
+<p>看着别人，本身并不产生羊群。Banerjee 指出，人们观察别人的决定，这件事本身并不保证出现羊群行为：当每个人在给定自己的信号和前人的选择之下，选出对一个均值的最佳猜测，损失是她误差的二次函数时，对几乎每一串信号，选择都收敛到这个均值。他把差别追溯到这一点：在他的主模型里，选择并不总是其背后信息的充分统计量（sufficient statistic）；他还推测，在选择与信号的维度相当、收益连续时，选择通常会揭示信号。</p>
+<p>Smith 与 Sørensen（2000）研究贝叶斯理性的人怎样一个接一个地从别人的离散行动中学习。一个人的私人信念（private belief）是她按贝叶斯法则，根据自己的信号给高状态 H 的概率。私人信念的范围 0 和 1 都达不到时，它是有界的；两端都达到时，就是无界的私人信念（unbounded private beliefs），也就是说，在每个方向上总有某个信号，不论多么罕见，都能把信念推到任意接近确定；只达到一端的范围，既不算有界，也不算无界。在只有一种理性类型（type）、每个人在每个状态下对行动的排序相同、又没有噪声（没有人随机行动）的情况下，对某个行动的羊群几乎必然在有限时间内出现；私人信念无界时，人们几乎必然定在最优行动上；私人信念有界时，除非公共信念一开始就处在以最赚钱的行动为方向的瀑布里，否则以正的概率会在另一个行动上出现羊群。严格有界的信念是 Bikhchandani、Hirshleifer 与 Welch 的坏羊群的主要支柱：在二元例子里，一个信号把几率乘以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p/(1 - p)</annotation></semantics></math> 或除以它，不能再多（本书的推导）。</p>
+<p>在这些模型里，错误的羊群需要两个条件，一是行动不揭示其背后的信号，二是私人信念有界（本书的判断）；私人信念无界时羊群照样形成，几乎必然落在正确的行动上。</p>
+<p>羊群与瀑布也有区别。对 Smith 与 Sørensen，瀑布指信念在有限时间内收敛，即公共信念进入瀑布集（cascade set），也就是公共信念的这样一个范围，处在其中时一个人的行动不再依赖她自己的信号；此后每个理性的人的行动都由历史决定，所以瀑布迫使羊群出现，在羊群里同一类型的理性的人都做同样的事。在他们私人信念有界的例子里，一开始不在瀑布集里的公共信念永远进不了瀑布集，虽然羊群最终总会开始；只要延续函数（continuation function），即每个行动推动公共似然比的规则，总是递增的，这个结果就成立，因为这时比值永远不会跳进闭的瀑布集；在 Bikhchandani、Hirshleifer 与 Welch 的离散信号世界里，这种单调性不成立，这一点至关重要。他们总结说，没有离散信号，瀑布就不一定出现：即使在羊群行为期间，也不必有哪个决定成为定局。按本书的读法，瀑布要在有限时间内开始，还需要有一个行动能把公共信念带进瀑布集，离散信号允许这样的行动（本书的判断）。</p>
+<p>这种一致很脆弱。比一个私人信号信息量更少的公共信息，就能打碎一个持续很久的瀑布（他们的结果 3；12.8 节），而在第一次决定之前发布的、噪声很大的公共信息，可以使一些人在事前意义上变得更糟（结果 2；4.7 节）。作者说这种一致易碎：小的冲击就能轻易改变许多人的行为。<a href="#fn4" id="fnref4" class="noteref" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="混淆学习" class="level2">
+<h2><span class="secnum">14.4</span> 混淆学习</h2>
+<p>Smith 与 Sørensen 给出一个例子。在一条修建中的高速公路上，去休斯敦的司机在状态 H 下应当走高的出口匝道，在状态 L 下走低的，去达拉斯的则相反。如果在某个公共信念下，随机的一辆车在状态 H 与状态 L 下走高匝道的可能性一样大，那么从后面的决定里推不出任何东西，学习就停了。</p>
+<p>在他们的一般模型里，人们对行动的排序可以不同，类型又观察不到，所以对任何一个人，只能做统计推断。信念这时可能收敛到一个点，在那里历史对任何人都没有决定性的教训，每种类型的行动永远在两个行动之间分开，他们把这称为混淆学习（confounded learning）。他们的定理 2 假设至少有两种理性类型，并发现混淆点（confounding outcome）稳健地存在，而且不随噪声变化；稳健是就模型的参数来定义的，即它的偏好、类型和噪声的份额，本书把它读作对某些参数值和与之接近的值存在（本书的判断）。在任何一个混淆点上，总有某一对类型的偏好相反。如果信念的分布是离散的，如二元例子，混淆学习不属一般情形（nongeneric）；行动多于两个而信念无界时，一般情形下（generically）不存在混淆点。行动有两个、偏好相反时，信念有界、有两种类型、两种类型在某个公共信念范围内都活跃，则一般情形下存在混淆学习点；信念无界时，如果相反的两类的偏好差得足够大，并且如他们的引言所补充，两类的份额不太不均等，混淆学习点就存在，所以即使不可能出现错误的羊群，这个结局也存在；其余的前提在注里。</p>
+<p>噪声，即人们随机地固定在某些行动上，在长期里会消去，不影响收敛；按本书的读法，动机相反的理性类型产生这种停止（本书的判断）。</p>
+<p>本章里无界的信念带来学习的那些结果，都假设偏好一致（本书的判断）：Smith 与 Sørensen 的定理 1(b) 和 3(b) 假设只有一种理性类型，14.6 节的网络模型里，Acemoglu、Dahleh、Lobel 与 Ozdaglar 假设给定状态后人人偏好同一个行动，并把异质的偏好列入他们的框架可以研究的问题（工作论文版）。</p>
+<p>在市场里，对同一条消息动机相反的交易者，有人为了减少自己在别处承担的风险而根据这个信号卖出，另一些人则买入，在适当的比例下可以使订单流（order flow，买单与卖单的净额）对方向不带信息（本书的判断）。买入、卖出和不入场是三个行动，所以信念无界时，定理 2(e) 使这样的点在一般情形下不存在（本书的判断）；信念有界时，行动多于两个的模型仍有混淆点，因为在一段公共信念范围内完全可能只有两个行动有人采取。Smith 与 Sørensen 的模型没有价格，价格随交易变动时混淆点是否还在，第 16 章留作未决。<a href="#fn5" id="fnref5" class="noteref" role="doc-noteref"><sup>5</sup></a></p>
+</section>
+<section id="聚合停止的三种形态" class="level2">
+<h2><span class="secnum">14.5</span> 聚合停止的三种形态</h2>
+<p>汇集的停止有三种形态，表 14.1 把它们并排列出（本书的判断）。在行动一致的形态里，同一类型的人做同样的事，信息停在瀑布开始的地方，或者在 Smith 与 Sørensen 的一种类型、信念有界的羊群里，只向一个达不到真相的极限继续增长。在沉默的形态里，知情者不再行动：Avery 与 Zemsky 转述了 Lee（1995）的结果，即存在交易成本（transaction cost）时会出现信息瀑布，因为这时知情交易者（informed trader）几乎必然在某个时候停止交易，此后没有新信息到达市场（据 Avery 与 Zemsky 的转述；工作论文版）；第 21 章读 Lee 的论文。在相互抵消的分裂行动的形态里，也就是 Smith 与 Sørensen 的混淆学习，各类型继续做不同的事，他们的行动对状态什么也没有说（14.4 节）。Avery 与 Zemsky 的带价格的羊群行为，更适合读作一种延迟：关于新价值的信息进不了市场，直到价格调整，而关于事件有没有发生的信息一直在流动（本书的判断；工作论文版；14.9 节）。</p>
+<div class="table-caption">
+<p>表 14.1　聚合停止的三种形态</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>形态</th>
+<th>行动</th>
+<th>关于事实的信息</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行动一致</td>
+<td>同一类型的人做同样的事</td>
+<td>在二元例子里，停在瀑布开始时的水平；在 Smith 与 Sørensen 的一种类型、信念有界的羊群里，只向一个达不到真相的极限增长</td>
+<td>Bikhchandani、Hirshleifer 与 Welch，Banerjee（14.1 节）；Smith 与 Sørensen（14.3 节）</td>
+</tr>
+<tr>
+<td>沉默</td>
+<td>知情者不再交易</td>
+<td>没有新信息到达市场</td>
+<td>Lee，据 Avery 与 Zemsky 的转述（工作论文版）；Lee 自己的瀑布可以是部分的（第 21 章）</td>
+</tr>
+<tr>
+<td>相互抵消的分裂行动</td>
+<td>各类型永远分在两个行动之间</td>
+<td>行动对状态什么也没有说</td>
+<td>Smith 与 Sørensen 的混淆学习（14.4 节）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>汇集停止时，行动可能一致、可能停止、也可能分裂，所以行动是否一致，本身并不能说明信息是否仍在流动（本书的判断）。<a href="#fn6" id="fnref6" class="noteref" role="doc-noteref"><sup>6</sup></a></p>
+</section>
+<section id="网络中的学习" class="level2">
+<h2><span class="secnum">14.6</span> 网络中的学习</h2>
+<p>Acemoglu、Dahleh、Lobel 与 Ozdaglar 研究一个完美贝叶斯均衡，其中每个人有一个信号，看到随机抽出的一组前人的过去行动，在两个行动中选一个，给定状态时人人偏好同一个行动（工作论文版）。如果有无穷多个人，每人都以一致地离 0 有一段距离的概率，即不低于同一个正数的概率，只观察到一个有限群体中某些成员的行动，这个有限群体就有过度影响（excessive influence）；这样的群体恰好在网络有不扩张的观察（nonexpanding observations）时存在，他们的定理 1 发现这样的网络里没有渐近学习（asymptotic learning）（工作论文版）。渐近学习指正确行动的概率收敛到 1，这比 Smith 与 Sørensen 的信念收敛要求得少（本书的判断）。他们的定理 2 说，私人信念无界，即信号所含的似然比（likelihood ratio）没有界，并且观察是扩张的（expanding observations）时，渐近学习在每个均衡里都出现（工作论文版），作者把它读作：对大多数网络拓扑，但不是全部，私人信念无界足以带来渐近学习（工作论文版）。</p>
+<p>私人信念有界时，在人人看到全部过去行动的网络里没有渐近学习，在大多数常见的确定性和随机网络里也没有（工作论文版）。他们的定理 4 给出一个例外：在某些随机网络里，私人信念有界时也可能有渐近学习，因为有些人根据有限的观察做决定，使足够多的新信息不断到来（工作论文版）。</p>
+<p>共识（consensus）是否靠少数几个声音，在平均意见的模型里取决于影响有多集中（第 13 章），在从行动做推断的模型里取决于信念无界和观察扩张（本书的判断）。<a href="#fn7" id="fnref7" class="noteref" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+<section id="从他人的结果中学习" class="level2">
+<h2><span class="secnum">14.7</span> 从他人的结果中学习</h2>
+<p>Young（2009）指出，有些社会学习（social learning）模型假设早先采纳者的收益是完全可观察的，另一些只假设采纳这个行为可观察，后一类通常称为羊群模型（工作论文版）。</p>
+<p>在社会学习里，一旦早先采纳者的结果给出了足够的证据，人们就采纳（工作论文版；5.6 节）；在 Ryan 与 Gross 对杂交玉米的调查里，早期采纳者在某种意义上给邻居提供了一个社区实验室（据 Young 的转述；工作论文版；11.7 节）。在 Young 的模型里，状态变量是采纳曲线的积分，因为它度量的是所有早先采纳者从他们第一次采纳起产生的累积信息（工作论文版）：使用产生信息，证据随累积的采纳增长，这是根模型的知情比例（informed fraction）表示不了的（本书的判断）。当有些人在没有任何别人采纳时就采纳，这样的过程在原点附近严格减速，用 Young 的话说，“与产生它的分布无关”，他的命题 3 对信息阈值的密度正式陈述了这一点，条件是它在原点附近有正的下界，并有连续而有界的导数，不过观察集中在特定的时间点时不一定减速，例如新作物的结果，农民在每个生长季结束时看到（工作论文版）。Young 发现，社会学习与杂交玉米的曲线是一致的，但他不能说它是唯一的解释因素（工作论文版）。</p>
+<p>在 Bala 与 Goyal（1998）的模型里，一个人每期选择的行动带来一份随机的回报，也带来关于真实收益的信息，人们只用邻居行动的结果，不从选择本身做推断（工作论文版）。在他们的例子里，一个王室（royal family），即人人都观察的一小组人，可以通过不好的结果把所有人带到收益已知的行动上，此后不再产生信息，社会锁定（lock-in）在较差的选择上（工作论文版；9.5 节和 13.7 节）。在瀑布里，信息停止，是因为行动不再揭示信号；在锁定里，信息停止，是因为没有人用另一个行动，它的结果也就不再产生（本书的判断）。</p>
+<p>路径依赖（path dependence）指结果由早期的随机抽取定下，锁定指后来的人不会离开的结果；有了这两样，本章也去掉了根模型的一条默认，即确定性平均场（deterministic mean field），在这条默认下，传播沿着它的平均路径展开（第 8 章）。在二元例子里，瀑布何时开始、往哪边走，取决于最先的几个信号（本书的判断；14.2 节）；Banerjee 写道，羊群外部性（herd externality）属于正反馈一类，所以同一个博弈重玩几次，选择的格局会很不稳定，最先的几个信号，部分是随机的，决定第一群人在哪里形成。<a href="#fn8" id="fnref8" class="noteref" role="doc-noteref"><sup>8</sup></a></p>
+</section>
+<section id="学习与无界信号的四个结果" class="level2">
+<h2><span class="secnum">14.8</span> 学习与无界信号的四个结果</h2>
+<p>有四个结果把完全的学习与无界信号联系起来，无界信号指强度没有上界的信号，在 Smith 与 Sørensen 的序贯模型和 Acemoglu 等的网络模型（工作论文版）里，它使私人信念无界；每个结果有各自的原因和各自的例外（本书的判断；表 14.2）。</p>
+<ul>
+<li><strong>拍卖。</strong> 在 Milgrom（1981）的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 件物品的拍卖里，设 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>W</mi><mi>n</mi></msup><annotation encoding="application/x-tex">W^n</annotation></semantics></math> 是有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个竞买人时第 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k + 1</annotation></semantics></math> 高的出价，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>V</mi><mi>n</mi></msup><annotation encoding="application/x-tex">V^n</annotation></semantics></math> 是在完全信息下任何竞买人最多愿意付的价格。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 固定时，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 增大，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>V</mi><mi>n</mi></msup><mo>−</mo><msup><mi>W</mi><mi>n</mi></msup><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|V^n - W^n|</annotation></semantics></math> 依概率收敛到零，当且仅当对价值所依赖的未知量 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math> 的每两个可能取值 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo>&gt;</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">z&#39; &gt; z</annotation></semantics></math>，</span>都有 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">inf</mi><mo>&#8289;</mo></mrow><mi>x</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>∣</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>∣</mo><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\inf_x f(x \mid z)/f(x \mid z&#39;) = 0</annotation></semantics></math>，</span>其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>∣</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x \mid z)</annotation></semantics></math> 是给定 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>=</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">Z = z</annotation></semantics></math> 时竞买人信息的密度。这就要求有可能出现某个信号，它对较高的值相对于较低的值是任意强的证据，这是只在一侧的条件（本书的判断）。Milgrom 认为这个定理表明，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 很大时价格可能给出对价值的很好的近似。</li>
+<li><strong>序贯学习。</strong> 只有一种理性类型、没有噪声时，无界的信念，即在两个方向上都达到确定，带来完全的学习，有界的信念则可能出现错误的羊群（14.3 节）。有两种或更多理性类型、两个行动时，相反的类型偏好差得足够大，即使信念无界，混淆学习也能使学习停止（14.4 节）。</li>
+<li><strong>网络中的学习。</strong> 无界的信念加上扩张的观察，带来渐近学习；信念有界时，大多数常见的网络学不到；定理 4 给出一个例外（工作论文版；14.6 节）。</li>
+<li><strong>从结果中学习。</strong> 在 Bala 与 Goyal 的模型里，能以正的概率产生任意大量正面信息的人，可能让邻域互不重叠的各群体胜过王室的负面信息（工作论文版）。他们的命题 4.1 给出：在一个连通的社会里，包括王室在内，如果每个最优行动都满足这个条件，并且有无穷多个人，每人至多有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 个邻居，对真实状态的先验至少是某个下界，他们的邻域只在王室处重叠，就有完全的学习（工作论文版）。有两个例外不需要无界的信息。他们的定理 4.1 针对无穷多个局部独立（locally independent）的人，每人至多有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 个邻居，对真相的先验高于某个界，它对行动的信息量不加任何限制，不过有了王室，这样的人至多剩下一个，所以那时它不再保证完全的学习；还有他们的条件 (H)，即对每个状态，有人的先验可以任意接近对它的确定，用他们的话说是一个很强的限制，它使不完全学习的可能性比任何给定的界都小，即使有至多 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 人的王室，在每人至多有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 个邻居的无穷连通社会里也一样（工作论文版）。</li>
+</ul>
+<p>原因各不相同。在行动离散的序贯学习里，一个行动只记录信号落在哪个范围，所以没有强到足以越过阈值的信号，信息的流动就停在真相之前（本书的判断）。Milgrom 的价格是一个次序统计量，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 固定时，它取决于最极端的少数几个信号（本书的判断）。Bala 与 Goyal 的锁定来自共同的王室，也来自只有使用才产生的信息，无界的正面信息使某处的一段好运气能压过王室的坏运气（本书的判断）。这些例外说明，一般说来，无界信号对学习并不必要（Acemoglu 等的定理 4；Bala 与 Goyal 的定理 4.1 和条件 (H)；工作论文版），在观察不扩张时，或者在两个行动、偏好相反得足够多时，它也不充分（本书的判断）。</p>
+<div class="table-caption">
+<p>表 14.2　学习与无界信号的四个结果</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>设定</th>
+<th>学习的条件</th>
+<th>例外</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Milgrom 的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 件物品的拍卖，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 固定（第 16 章）</td>
+<td>对较高价值的证据可以任意强，只在一侧</td>
+<td>在它的前提之内没有，该条件是必要且充分的</td>
+</tr>
+<tr>
+<td>Smith 与 Sørensen，一种理性类型，没有噪声</td>
+<td>私人信念无界，按他们的定义是两个方向都无界</td>
+<td>有两种或更多理性类型、两个行动、偏好相反得足够多时，即使信念无界也有混淆学习</td>
+</tr>
+<tr>
+<td>Acemoglu 等，两个行动，偏好一致，网络（工作论文版）</td>
+<td>私人信念无界，观察扩张</td>
+<td>定理 4，某些随机网络在信念有界时也学得到；不扩张的观察使学习停止</td>
+</tr>
+<tr>
+<td>Bala 与 Goyal，结果，王室（工作论文版）</td>
+<td>无界的正面信息，并且在连通的社会里，有无穷多个人，每人至多有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 个邻居，对真相的先验高于某个界，他们的邻域只在王室处相遇（命题 4.1）</td>
+<td>定理 4.1，针对无穷多个局部独立的人，每人至多有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 个邻居，对真相的先验高于某个界，并且没有王室，以及条件 (H)，不需要无界的信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>无界信号也只说到极限。Acemoglu 等把网络结构对贝叶斯学习速度的影响，列入他们的框架可以研究的问题（工作论文版）。Smith 与 Sørensen 的两个例子在注里借助他们的定理 5(a) 算过，在这两个例子里，信念有界时很快落定，按几何速率落在一个不完全的极限上，而信念无界时，沿着一串正确的行动，误差只按 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math> 缩小（本书的推导）。第 16 章讲价格学得多快。<a href="#fn9" id="fnref9" class="noteref" role="doc-noteref"><sup>9</sup></a></p>
+</section>
+<section id="随交易变动的价格" class="level2">
+<h2><span class="secnum">14.9</span> 随交易变动的价格</h2>
+<p>Avery 与 Zemsky（1998）加入了一个随交易变动的价格。他们的模型是 Glosten 与 Milgrom（1985）的模型的特例，其中噪声交易者（noise trader），即出于与信息无关的原因交易的人，有完全无弹性的需求；一个竞争的做市商（market maker）定价格，做市商是报出自己愿意买入和卖出的价格的交易商；交易者从交易的历史里学习，所以这个模型也去掉了不从价格学习（no learning from prices）这一条（工作论文版；第 16 章和第 17 章）。本书把他们的结果分三层来读（本书的判断）。</p>
+<p>第一层讲瀑布。在他们的定义 1 里，给定交易历史，交易的分布不依赖真实价值时，就出现了信息瀑布，这时没有新信息到达市场，他们的命题 2 说，在市场均衡里，信息瀑布永远不会出现（工作论文版）。本书数出它背后的三个前提（本书的判断）：最低限度的有用信息，所以经济里总有私人信息；有限的摩擦，因为有交易成本时，知情交易者几乎必然在某个时候停止交易（14.5 节）；以及噪声交易者，没有他们，Milgrom 与 Stokey 的无交易定理（no-trade theorem）就适用，市场崩溃（工作论文版；4.4 节）。这一层不需要只有一个维度的不确定性（本书的判断）。</p>
+<p>第二层讲单调信号下的羊群行为。在他们的定义 2 里，如果一个交易者自己的信号使他认为价值低于起始的期望，交易历史使他认为高于起始的期望，而他买入，或者在相反的情形下卖出，并且严格偏好这样做，这个交易者就有羊群行为（工作论文版）。如果存在一个值 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v(x)</annotation></semantics></math>，</span>使给定信号和任何交易历史的期望总落在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v(x)</annotation></semantics></math> 与只给定历史的期望之间，这个信号就是单调的（monotonic signal），信号单调的交易者永远不会有羊群行为，所以当交易者只在一个维度，即新的资产价值上有信息优势时，竞争的做市商的价格调整会阻止任何羊群行为（工作论文版）。</p>
+<p>第三层讲多个维度上的不确定性下的羊群行为。在他们的定义 4 里，价值等于做市商初始期望的概率严格处在 0 与 1 之间时，就有事件不确定性（event uncertainty），也就是市场不知道有没有发生过什么事（工作论文版）。他们的第一种信息结构（information structure）把事件不确定性加进 Bikhchandani、Hirshleifer 与 Welch 的信号：有信息事件（information event）时，交易者是知情的，并且拿到这样的信号，精度为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>，</span>他们知道事件有没有发生（工作论文版）。这样加进来的事件不确定性使信号成为非单调的，使羊群行为成为可能，不过也可以使信号仍然单调（工作论文版）。在这种结构里，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p &lt; 1</annotation></semantics></math> 时羊群行为以正的概率出现，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p = 1</annotation></semantics></math> 时不出现，并且以正的概率方向是错的（工作论文版）。羊群期间新信息仍然到达市场，因为知情交易者之间的一致本身就带有信息，做市商也在逐渐得知发生过一个信息事件（工作论文版）。羊群行为使关于新资产价值的信息进不了市场，理性的行动者，包括做市商，会把这一点考虑进去；过了足够的时间，做市商了解到足够多，价格就调整，羊群行为随之结束，在这种结构里，羊群行为不能使价格偏离 1/2 超过一笔交易所含的信息（工作论文版）。</p>
+<p>在他们的一般模型里，价格是一个收敛到真实价值的鞅（martingale），所以没有超额波动，价格泡沫（bubble）也不可能既很可能出现又很极端（工作论文版）。他们加入的第二个维度是组成不确定性（composition uncertainty），即各类交易者的份额不是共同知识（common knowledge）。当市场既不确定价值有没有变，又不确定交易者平均说来信息好还是差时，羊群行为可以带来显著的、短期的、不反映真实价值的价格变动（工作论文版）。</p>
+<p>按本书的读法，在这三个前提下，随交易变动的价格排除了定义 1 意义上的瀑布；在事件不确定性下，羊群行为压住关于方向的信息，直到价格调整，再加上组成不确定性，它能把价格从价值上推开一段时间（本书的判断）。事件不确定性下的羊群行为会给出像 Hasbrouck 那样的一连串买入，滞后调整、拆单和平滑也会（本书的判断）；第 17 章讲做市商怎样读订单流。<a href="#fn10" id="fnref10" class="noteref" role="doc-noteref"><sup>10</sup></a></p>
+</section>
+<section id="看已采纳人数来行动" class="level2">
+<h2><span class="secnum">14.10</span> 看已采纳人数来行动</h2>
+<p>表 13.1 在“他人的行动”那一列里还有第二格，放的是当作给定的规则（13.10 节）：Granovetter 的阈值，即一个人做决定之前，必须先做出决定的其他人的数目或比例（第 11 章），以及 Bass 的模型，其中模仿者在某种意义上从已经买了的人那里“学习”。两者都按看得见的采纳者的人数来行动，Bass 的模仿是看行动的最简单的形式（本书的判断）。</p>
+<p>在二元例子里，一个人观察到采纳比拒绝多两个，或者拒绝比采纳多两个时，UP 瀑布或 DOWN 瀑布就开始了（数学框 14.1）。这也是一个阈值，由贝叶斯法则和粗糙的行动推出，它只数带有信息的行动，不数跟随瀑布的所有人，而机械的阈值数所有看得见的人（本书的判断）。<a href="#fn11" id="fnref11" class="noteref" role="doc-noteref"><sup>11</sup></a></p>
+</section>
+<section id="等别人先动" class="level2">
+<h2><span class="secnum">14.11</span> 等别人先动</h2>
+<p>到现在为止，行动的次序是事先定好的，文献里叫外生次序（exogenous sequencing），Brunnermeier 拿它与内生次序（endogenous sequencing）对照，内生次序是人们自己决定什么时候行动。如果每个人可以决定什么时候决定，人人都想最后一个决定，以便从别人的决定带来的正的信息外部性中获利。Brunnermeier 报告了几个模型。</p>
+<p>在 Gale（1996）的两个人的模型里，唯一的均衡不完全揭示信息，也不一定有效率：如果两个信号都在 0 与阈值之间，没有人投资，虽然投资在社会意义上是最优的，如果前两期没有人投资，投资就永远停止，这是一次投资崩塌（investment collapse）（据 Brunnermeier 的转述）。</p>
+<p>在 Zhang（1997）的模型里，每个私人信号的精度本身是私人信息，均衡表现出一段最初的延迟，直到信号最精确的人投资；然后人人立刻跟上，因为第二个人的选择不带额外的信息，所以延迟之后投资瀑布突然开始，随着人数增加，每个人倾向于等得更久，因为别的什么人更可能有更精确的信号（据 Brunnermeier 的转述）。Gul 与 Lundholm（1995）假设时间是连续的，在他们的模型里，内生次序带来信息上有效的聚类（clustering）（据 Brunnermeier 的转述），所以让人们选择何时行动，本身并不产生延迟的瀑布（本书的判断）。</p>
+<p>等别人先动（waiting to learn）是 5.3 节里知道的人可能不行动的原因之一，第 19 章把延迟行动的几种来源并排列出。<a href="#fn12" id="fnref12" class="noteref" role="doc-noteref"><sup>12</sup></a></p>
+</section>
+<section id="本章引用的实证证据" class="level2">
+<h2><span class="secnum">14.12</span> 本章引用的实证证据</h2>
+<ul>
+<li><strong>交易的连串。</strong> Hasbrouck 对 Ames Department Stores 的估计，用的是 1989 年第一季度的全部交易，以及他说这种格局极为典型；他的 80 只股票的样本见第 3 章。</li>
+<li><strong>只通过别人的转述知道的。</strong> Hasbrouck 1988 年的研究（据 Hasbrouck 1991 的转述）；Ryan 与 Gross 对杂交玉米的调查（据 Young 的转述；工作论文版）；Lee 1995 年的结果（据 Avery 与 Zemsky 的转述）；Gale、Zhang，以及 Gul 与 Lundholm 的模型（据 Brunnermeier 的转述）。</li>
+<li><strong>模型、论证和计算。</strong> 其余一切；本章文献给出每篇文献所读的版本。图 14.1 和数学框 14.1 的数是本书的计算，14.8 节里速度的对比是本书的推导。</li>
+</ul>
+</section>
+<section id="交易者的自查清单" class="level2">
+<h2><span class="secnum">14.13</span> 交易者的自查清单</h2>
+<p>这些问题没有一个说该买什么或卖什么，答得好也不能使一笔交易变得安全（本书的判断）。</p>
+<ol type="1">
+<li><strong>人群背后有多少个独立的决定？</strong> 核对：数一数在别人跟上之前把人群推向一边的决定，不算相互抵消的那些对；在 Bikhchandani、Hirshleifer 与 Welch 的二元例子里，用贝叶斯法则，并且只看得到前人的行动，一个瀑布的公共信念在对数几率上抵得上一到 4/3 个私人信号，精度为 0.6 时是 1.33，0.75 时是 1.31，不论有多少人行动（本书的计算；14.2 节和数学框 14.1）。</li>
+<li><strong>一小条公开消息（public news）能不能使它转向？</strong> 核对：在同一个例子里，比一个私人信号信息量更少的公开信号（public signal），就能打碎一个持续很久的瀑布（12.8 节），所以靠模仿形成的一致，在相反的消息面前是脆弱的（本书的判断）。</li>
+<li><strong>我观察的人想要的是同一样东西吗？</strong> 核对：在 Smith 与 Sørensen 的至少有两种理性类型的模型里，偏好相反而别人看不见的类型，可以使行动永远分开，同时不带关于状态的信息；私人信念无界时，这需要两个行动、足够不同的偏好和不太不均等的份额（14.4 节）。</li>
+<li><strong>价格随交易变动吗？</strong> 核对：在 Avery 与 Zemsky 的模型里，有噪声交易者、有限的摩擦、并且总有私人信息时，信息瀑布永远不会出现，信号单调的交易者永远不会有羊群行为；信号变成非单调时的羊群行为，压住关于新价值的信息，直到价格调整，再加上组成不确定性，它能把价格从价值上推开一段时间（工作论文版；14.9 节）。</li>
+<li><strong>一连串买单说明什么？</strong> 核对：在 Hasbrouck 对 Ames Department Stores 1989 年第一季度的估计里，买入往往跟在买入之后，他认为这比存货控制更符合对新信息的滞后调整；拆单、价格平滑和跟在别人后面买，也能给出连串（本书的判断；开头和 14.9 节）。</li>
+</ol>
+</section>
+<section id="小结" class="level2">
+<h2><span class="secnum">14.14</span> 小结</h2>
+<ul>
+<li>在 Bikhchandani、Hirshleifer 与 Welch 的二元例子里，用贝叶斯法则，并且只看得到前人的行动，10 个人之后没有瀑布的概率低于 0.1%，错误瀑布的概率高得惊人；瀑布一旦开始，行动不带关于信号的信息，公共历史始终抵得上一到 4/3 个私人信号（精度 0.6 和 0.75 时是 1.33 和 1.31；本书的计算），不论有多少人跟随（14.1 节和 14.2 节）。</li>
+<li>在 14.1 节至 14.3 节的序贯模型里，错误的羊群需要行动不揭示其背后的信号，并且私人信念有界；瀑布在有限时间内开始，还需要有一个行动能把公共信念带进瀑布集，离散信号允许这样的行动（本书的判断）；在 Smith 与 Sørensen 信念有界的例子里，虽然一开始不在瀑布集里的公共信念永远进不了瀑布集，羊群仍会形成（14.3 节）。</li>
+<li>在 Smith 与 Sørensen 的至少有两种理性类型、别人分不清谁是谁的模型里，偏好相反的类型可以使行动永远分开，同时不带关于状态的信息，私人信念无界时也可以，只要有两个行动、偏好差得足够大、类型的份额不太不均等；信念离散时，或者行动多于两个而信念无界时，这不属一般情形（14.4 节）。</li>
+<li>人们从行动中学习时，信息可以因行动一致、沉默或相互抵消的分裂行动而停止；从只有使用才产生的结果中学习时，可以因锁定而停止，例如 Bala 与 Goyal 的例子里王室的坏结果之后（工作论文版）；所以单看行动一致，不能说明信息是否仍在流动（本书的判断；14.5 节和 14.7 节）。</li>
+<li>有四个结果出于不同的原因把学习与无界信号联系起来；无界信号一般并不必要，Acemoglu 等和 Bala 与 Goyal 里的例外说明了这一点（工作论文版），观察不扩张时，或者两个行动、偏好相反得足够多时，它也不充分，而且只说到极限（本书的判断；14.8 节）。</li>
+<li>在 Avery 与 Zemsky 的模型里，有噪声交易者、有限的摩擦、并且总有私人信息时，随交易变动的价格排除了信息瀑布，单调信号排除了羊群行为；羊群行为需要非单调的信号，事件不确定性可以造成这样的信号，这时它压住关于新价值的信息，直到价格调整，再加上组成不确定性，可以把价格从真实价值上推开一段时间（工作论文版；14.9 节）。</li>
+<li>人们选择何时行动时，每个人都想最后一个行动，以便从别人的决定中学习；在 Zhang 的模型里，一段延迟之后突然出现瀑布，而在 Gul 与 Lundholm 的连续时间模型里，内生次序给出有效的聚类（据 Brunnermeier 的转述；14.11 节）。</li>
+</ul>
+</section>
+<section id="写给量化读者的数学框" class="level2">
+<h2><span class="secnum">14.15</span> 写给量化读者的数学框</h2>
+<section id="数学框-14.1-二元瀑布的符号形式" class="level4 box">
+<h4><span class="box-label">数学框 14.1</span>　二元瀑布的符号形式</h4>
+<p><strong>设定。</strong> 采纳的成本是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">C = 1/2</annotation></semantics></math>，</span>收益 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> 是 0 或 1，先验概率各为 1/2，信号在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">V = 1</annotation></semantics></math> 时以概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 为 H，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V = 0</annotation></semantics></math> 时以概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">1 - p</annotation></semantics></math> 为 H。</p>
+<p><strong>链</strong>（本书的推导）。瀑布之前，设 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 是采纳数减去拒绝数，取 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>、</span>0 或 1；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d = 2</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">d = -2</annotation></semantics></math> 代表 UP 瀑布和 DOWN 瀑布，永不改变。给定 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">V = 1</annotation></semantics></math>，</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 以概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 从 0 移到 1，以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">1 - p</annotation></semantics></math> 移到 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>；</span>从 1 以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">p + (1 - p)/2</annotation></semantics></math> 移到 2，因为拿到 L 信号的人无所谓，有一半的时候采纳，以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1 - p)/2</annotation></semantics></math> 退回 0；从 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math> 以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>p</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1 - p) + p/2</annotation></semantics></math> 移到 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>，</span>以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">p/2</annotation></semantics></math> 退回 0。瀑布只可能在偶数个人之后开始，所以奇数的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 给出的是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n - 1</annotation></semantics></math> 的概率。认为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">V = 1</annotation></semantics></math> 的公共信念，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d = 0</annotation></semantics></math> 时是 1/2，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d = 1</annotation></semantics></math> 时是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>，</span>在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">d = -1</annotation></semantics></math> 时是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">1 - p</annotation></semantics></math>，</span>在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d = 2</annotation></semantics></math> 时是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mn>2</mn></msup><mo>−</mo><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">b = p(p + 1)/[2(p^2 - p + 1)]</annotation></semantics></math>（在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">d = -2</annotation></semantics></math> 时是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">1 - b</annotation></semantics></math>）；</span>行动的历史只通过 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 告诉新来的人关于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> 的事。</p>
+<p><strong>闭式。</strong> 偶数 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个人之后，给定 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">V = 1</annotation></semantics></math>，</span> <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">correct cascade</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\Pr(\text{correct cascade}) = \frac{p(p+1)\left[1-(p-p^{2})^{n/2}\right]}{2(1-p+p^{2})},</annotation></semantics></math></span> <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">wrong cascade</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\Pr(\text{wrong cascade}) = \frac{(p-2)(p-1)\left[1-(p-p^{2})^{n/2}\right]}{2(1-p+p^{2})},</annotation></semantics></math></span> 随着 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 增大，第二个概率在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">p = 0.6</annotation></semantics></math> 下趋向 0.368，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">p = 0.75</annotation></semantics></math> 下趋向 0.192（本书的计算）。</p>
+<p><strong>信息</strong>（本书的推导）。令 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>x</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>x</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(x) = -x \log_2 x - (1 - x)\log_2(1 - x)</annotation></semantics></math>，</span>前 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个人的行动带有关于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> 的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mo>∑</mo><mi>d</mi></msub><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>d</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1 - \sum_d P_n(d)\,h(b_d)</annotation></semantics></math> 比特，其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_n(d)</annotation></semantics></math> 是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个人之后 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 的概率，对 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> 的两个值取平均，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>d</mi></msub><annotation encoding="application/x-tex">b_d</annotation></semantics></math> 是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 处的公共信念；这个互信息（mutual information），即历史平均说来消去的关于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> 的不确定性，趋向 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1 - h(b)</annotation></semantics></math>，</span>而这 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个信号本身带有的量趋向一个比特。</p>
+<p><strong>以信号为单位的瀑布</strong>（本书的推导）。瀑布信念的几率是 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>b</mi><mrow><mn>1</mn><mo>−</mo><mi>b</mi></mrow></mfrac><mo>=</mo><mfrac><mi>p</mi><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfrac><mo>⋅</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>p</mi></mrow><mrow><mn>2</mn><mo>−</mo><mi>p</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{b}{1-b} = \frac{p}{1-p}\cdot\frac{1+p}{2-p},</annotation></semantics></math></span> 即一个信号的几率乘以一个小于第二个信号的几率的因子，所以在对数几率上，一个瀑布抵得上 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mi>b</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\log[b/(1 - b)]/\log[p/(1 - p)]</annotation></semantics></math> 个信号，这个数在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 趋向 1/2 时是 4/3，而后逐步下降，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 趋向 1 时降到 1，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">p = 0.6</annotation></semantics></math> 时是 1.33，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">p = 0.75</annotation></semantics></math> 时是 1.31（本书的计算）。<a href="#fn13" id="fnref13" class="noteref" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+</section>
+<section id="本章文献" class="level2 references">
+<h2 class="references">本章文献</h2>
+<p>本章引用的文献。所读版本不是期刊版的，条目里写明读的是哪个版本；尾注里的页码按所读的版本。</p>
+<ul>
+<li>Acemoglu, D., M. A. Dahleh, I. Lobel and A. Ozdaglar (2011). Bayesian Learning in Social Networks. <em>Review of Economic Studies</em> 78(4): 1201–1236. 所读为 NBER 工作论文 14040，2008 年 5 月；没有核对期刊版。</li>
+<li>Avery, C., and P. Zemsky (1998). Multidimensional Uncertainty and Herd Behavior in Financial Markets. <em>American Economic Review</em> 88(4): 724–748. 所读为 INSEAD 工作论文 96/79/FIN/SM，1996 年 11 月 1 日；没有核对期刊版。</li>
+<li>Bala, V., and S. Goyal (1998). Learning from Neighbours. <em>Review of Economic Studies</em> 65(3). 所读为 Econometric Institute Report EI 9549-/A, Erasmus University Rotterdam, 1996 年 7 月，题为 Learning from Neighbors；没有核对期刊版。</li>
+<li>Banerjee, A. V. (1992). A Simple Model of Herd Behavior. <em>Quarterly Journal of Economics</em> 107(3): 797–817.</li>
+<li>Bass, F. M. (1969). A New Product Growth Model for Consumer Durables. <em>Management Science</em> 15(5): 215–227.</li>
+<li>Bikhchandani, S., D. Hirshleifer and I. Welch (1992). A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades. <em>Journal of Political Economy</em> 100(5): 992–1026.</li>
+<li>Brunnermeier, M. K. (2001). <em>Asset Pricing under Asymmetric Information: Bubbles, Crashes, Technical Analysis, and Herding</em>. Oxford University Press.</li>
+<li>Gale, D. (1996). What Have We Learned from Social Learning? <em>European Economic Review</em> 40: 617–628. 没有读；按 Brunnermeier（2001）的转述介绍。</li>
+<li>Glosten, L. R., and P. R. Milgrom (1985). Bid, Ask and Transaction Prices in a Specialist Market with Heterogeneously Informed Traders. <em>Journal of Financial Economics</em> 14(1): 71–100.</li>
+<li>Granovetter, M. (1978). Threshold Models of Collective Behavior. <em>American Journal of Sociology</em> 83(6): 1420–1443.</li>
+<li>Gul, F., and R. Lundholm (1995). Endogenous Timing and the Clustering of Agents<span class="latin-apos">’</span> Decisions. <em>Journal of Political Economy</em> 103: 1039–1066. 没有读；按 Brunnermeier（2001）的转述介绍。</li>
+<li>Hasbrouck, J. (1988). Trades, Quotes, Inventories and Information. <em>Journal of Financial Economics</em> 22: 229–252. 没有读；按 Hasbrouck（1991）的转述介绍。</li>
+<li>Hasbrouck, J. (1991). Measuring the Information Content of Stock Trades. <em>Journal of Finance</em> 46(1): 179–207.</li>
+<li>Lee, I. H. (1995). Market Crashes and Informational Avalanches. Manuscript, University of Southampton; published in <em>Review of Economic Studies</em> 65(4) (1998): 741–759. 这里按 Avery 与 Zemsky（1998）的转述引用；第 21 章读期刊版。</li>
+<li>Milgrom, P. R. (1981). Rational Expectations, Information Acquisition, and Competitive Bidding. <em>Econometrica</em> 49(4): 921–943.</li>
+<li>Milgrom, P., and N. Stokey (1982). Information, Trade and Common Knowledge. <em>Journal of Economic Theory</em> 26(1): 17–27.</li>
+<li>Ryan, B., and N. C. Gross (1943). The Diffusion of Hybrid Corn in Two Iowa Communities. <em>Rural Sociology</em> 8(1): 15–24. 没有读；按 Young（2009）的转述介绍。</li>
+<li>Smith, L., and P. Sørensen (2000). Pathological Outcomes of Observational Learning. <em>Econometrica</em> 68(2): 371–398.</li>
+<li>Young, H. P. (2009). Innovation Diffusion in Heterogeneous Populations: Contagion, Social Influence, and Social Learning. <em>American Economic Review</em> 99(5). 所读为作者的定稿手稿，即 AER 稿件 2007-1161 的第二次修订，2008 年 10 月；没有核对期刊版。</li>
+<li>Zhang, J. (1997). Strategic Delay and the Onset of Investment Cascades. <em>RAND Journal of Economics</em> 28: 188–205. 没有读；按 Brunnermeier（2001）的转述介绍。</li>
+</ul>
+</section>
+<section id="notes-1" class="level2 unnumbered">
+<h2 class="unnumbered">注释</h2>
+<div class="endnotes">
+<div id="fn1" class="endnote">
+<p><a href="#fnref1" class="backlink" role="doc-backlink">1.</a> Hasbrouck（1991），期刊版：代表性股票在 §V，第 193 页；序列相关的来源在引言，第 180 页，以及 §I，第 183 页；价格平滑的极端情形在 §III.B，第 190–191 页，其中交易商只能在一笔交易之后、并且只能按固定的步长提高报价，所以价格仍然“太低”时，下一笔交易也往往是买单，他还补充说，有几点考虑很可能缓解这个问题：它只对相对较小的交易可能严重，遇到重大消息，交易商可以关闭市场后重新开盘；他的表 II，它的样本，以及在交易方向的方程里滞后交易方向的系数，连同 t 统计量，即每个估计除以它的标准误，第一到第五阶滞后分别是 10.16、7.20、4.66、1.24 和 2.03，第 194 页；对自相关的读法和反转的缺失在 §V，第 194 页，他还补充说，反转在他 1988 年的研究里只出现在市值相对较低的股票的大型混合样本中，即使在那里也很微弱，并且散布在很长的滞后阶上。这张表只报告这个模型对 Ames Department Stores 的结果，这一节没有列出其他股票的系数。把 1.24 的 t 统计量读作在通常的 5% 或 10% 水平上不显著，是本书的判断。</p>
+</div>
+<div id="fn2" class="endnote">
+<p><a href="#fnref2" class="backlink" role="doc-backlink">2.</a> Banerjee（1992），期刊版：羊群行为、餐馆和外部性在 §I，第 798–799 页。Bikhchandani、Hirshleifer 与 Welch（1992），期刊版：信息最少的情形在 §II，第 996 页；二元例子和第三个人的三种处境在 §II.A，第 996–997 页；后来的人的收益在 §II.B，第 999 页；定义、瀑布持续的原因和打断它的几种办法在 §II.B，第 1000 页。</p>
+</div>
+<div id="fn3" class="endnote">
+<p><a href="#fnref3" class="backlink" role="doc-backlink">3.</a> Bikhchandani、Hirshleifer 与 Welch，期刊版：式 (1)、它的读法和 0.1% 在 §II.A，第 997–998 页；式 (2) 和 (3) 以及正确与错误的瀑布在第 998 页；瀑布里没有信息在第 998–999 页；与可观察信号的比较和脆性在第 999 页；一般模型的信号在 §II.B，第 1000 页；假设 1 和 2、命题 1 和脚注 16 在第 1001 页；式 (A6) 在附录，第 1020 页；直觉在 §III.A.2，第 1006 页；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">p = 0.75</annotation></semantics></math> 的数值例子在 §III.A.3，第 1007 页。错误瀑布概率的极限 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">(p - 2)(p - 1)/[2(1 - p + p^2)]</annotation></semantics></math>，</span>由式 (3) 得出（本书的计算）。图 14.1 的代码在文件夹 <code>book/code/btc_pilot/</code> 里。图由 <code>bookfig_ch14.py</code> 里的函数 <code>figure_cascades</code> 只用 <code>cascade.py</code> 画出，每条曲线和正文里每个数字背后的函数，在 <code>bookfig_ch14.py</code> 的文档字符串里列出。测试在 <code>test_cascade.py</code> 和 <code>test_bookfig_ch14.py</code> 里；前者把这条链与对每一种行动历史做的精确贝叶斯计算相核对，这个计算既不用净计数，也不用闭式。</p>
+</div>
+<div id="fn4" class="endnote">
+<p><a href="#fnref4" class="backlink" role="doc-backlink">4.</a> Banerjee，期刊版：选择连续的模型、充分统计量和推测在 §IV.A，第 809 页。Bikhchandani、Hirshleifer 与 Welch，期刊版：结果 2 在 §III.A.1，结果 3 在 §III.A.2，第 1005 页；脆性在 §II.A，第 999 页。Smith 与 Sørensen（2000），期刊版：摘要，第 371 页；没有离散信号的情形在引言，第 372 页；私人信念和它们的界在 §2.1，第 374 页；瀑布与羊群在 §2.3，第 379 页；信念有界的例子和不成立的单调性在 §3.1.B，第 381 页；定理 3 和坏羊群的主要支柱在 §4.2，第 387 页。</p>
+</div>
+<div id="fn5" class="endnote">
+<p><a href="#fnref5" class="backlink" role="doc-backlink">5.</a> Smith 与 Sørensen，期刊版：摘要，第 371 页；观察不到的类型、噪声、高速公路的例子和各个条件在引言，第 372–373 页；定理 1(b)，第 383 页；稳健性、定理 2 的 (a) 和 (d) 至 (g) 以及它之后的评注，第 385 页，其中 (g) 还假设信念没有原子，即没有哪个私人信念有正的概率，并且在信念有界时，两个类型在某一段公共信念范围内都活跃，在信念无界时，两端的密度为正；定理 3，第 387 页。Acemoglu 等（2011），NBER 工作论文：偏好一致在 §1，第 1 页；未决问题在 §9，第 38 页。</p>
+</div>
+<div id="fn6" class="endnote">
+<p><a href="#fnref6" class="backlink" role="doc-backlink">6.</a> Smith 与 Sørensen（2000），期刊版：私人信念有界时不可能有完全正确的学习，在 §4.1，第 383 页。Avery 与 Zemsky（1998），工作论文：Lee 的结果和交易成本在 §3，第 9 页。</p>
+</div>
+<div id="fn7" class="endnote">
+<p><a href="#fnref7" class="backlink" role="doc-backlink">7.</a> Acemoglu 等，NBER 工作论文：模型在摘要；过度影响和定理 1 在 §1，第 3 页；偏好一致在 §1，第 1 页；定理 4 在 §1，第 4 页；渐近学习在 §3，第 9 页；定理 2 在第 11 页，作者对它的读法在 §4，第 12 页；信念有界在 §4，第 13 页。</p>
+</div>
+<div id="fn8" class="endnote">
+<p><a href="#fnref8" class="backlink" role="doc-backlink">8.</a> Young（2009），作者手稿：两类模型和状态变量在 §V，第 18–19 页；原点附近的减速在 §V，第 24–25 页，脚注 21 在第 25 页，命题 3 在第 27 页；Ryan 与 Gross 的调查在第 30 页和第 32 页；他的结论在第 34 页；社会学习在第 3 页。Bala 与 Goyal（1998），工作论文：回报和信息在 §1，第 2 页，以及脚注 3，第 2 页；王室在 §1，第 3 页；锁定在 §1，第 4 页。Banerjee，期刊版：正反馈和第一群人在 §I，第 800 页。</p>
+</div>
+<div id="fn9" class="endnote">
+<p><a href="#fnref9" class="backlink" role="doc-backlink">9.</a> Milgrom（1981），期刊版：拍卖、价值和定理 4.5 在 §4，第 933–934 页。Smith 与 Sørensen，期刊版：私人信念有界与无界的定义在 §2.1，第 374 页；定理 2(g)，第 385 页；无界的例子和它的延续函数在 §3.1.A，第 379–380 页；有界的例子在 §3.1.B，第 380 页；定理 5(a) 在 §5.2，第 389 页。Bala 与 Goyal，工作论文：局部独立在 §1，第 4 页；定理 4.1、王室和条件 (H) 在 §4，第 19 页；(H) 的限制、脚注 31、无界的正面信息和命题 4.1 在 §4，第 20 页。Acemoglu 等，NBER 工作论文：§9，第 38 页。速度的对比，是本书从他们的两个例子推导出来的：设 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> 是公共似然比，人们了解到状态是 H 时它趋向 0，行动 2 是在状态 H 下较好的那个，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u &gt; 0</annotation></semantics></math> 是这两个例子里的一个常数。在信念无界的例子里，信号密度在状态 H 下是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">2\sigma</annotation></semantics></math>，</span>在状态 L 下是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2(1 - \sigma)</annotation></semantics></math>，</span>延续函数，即每个行动之后 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> 的下一个值，是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>l</mi><mo>+</mo><mn>2</mn><mi>u</mi></mrow><annotation encoding="application/x-tex">\varphi(1, l) = l + 2u</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi><mi>l</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>+</mo><mn>2</mn><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(2, l) = ul/(u + 2l)</annotation></semantics></math>；</span>第二个给出 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msub><mi>l</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mi>/</mi><msub><mi>l</mi><mi>n</mi></msub><mo>+</mo><mn>2</mn><mi>/</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">1/l_{n+1} = 1/l_n + 2/u</annotation></semantics></math>，</span>所以沿着一串行动 2，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>l</mi><mi>n</mi></msub><annotation encoding="application/x-tex">l_n</annotation></semantics></math> 约为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">u/(2n)</annotation></semantics></math>，</span>公共信念离确定的距离按 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math> 缩小。在信念有界的例子里，在两个行动都有人采取的范围 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>u</mi><mi>/</mi><mn>3</mn><mo>,</mo><mn>2</mn><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2u/3, 2u)</annotation></semantics></math> 上，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi><mi>/</mi><mn>2</mn><mo>+</mo><mn>3</mn><mi>l</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\varphi(1, l) = u/2 + 3l/4</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>u</mi><mi>/</mi><mn>2</mn><mo>+</mo><mi>l</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\varphi(2, l) = u/2 + l/4</annotation></semantics></math>；</span>两者都随 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> 递增，不动点 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>u</mi></mrow><annotation encoding="application/x-tex">2u</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>u</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2u/3</annotation></semantics></math> 在瀑布集的边缘，所以高于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>u</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2u/3</annotation></semantics></math> 的比值在行动 2 之后仍高于它，低于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>u</mi></mrow><annotation encoding="application/x-tex">2u</annotation></semantics></math> 的比值在行动 1 之后仍低于它，这就是 14.3 节的单调性。沿着一串行动 2，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> 离 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>u</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2u/3</annotation></semantics></math> 的距离每增加一个人缩小为原来的 1/4，沿着一串行动 1，它离 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>u</mi></mrow><annotation encoding="application/x-tex">2u</annotation></semantics></math> 的距离每增加一个人缩小为原来的 3/4，所以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> 按几何速率趋近一个瀑布集的边缘，落定在一个不完全的极限上。他们的定理 5(a) 假设私人信念有界，尾部光滑，边缘处的密度为正，并发现从离瀑布集中不是单点的一部分足够近的地方出发，公共似然比以正的机会收敛到其中的一点，按某个几何速率。慢的那一半有多普遍，本书没有核对。</p>
+</div>
+<div id="fn10" class="endnote">
+<p><a href="#fnref10" class="backlink" role="doc-backlink">10.</a> Avery 与 Zemsky，工作论文：摘要；噪声交易者和无交易定理在脚注 3，第 5 页；Glosten 与 Milgrom 的特例在 §2，第 6 页；定义 1 和 2 在 §2.1，第 7 页；命题 2 和它的前提在 §3，第 8–9 页；定义 3 和命题 3，第 9 页；定义 4、第一种信息结构和脚注 13 在 §4 与 §4.1，第 13 页；事件不确定性、脚注 14 和命题 7 在 §4.1，第 14 页，其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 是知情交易者的信号的精度；命题 9 和羊群期间的信息在 §4.2，第 17–18 页；鞅和组成不确定性在 §5 与 §5.1，第 22 页。命题的编号照工作论文。</p>
+</div>
+<div id="fn11" class="endnote">
+<p><a href="#fnref11" class="backlink" role="doc-backlink">11.</a> Granovetter（1978），期刊版：阈值在摘要，第 1420 页。Bass（1969），期刊版：创新者与模仿者，第 217 页。Bikhchandani、Hirshleifer 与 Welch，期刊版：瀑布的开始在结果 3 的证明里，第 1005–1006 页。</p>
+</div>
+<div id="fn12" class="endnote">
+<p><a href="#fnref12" class="backlink" role="doc-backlink">12.</a> Brunnermeier：两种次序在第 5 章，第 147 页；各个模型在 §5.2.2，第 154–157 页，其中 Gale 模型的阈值是让一个人在第一期对等待与投资无所谓的那个信号值。</p>
+</div>
+<div id="fn13" class="endnote">
+<p><a href="#fnref13" class="backlink" role="doc-backlink">13.</a> 本书对链和比特数的推导在 <code>cascade.py</code> 的文档字符串里。因子 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1 + p)/(2 - p)</annotation></semantics></math> 对 1/2 与 1 之间的每个 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>，</span>都在 1 与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p/(1 - p)</annotation></semantics></math> 之间，所以一个瀑布抵得上多于一个、少于两个的信号（本书的推导）。</p>
+</div>
+</div>
+</section>
+</section>
+
+</article>
+<nav class="pager" aria-label="上一章 / 下一章">
+<a class="pager-prev" href="ch13.html" rel="prev"><span class="pager-label">上一章</span><span class="pager-title">第 13 章　意见分歧、说服与有偏的信念</span></a>
+<a class="pager-next" href="ch15.html" rel="next"><span class="pager-label">下一章</span><span class="pager-title">第 15 章　发送者的选择、分享与披露</span></a>
+</nav>
+</main>
+</div>
+<footer class="site-footer"><p>草稿，2026 年 11 月 21 日</p></footer>
+</body>
+</html>

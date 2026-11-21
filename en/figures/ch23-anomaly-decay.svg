@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="324pt" height="216pt" viewBox="0 0 324 216" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <desc>Three bars of the mean monthly return of McLean and Pontiff's 97 long-short portfolios, in percent: in the original samples, after the samples ended but before publication, and after publication, each labeled with the average number of months of its period. A whisker on each bar spans one standard deviation of the predictors' mean returns on each side of the mean, the spread of the estimated means, which includes each mean's sampling error; the whiskers of the two later bars reach below zero. Open diamonds on the two later bars mark the in-sample mean plus the paper's regression coefficients, this book's calculation. The vertical axis runs from −0.4 to 1.2 percent a month, with a thin line at zero.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 216 
+L 324 216 
+L 324 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 45.36 170.64 
+L 314.28 170.64 
+L 314.28 8.64 
+L 45.36 8.64 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <path d="M 45.36 170.64 
+L 314.28 170.64 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #e2e2e2; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m7894f0a0e1" d="M 0 0 
+L -3 0 
+" style="stroke: #555555; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#m7894f0a0e1" x="45.36" y="170.64" style="fill: #555555; stroke: #555555; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8px; font-family: sans-serif; text-anchor: end; fill: #1f1f1f" x="39.86" y="173.509375" transform="rotate(-0 39.86 173.509375)">−0.4</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_3">
+      <path d="M 45.36 130.14 
+L 314.28 130.14 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #e2e2e2; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m7894f0a0e1" x="45.36" y="130.14" style="fill: #555555; stroke: #555555; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8px; font-family: sans-serif; text-anchor: end; fill: #1f1f1f" x="39.86" y="133.009375" transform="rotate(-0 39.86 133.009375)">0</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_5">
+      <path d="M 45.36 89.64 
+L 314.28 89.64 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #e2e2e2; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m7894f0a0e1" x="45.36" y="89.64" style="fill: #555555; stroke: #555555; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 8px; font-family: sans-serif; text-anchor: end; fill: #1f1f1f" x="39.86" y="92.509375" transform="rotate(-0 39.86 92.509375)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_7">
+      <path d="M 45.36 49.14 
+L 314.28 49.14 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #e2e2e2; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m7894f0a0e1" x="45.36" y="49.14" style="fill: #555555; stroke: #555555; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 8px; font-family: sans-serif; text-anchor: end; fill: #1f1f1f" x="39.86" y="52.009375" transform="rotate(-0 39.86 52.009375)">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_9">
+      <path d="M 45.36 8.64 
+L 314.28 8.64 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #e2e2e2; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m7894f0a0e1" x="45.36" y="8.64" style="fill: #555555; stroke: #555555; stroke-width: 0.6"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 8px; font-family: sans-serif; text-anchor: end; fill: #1f1f1f" x="39.86" y="11.509375" transform="rotate(-0 39.86 11.509375)">1.2</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 8px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="19.3525" y="89.64" transform="rotate(-90 19.3525 89.64)">Mean monthly return (percent)</text>
+    </g>
+   </g>
+   <g id="zero">
+    <path d="M 45.36 130.14 
+L 314.28 130.14 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #555555; stroke-width: 0.6"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 45.36 170.64 
+L 45.36 8.64 
+" style="fill: none; stroke: #555555; stroke-width: 0.6; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 45.36 170.64 
+L 314.28 170.64 
+" style="fill: none; stroke: #555555; stroke-width: 0.6; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="bar-0">
+    <path d="M 67.77 130.14 
+L 112.59 130.14 
+L 112.59 71.2125 
+L 67.77 71.2125 
+z
+" clip-path="url(#p3082381929)" style="fill: #b5541c"/>
+   </g>
+   <g id="period-0-1">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="90.18" y="184.120078" transform="rotate(-0 90.18 184.120078)">In sample</text>
+   </g>
+   <g id="months-0">
+    <text style="font-size: 7px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="90.18" y="204.821406" transform="rotate(-0 90.18 204.821406)">323 months</text>
+   </g>
+   <g id="bar-1">
+    <path d="M 157.41 130.14 
+L 202.23 130.14 
+L 202.23 89.4375 
+L 157.41 89.4375 
+z
+" clip-path="url(#p3082381929)" style="fill: #b5541c"/>
+   </g>
+   <g id="period-1-1">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="179.82" y="184.19625" transform="rotate(-0 179.82 184.19625)">After the sample,</text>
+   </g>
+   <g id="period-1-2">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="179.82" y="194.72625" transform="rotate(-0 179.82 194.72625)">before publication</text>
+   </g>
+   <g id="months-1">
+    <text style="font-size: 7px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="179.82" y="204.821406" transform="rotate(-0 179.82 204.821406)">56 months</text>
+   </g>
+   <g id="bar-2">
+    <path d="M 247.05 130.14 
+L 291.87 130.14 
+L 291.87 103.41 
+L 247.05 103.41 
+z
+" clip-path="url(#p3082381929)" style="fill: #b5541c"/>
+   </g>
+   <g id="period-2-1">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="269.46" y="184.19625" transform="rotate(-0 269.46 184.19625)">After publication</text>
+   </g>
+   <g id="months-2">
+    <text style="font-size: 7px; font-family: sans-serif; text-anchor: middle; fill: #1f1f1f" x="269.46" y="204.821406" transform="rotate(-0 269.46 204.821406)">156 months</text>
+   </g>
+   <g id="key-bar">
+    <path d="M 211.194 19.27125 
+L 221.9508 19.27125 
+L 221.9508 14.20875 
+L 211.194 14.20875 
+z
+" clip-path="url(#p3082381929)" style="fill: #b5541c"/>
+   </g>
+   <g id="keytext-bar">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: start; fill: #1f1f1f" x="229.122" y="18.686484" transform="rotate(-0 229.122 18.686484)">Mean of 97 predictors</text>
+   </g>
+   <g id="keytext-whisker">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: start; fill: #1f1f1f" x="229.122" y="28.773398" transform="rotate(-0 229.122 28.773398)">One standard deviation</text>
+   </g>
+   <g id="keytext-diamond">
+    <text style="font-size: 7.5px; font-family: sans-serif; text-anchor: start; fill: #1f1f1f" x="229.122" y="38.888438" transform="rotate(-0 229.122 38.888438)">Level from regression</text>
+   </g>
+   <g id="whisker-0">
+    <path d="M 90.18 111.20625 
+L 90.18 31.21875 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-0-low">
+    <path d="M 84.8016 111.20625 
+L 95.5584 111.20625 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-0-high">
+    <path d="M 84.8016 31.21875 
+L 95.5584 31.21875 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="whisker-1">
+    <path d="M 179.82 155.35125 
+L 179.82 23.52375 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-1-low">
+    <path d="M 174.4416 155.35125 
+L 185.1984 155.35125 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-1-high">
+    <path d="M 174.4416 23.52375 
+L 185.1984 23.52375 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="whisker-2">
+    <path d="M 269.46 155.655 
+L 269.46 51.165 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-2-low">
+    <path d="M 264.0816 155.655 
+L 274.8384 155.655 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-2-high">
+    <path d="M 264.0816 51.165 
+L 274.8384 51.165 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="whisker-key">
+    <path d="M 216.5724 30.40875 
+L 216.5724 23.32125 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-key-low">
+    <path d="M 213.8832 30.40875 
+L 219.2616 30.40875 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="cap-key-high">
+    <path d="M 213.8832 23.32125 
+L 219.2616 23.32125 
+" clip-path="url(#p3082381929)" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8"/>
+   </g>
+   <g id="diamond-1">
+    <defs>
+     <path id="mb9ed352361" d="M -0 3.181981 
+L 3.181981 0 
+L 0 -3.181981 
+L -3.181981 -0 
+z
+" style="stroke: #2a4a7c; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#p3082381929)">
+     <use xlink:href="#mb9ed352361" x="179.82" y="86.4" style="fill: #ffffff; stroke: #2a4a7c; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="diamond-2">
+    <g clip-path="url(#p3082381929)">
+     <use xlink:href="#mb9ed352361" x="269.46" y="105.33375" style="fill: #ffffff; stroke: #2a4a7c; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="key-diamond">
+    <g clip-path="url(#p3082381929)">
+     <use xlink:href="#mb9ed352361" x="216.5724" y="36.99" style="fill: #ffffff; stroke: #2a4a7c; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p3082381929">
+   <rect x="45.36" y="8.64" width="268.92" height="162"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400" height="600" viewBox="0 0 400 600" font-family="sans-serif">
+  <title>图 1.5　全书的树状结构</title>
+  <desc>一棵树。最下面是根：约束律、信息的度量与根模型，第 1–5 章。两根树干从根上长出：左边是树干一，讲信息怎样传开，第 6–12 章；右边是树干二，讲人怎样解读和使用信息，第 13–15 章。两根树干之间是桥梁：把它们连起来的现成模型，第 19–21 章。两根树干在树冠汇合：信息怎样进入价格，第 16–18 章。树冠之上是果实：可以拿来交易的梯度，第 22–24 章。</desc>
+
+  <rect x="0" y="0" width="400" height="600" fill="#ffffff"/>
+
+  <g stroke="#7a5a3a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M 60 430 C 55 445 45 455 40 470"/>
+    <path d="M 85 430 L 85 470"/>
+    <path d="M 115 430 C 120 445 130 455 140 470"/>
+    <path d="M 285 430 C 280 445 270 455 260 470"/>
+    <path d="M 315 430 L 315 470"/>
+    <path d="M 340 430 C 345 445 355 455 360 470"/>
+  </g>
+  <line x1="10" y1="430" x2="390" y2="430" stroke="#8a7a66" stroke-width="2"/>
+
+  <rect x="40" y="470" width="320" height="110" rx="12" ry="12" fill="#efe4d6" stroke="#7a5a3a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="496" font-size="17" font-weight="bold">根</text>
+    <text x="200" y="517" font-size="15">约束律、信息的度量、</text>
+    <text x="200" y="536" font-size="15">根模型</text>
+    <text x="200" y="561" font-size="15">第 1–5 章</text>
+  </g>
+
+  <rect x="20" y="200" width="130" height="230" fill="#e6d5c0" stroke="#7a5a3a" stroke-width="2"/>
+  <rect x="250" y="200" width="130" height="230" fill="#e6d5c0" stroke="#7a5a3a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="85" y="252" font-size="17" font-weight="bold">树干一</text>
+    <text x="85" y="274" font-size="15">信息怎样</text>
+    <text x="85" y="293" font-size="15">传开</text>
+    <text x="85" y="320" font-size="15">第 6–12 章</text>
+    <text x="315" y="252" font-size="17" font-weight="bold">树干二</text>
+    <text x="315" y="274" font-size="15">人怎样解读</text>
+    <text x="315" y="293" font-size="15">和使用</text>
+    <text x="315" y="312" font-size="15">信息</text>
+    <text x="315" y="339" font-size="15">第 13–15 章</text>
+  </g>
+
+  <rect x="150" y="290" width="100" height="102" fill="#dbe3ee" stroke="#4a5a7a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="312" font-size="17" font-weight="bold">桥梁</text>
+    <text x="200" y="333" font-size="15">现成的</text>
+    <text x="200" y="352" font-size="15">模型</text>
+    <text x="200" y="377" font-size="15">第 19–21 章</text>
+  </g>
+
+  <ellipse cx="200" cy="158" rx="188" ry="58" fill="#d6e8c9" stroke="#4a7a3a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="140" font-size="17" font-weight="bold">树冠</text>
+    <text x="200" y="161" font-size="15">信息怎样进入价格</text>
+    <text x="200" y="182" font-size="15">第 16–18 章</text>
+  </g>
+
+  <ellipse cx="200" cy="54" rx="150" ry="44" fill="#f7dcb4" stroke="#9a6a35" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="40" font-size="17" font-weight="bold">果实</text>
+    <text x="200" y="60" font-size="15">可以拿来交易的梯度</text>
+    <text x="200" y="80" font-size="15">第 22–24 章</text>
+  </g>
+</svg>

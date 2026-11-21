@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="440" height="362" viewBox="0 0 440 362" font-family="sans-serif">
+  <desc>五条约束律作用位置的示意图。上面一行，代表世界的方框，即状态 θ，发出一条标着“观测”的箭头，指向交易者 i 的信息集；这条箭头中间收窄，标着容量律的 3，也标着观测律的 1。一条标着“遗忘”的虚线箭头从交易者 i 的方框向上离开。一条标着“交易”的箭头，标着 4，从交易者 i 指向代表价格的方框，价格方框标着无套利律的 5。下面一行，一条标着“告诉”的箭头，标着非竞争律的 2，从交易者 i 向下指向交易者 j 的信息集；一条标着“由 j 看到”的箭头，标着价格内生律的 4，从价格指向交易者 j。交易者 k 的灰色虚线方框没有箭头，他没有看到价格。下方的图例用几个词说出每条律：1，观测律，学到新东西的唯一途径，允许遗忘；2，非竞争律，i 原来知道的不变，“只有 i 知道”结束；3，容量律，单位时间至多 κ，包括价格；4，价格内生律，由交易决定，成为看到它的人的信号；5，无套利律，只靠公开可得的信息找不到免费午餐，它的形式取决于摩擦。</desc>
+
+  <rect x="0" y="0" width="440" height="362" fill="#ffffff"/>
+
+  <g stroke-width="2">
+    <rect x="10" y="46" width="76" height="48" rx="4" fill="#dbe3ee" stroke="#4a5a7a"/>
+    <rect x="176" y="46" width="110" height="48" rx="4" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="360" y="46" width="70" height="48" rx="4" fill="#f7dcb4" stroke="#9a6a35"/>
+    <rect x="176" y="188" width="110" height="48" rx="4" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="346" y="188" width="84" height="48" rx="4" fill="#f4f4f4" stroke="#a0a0a0" stroke-dasharray="5 4"/>
+  </g>
+
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="48" y="66" font-size="12" font-weight="bold">世界</text>
+    <text x="48" y="83" font-size="11">状态 <tspan font-style="italic">θ</tspan></text>
+    <text x="231" y="66" font-size="12" font-weight="bold">交易者 <tspan font-style="italic">i</tspan></text>
+    <text x="231" y="83" font-size="11">信息集</text>
+    <text x="395" y="74" font-size="12" font-weight="bold">价格</text>
+    <text x="231" y="208" font-size="12" font-weight="bold">交易者 <tspan font-style="italic">j</tspan></text>
+    <text x="231" y="225" font-size="11">信息集</text>
+  </g>
+  <g fill="#7a7a7a" text-anchor="middle">
+    <text x="388" y="205" font-size="12" font-weight="bold">交易者 <tspan font-style="italic">k</tspan></text>
+    <text x="388" y="219" font-size="10">没有看到</text>
+    <text x="388" y="231" font-size="10">价格</text>
+  </g>
+
+  <g stroke="#4a4a4a" stroke-width="1.6" fill="none">
+    <line x1="86" y1="70" x2="167" y2="70"/>
+    <line x1="286" y1="70" x2="351" y2="70"/>
+    <line x1="214" y1="94" x2="214" y2="179"/>
+    <line x1="380" y1="94" x2="292.4" y2="198.3"/>
+  </g>
+  <line x1="262" y1="46" x2="262" y2="25" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <g fill="#4a4a4a">
+    <polygon points="176,70 166,65 166,75"/>
+    <polygon points="360,70 350,65 350,75"/>
+    <polygon points="214,188 209,178 219,178"/>
+    <polygon points="286,206 296.3,201.5 288.6,195.1"/>
+
+    <polygon points="124,62 138,62 131,68.4"/>
+    <polygon points="124,78 138,78 131,71.6"/>
+  </g>
+  <polygon points="262,16 257,25 267,25" fill="#7a7a7a"/>
+
+  <g fill="#1f1f1f" font-size="11">
+    <text x="131" y="58" text-anchor="middle">观测</text>
+    <text x="318" y="62" text-anchor="middle">交易</text>
+    <text x="206" y="145" text-anchor="end">告诉</text>
+    <text x="340" y="152">由 <tspan font-style="italic">j</tspan> 看到</text>
+  </g>
+  <text x="270" y="27" font-size="11" fill="#5a5a5a">遗忘</text>
+
+  <g stroke="#1f1f1f" stroke-width="1.2" fill="#ffffff">
+    <circle cx="131" cy="40" r="7.5"/>
+    <circle cx="131" cy="92" r="7.5"/>
+    <circle cx="318" cy="44" r="7.5"/>
+    <circle cx="395" cy="30" r="7.5"/>
+    <circle cx="160" cy="141" r="7.5"/>
+    <circle cx="397" cy="148" r="7.5"/>
+  </g>
+  <g fill="#1f1f1f" font-size="10" font-weight="bold" text-anchor="middle">
+    <text x="131" y="43.5">1</text>
+    <text x="131" y="95.5">3</text>
+    <text x="318" y="47.5">4</text>
+    <text x="395" y="33.5">5</text>
+    <text x="160" y="144.5">2</text>
+    <text x="397" y="151.5">4</text>
+  </g>
+
+  <line x1="10" y1="252" x2="430" y2="252" stroke="#c8c8c8" stroke-width="1"/>
+  <g stroke="#1f1f1f" stroke-width="1.2" fill="#ffffff">
+    <circle cx="20" cy="268" r="7"/>
+    <circle cx="20" cy="285" r="7"/>
+    <circle cx="20" cy="302" r="7"/>
+    <circle cx="20" cy="319" r="7"/>
+    <circle cx="20" cy="336" r="7"/>
+  </g>
+  <g fill="#1f1f1f" font-size="10" font-weight="bold" text-anchor="middle">
+    <text x="20" y="271.5">1</text>
+    <text x="20" y="288.5">2</text>
+    <text x="20" y="305.5">3</text>
+    <text x="20" y="322.5">4</text>
+    <text x="20" y="339.5">5</text>
+  </g>
+  <g fill="#1f1f1f" font-size="11">
+    <text x="34" y="272"><tspan font-weight="bold">观测律：</tspan>学到新东西的唯一途径；允许遗忘</text>
+    <text x="34" y="289"><tspan font-weight="bold">非竞争律：</tspan><tspan font-style="italic">i</tspan> 原来知道的不变；“只有 <tspan font-style="italic">i</tspan> 知道”结束</text>
+    <text x="34" y="306"><tspan font-weight="bold">容量律：</tspan>单位时间至多 <tspan font-style="italic">κ</tspan>，包括价格</text>
+    <text x="34" y="323"><tspan font-weight="bold">价格内生律：</tspan>由交易决定，成为看到它的人的信号</text>
+    <text x="34" y="340"><tspan font-weight="bold">无套利律：</tspan>只靠公开可得的信息找不到免费午餐；</text>
+    <text x="34" y="354">它的形式取决于摩擦</text>
+  </g>
+</svg>

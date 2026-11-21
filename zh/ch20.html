@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>第 20 章　坏消息、卖空约束与动量 · 信息梯度与传播</title>
+<link rel="alternate" hreflang="en" href="../en/ch20.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..700&amp;family=Noto+Serif+SC:wght@400..700&amp;family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="chapter-page">
+<header class="site-header">
+  <div class="site-header-inner">
+  <a class="site-title" href="index.html">信息梯度与传播</a>
+  <nav class="site-nav" aria-label="目录">
+    <a href="index.html">目录</a>
+    <a href="../en/ch20.html" hreflang="en" lang="en">English</a>
+  </nav>
+  </div>
+</header>
+<div class="layout">
+<nav class="toc-side" aria-label="本章各节">
+<p class="toc-heading">本章各节</p>
+<ol>
+<li><a href="#坏消息的速度与卖空约束"><span class="toc-num">20.1</span> <span class="toc-text">坏消息的速度与卖空约束</span></a>
+<ol>
+<li><a href="#坏消息变慢的三层"><span class="toc-num">20.1.1</span> <span class="toc-text">坏消息变慢的三层</span></a></li>
+<li><a href="#压下坏消息的发送者"><span class="toc-num">20.1.2</span> <span class="toc-text">压下坏消息的发送者</span></a></li>
+<li><a href="#学不到的分歧"><span class="toc-num">20.1.3</span> <span class="toc-text">学不到的分歧</span></a></li>
+<li><a href="#理性预期与调整的速度"><span class="toc-num">20.1.4</span> <span class="toc-text">理性预期与调整的速度</span></a></li>
+<li><a href="#理性预期下的期望泡沫"><span class="toc-num">20.1.5</span> <span class="toc-text">理性预期下的期望泡沫</span></a></li>
+<li><a href="#更贵的空头"><span class="toc-num">20.1.6</span> <span class="toc-text">更贵的空头</span></a></li>
+<li><a href="#反馈与其他不对称的限制"><span class="toc-num">20.1.7</span> <span class="toc-text">反馈与其他不对称的限制</span></a></li>
+<li><a href="#没有套利的预期下跌"><span class="toc-num">20.1.8</span> <span class="toc-text">没有套利的预期下跌</span></a></li>
+<li><a href="#没来的消息的三种读法"><span class="toc-num">20.1.9</span> <span class="toc-text">没来的消息的三种读法</span></a></li>
+<li><a href="#电视上的坏消息"><span class="toc-num">20.1.10</span> <span class="toc-text">电视上的坏消息</span></a></li>
+<li><a href="#传到持有者的披露"><span class="toc-num">20.1.11</span> <span class="toc-text">传到持有者的披露</span></a></li>
+</ol></li>
+<li><a href="#信息逐步扩散与动量"><span class="toc-num">20.2</span> <span class="toc-text">信息逐步扩散与动量</span></a>
+<ol>
+<li><a href="#固定时间表上的新闻观察者"><span class="toc-num">20.2.1</span> <span class="toc-text">固定时间表上的新闻观察者</span></a></li>
+<li><a href="#动量交易者与过度反应"><span class="toc-num">20.2.2</span> <span class="toc-text">动量交易者与过度反应</span></a></li>
+<li><a href="#动量来源的比较"><span class="toc-num">20.2.3</span> <span class="toc-text">动量来源的比较</span></a></li>
+<li><a href="#作为外部来源的分析师覆盖"><span class="toc-num">20.2.4</span> <span class="toc-text">作为外部来源的分析师覆盖</span></a></li>
+<li><a href="#两年内的小公司漂移"><span class="toc-num">20.2.5</span> <span class="toc-text">两年内的小公司漂移</span></a></li>
+<li><a href="#在别处处理的问题"><span class="toc-num">20.2.6</span> <span class="toc-text">在别处处理的问题</span></a></li>
+</ol></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">20.3</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">20.4</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">20.5</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">20.6</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</nav>
+<main class="chapter-main">
+<details class="toc-top">
+<summary>本章各节</summary>
+<ol>
+<li><a href="#坏消息的速度与卖空约束"><span class="toc-num">20.1</span> <span class="toc-text">坏消息的速度与卖空约束</span></a>
+<ol>
+<li><a href="#坏消息变慢的三层"><span class="toc-num">20.1.1</span> <span class="toc-text">坏消息变慢的三层</span></a></li>
+<li><a href="#压下坏消息的发送者"><span class="toc-num">20.1.2</span> <span class="toc-text">压下坏消息的发送者</span></a></li>
+<li><a href="#学不到的分歧"><span class="toc-num">20.1.3</span> <span class="toc-text">学不到的分歧</span></a></li>
+<li><a href="#理性预期与调整的速度"><span class="toc-num">20.1.4</span> <span class="toc-text">理性预期与调整的速度</span></a></li>
+<li><a href="#理性预期下的期望泡沫"><span class="toc-num">20.1.5</span> <span class="toc-text">理性预期下的期望泡沫</span></a></li>
+<li><a href="#更贵的空头"><span class="toc-num">20.1.6</span> <span class="toc-text">更贵的空头</span></a></li>
+<li><a href="#反馈与其他不对称的限制"><span class="toc-num">20.1.7</span> <span class="toc-text">反馈与其他不对称的限制</span></a></li>
+<li><a href="#没有套利的预期下跌"><span class="toc-num">20.1.8</span> <span class="toc-text">没有套利的预期下跌</span></a></li>
+<li><a href="#没来的消息的三种读法"><span class="toc-num">20.1.9</span> <span class="toc-text">没来的消息的三种读法</span></a></li>
+<li><a href="#电视上的坏消息"><span class="toc-num">20.1.10</span> <span class="toc-text">电视上的坏消息</span></a></li>
+<li><a href="#传到持有者的披露"><span class="toc-num">20.1.11</span> <span class="toc-text">传到持有者的披露</span></a></li>
+</ol></li>
+<li><a href="#信息逐步扩散与动量"><span class="toc-num">20.2</span> <span class="toc-text">信息逐步扩散与动量</span></a>
+<ol>
+<li><a href="#固定时间表上的新闻观察者"><span class="toc-num">20.2.1</span> <span class="toc-text">固定时间表上的新闻观察者</span></a></li>
+<li><a href="#动量交易者与过度反应"><span class="toc-num">20.2.2</span> <span class="toc-text">动量交易者与过度反应</span></a></li>
+<li><a href="#动量来源的比较"><span class="toc-num">20.2.3</span> <span class="toc-text">动量来源的比较</span></a></li>
+<li><a href="#作为外部来源的分析师覆盖"><span class="toc-num">20.2.4</span> <span class="toc-text">作为外部来源的分析师覆盖</span></a></li>
+<li><a href="#两年内的小公司漂移"><span class="toc-num">20.2.5</span> <span class="toc-text">两年内的小公司漂移</span></a></li>
+<li><a href="#在别处处理的问题"><span class="toc-num">20.2.6</span> <span class="toc-text">在别处处理的问题</span></a></li>
+</ol></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">20.3</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">20.4</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">20.5</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">20.6</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</details>
+<article class="chapter">
+<section id="第-20-章-坏消息卖空约束与动量" class="level1">
+<h1><span class="chapter-number">第 20 章　</span><span class="chapter-title">坏消息、卖空约束与动量</span></h1>
+<p>Hong、Lim 与 Stein（2000）把美国股票按规模分组，在每个规模组里测量动量（momentum），即过去赢家的收益减去过去输家的收益，数据取自 1980 年至 1996 年（工作论文版的数字）。在最小的那批股票里，平均市值为 700 万美元，动量为负；动量在规模第三个十分位达到最高，那里的平均市值约为 4500 万美元，为每月 1.43%（t 统计量 6.66），几乎是整个样本的值的三倍，到最大的股票里降到基本为零（工作论文版的数字）。</p>
+<p>他们的第二个检验用残差分析师覆盖（residual analyst coverage），即关注一只股票的分析师人数，相对于这只股票的规模来衡量，并剔除低于纽约证交所/美国证交所规模第 20 百分位分界点的所有股票，因为其中绝大多数从来没有分析师（工作论文版的数字）。残差覆盖低的股票，动量为每月 1.13%，覆盖高的为 0.72%，差为 0.42%，t 统计量为 3.50；覆盖的影响完全来自输家，低覆盖的输家每月比高覆盖的输家差 0.70%，t 统计量为 5.16（工作论文版的数字）。赢家之间的差别稍稍偏向“错误”的方向，在他们的一张表里统计显著，作者写道，这一点比他们的其他结果脆弱得多（工作论文版）。</p>
+<p>作者把这些发现读作与下面的假说一致：公司特有的信息，尤其是负面信息，只会逐步地在投资大众中扩散（工作论文版）。20.1 节问坏消息（bad news）在卖空约束（short-sale constraint），即对卖出借来的股票的限制之下，在哪里失去速度；20.2 节问在 Hong 与 Stein（1999）的模型里动量从哪里来，Hong、Lim 与 Stein 检验了这个模型在不同股票之间的预测，检验的是它的延续一侧（20.2.4 节）。<a href="#fn1" id="fnref1" class="noteref" role="doc-noteref"><sup>1</sup></a></p>
+<section id="坏消息的速度与卖空约束" class="level2">
+<h2><span class="secnum">20.1</span> 坏消息的速度与卖空约束</h2>
+<p>根模型（root model）的价格规则需要卖空（short selling），卖空是它默认的无摩擦交易（frictionless trading）的一部分（1.5 节和 5.3 节；表 5.1）。本节去掉这一部分，即卖空交易（short sale）被禁止、成本高，或者所得款项的用途受到限制。</p>
+<section id="坏消息变慢的三层" class="level3">
+<h3><span class="secnum">20.1.1</span> 坏消息变慢的三层</h3>
+<p>坏消息可以在三个层面上变慢（本书的判断；表 20.1）。在知晓层（awareness layer），消息还没有传到足够多的人，例如管理者可能压下坏消息。在价格层（price layer），知情的人不能把价格压得足够低，原因是卖空受到限制、人与人之间的分歧又无法从价格里学到，或者是一项约束改变了私人信息（private information）进入按理性预期（rational expectations）定出的价格的速度。在行动层（action layer），知情的人仍然可能等待，因为持有空头比持有多头更贵。从价格到管理者决策的反馈（feedback）加上了一种不对称的套利限制（limits to arbitrage；20.1.7 节），而同样的坏消息变慢可以出自任何一层，所以检验必须先说明它针对的是哪一层（本书的判断）。<a href="#fn2" id="fnref2" class="noteref" role="doc-noteref"><sup>2</sup></a></p>
+<div class="table-caption">
+<p>表 20.1　坏消息变慢的三层与反馈</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th>层</th>
+<th>机制</th>
+<th>需要什么</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>知晓</td>
+<td>管理者对坏消息可能比对好消息更不坦率（Hong、Lim 与 Stein 的读法；工作论文版）</td>
+<td>按内容选择发布的发送者（第 15 章）；没有直接检验（本书的判断）</td>
+<td>20.1.2 节</td>
+</tr>
+<tr>
+<td>价格，学不到的分歧</td>
+<td>只有较乐观的人持有，所以价格高于平均估值；没有理性预期时，成本高的卖空也可能使私人的坏消息变慢（Diamond 与 Verrecchia 对这类模型的说明）</td>
+<td>受限的卖空，以及无法从价格里学到的分歧；对 Miller，一个能吸收全部供给的少数群体；对转售期权（resale option），一个可以变换的最乐观群体（本书的判断）</td>
+<td>20.1.3 节</td>
+</tr>
+<tr>
+<td>价格，理性预期</td>
+<td>禁令使坏消息变慢；只限制未知情交易的约束使坏消息变快，作者判断这一效应不太可能占主导；在给定公共信息（public information）时，价格保持无偏</td>
+<td>理性预期，风险中性的交易者与做市商（market maker），约束是共同知识（common knowledge），分歧来自信息（Diamond 与 Verrecchia）</td>
+<td>20.1.4 节</td>
+</tr>
+<tr>
+<td>行动</td>
+<td>空头持有成本更高，所以知情的人推迟纠正定价过高</td>
+<td>先后得知的套利者、对他们来说从未成为共同知识的错价（mispricing），以及相对于错价足够大的持有成本（holding cost）；这是 Abreu 与 Brunnermeier 模型的文字延伸（本书的判断）</td>
+<td>20.1.6 节和 21.2.4 节</td>
+</tr>
+<tr>
+<td>反馈</td>
+<td>当管理者从价格中学习时，知情的卖出受到抑制，知情的买入受到鼓励（据 Bond、Edmans 与 Goldstein 的转述；工作论文版）</td>
+<td>从股价中学习并据此行动的管理者</td>
+<td>20.1.7 节</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="压下坏消息的发送者" class="level3">
+<h3><span class="secnum">20.1.2</span> 压下坏消息的发送者</h3>
+<p>Hong、Lim 与 Stein 自己的读法（15.2.2 节）是：有好消息（good news）的管理者大概有十足的动机把它快速发布出去，有坏消息的管理者则可能不那么坦率，所以外部分析师更重要；卖空约束也许是解释的一部分，不过单靠它似乎解释不了为什么分析师越少，这一效应越强（工作论文版）。证据是开头那个交互效应，即低覆盖与过去的输家；管理者的行为是作者的解释，他们没有直接检验（本书的判断；15.2.2 节）。</p>
+<p>同一个交互效应分不开知晓层和行动层（本书的判断）。Abreu 与 Brunnermeier（2002）写道，他们对坏消息传得慢的说明，与 Hong、Lim 与 Stein 的发现相符，即分析师覆盖（analyst coverage）低的股票对坏消息的反应似乎比对好消息的反应更迟缓。如果分析师少意味着套利者得知错价的时间更分散，20.1.6 节的行动层机制也给出同样的交互效应，要把两者分开，还需要另一项检验，例如比较同一类错价在借股便宜和借股昂贵的股票里持续多久（本书的判断）。</p>
+<p>Hong、Lim 与 Stein 的预测还假设，聪明钱的套利（arbitrage）没有把各只股票之间动量的差别完全消除（工作论文版），本书把这读作套利者的风险承担能力（risk-bearing capacity）问题，在第 23 章处理（本书的判断）。<a href="#fn3" id="fnref3" class="noteref" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="学不到的分歧" class="level3">
+<h3><span class="secnum">20.1.3</span> 学不到的分歧</h3>
+<p>卖空受限时，价格是否高于平均估值，在 Miller、Harrison 与 Kreps、Scheinkman 与 Xiong 的设定里，取决于人与人之间的分歧能否从价格里学到（本书的判断）。有两种情形学不到。第一种情形里，没有人根据交易所揭示的东西作出理性推断。Diamond 与 Verrecchia（1987）写道，现有的研究，包括 Miller 的研究，得出的结论是：约束悲观者而不约束乐观者，会使股价向上偏；这类工作假设“规则”不变；这些论文里没有一篇的投资者具有理性预期，这里指的是根据价格与交易推断别人知道什么（16.1 节）。他们指出，在 Jarrow（1980）的模型里，这个偏差可以为正、为负或为零（据 Diamond 与 Verrecchia 的转述），所以即使没有理性预期，向上的偏差也不是普遍的（本书的判断）。根模型里的交易者不从价格学习，也属于这一情形（本书的判断）。第二种情形里，人们的先验不同，或者对同一信息的读法不同，如 Harrison 与 Kreps（1978）以及 Scheinkman 与 Xiong（2003）。这两个模型去掉了带共同先验（common prior）的贝叶斯更新（Bayesian updating）这一默认，在它们里面，这一点加上卖空禁令就足够了；它并非必要，因为按贝叶斯法则（Bayes<span class="latin-apos">’</span> rule）用自己的信息更新、又不从价格学习的交易者，同样保留着价格教不会的分歧（本书的判断）。</p>
+<p>Miller（1977）的静态论证（19.3.6 节；5.3 节给出了他的设定）如下。如果每个投资者只能买一股，共有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 股，这些股票最终由对收益估价最高的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 个投资者持有。只要潜在买者中的少数人就能吸收全部供给（这是通常的情形），市场价格就高于潜在投资者的平均估价，分歧越大，市场出清价格越高；只有在没有分歧时，平均估价才决定价格。去掉他的风险中性（risk neutrality）假设，论证不变，因为他的投资者用的是标准的组合理论，其中可以容纳风险厌恶（risk aversion），而且足够多的卖空可以把价格压到全体投资者的平均估价。反方向还有一股力量，即如果有足够多的投资者在评估投资时用不确定性溢价（uncertainty premium），风险投资的价格会趋于下降；他得出结论，既然分歧很可能随风险增大，风险证券的预期收益很可能更低。这个论证讲的是市场出清价格的水平，对调整的速度没有说什么，它回答了 10.4 节的问题，即卖空受限时，个人误差的散布更宽，本身就能抬高价格（本书的判断）。</p>
+<p>在 Harrison 与 Kreps 的市场里（13.3 节），投资者共享全部信息，只是各类投资者对它的读法可能不同，最低一致价格（lowest consistent price）通常高于每个投资者对股息的预期现值，这是一种投机溢价（speculative premium）；它的精确结论依赖于风险中性、无限财富和禁止卖空，而且在只剩一期时、在投资者全都相同时，或者在针对或有债权的市场完全而完美时，都不会出现。Scheinkman 与 Xiong（2003）建立了一个连续时间的版本，其中有一种供给有限的风险资产和许多风险中性的主体；信息对所有人可得，两个群体各自高估了一个不同信号的信息量，并且因行为上的局限而彼此同意各持己见。在有卖空约束时，买者获得一份期权，可以在别人更乐观时把资产卖给他们，这就是转售期权，所以主体愿意付出高于他们自己对未来股息的估价的价格；泡沫（bubble）来自意见的分歧，平均而言主体既非乐观者也非悲观者。作者为技术上的原因直接排除了卖空，并写道，只要持有者可以预期在别人对资产估值更高时获利，他们的定性（qualitative）结果在卖空有成本时仍会成立。在他们的均衡（equilibrium）里，泡沫伴随着很大的成交量（trading volume）和很高的价格波动。</p>
+<p>本书还把转售期权读作单一外生事实（single exogenous fact）这一默认的一个分支，因为价格的一部分取决于别人将来对这一事实的看法；Scheinkman 与 Xiong 的股息不依赖交易，符合这一默认的字面要求，所以这样归类只是一种读法（本书的判断；第 22 章）。</p>
+<p>在没有理性预期的模型里，Diamond 与 Verrecchia 描述了一种直觉，即成本高的卖空使交易者群体里只剩下相对乐观的人，从而使价格对私人坏消息的调整变慢；Harrison 与 Kreps 的投资者拥有同样的信息，所以那里不出现私人的坏消息。18.7 节把高估（overvaluation）算作实测超额收益（measured excess return）中负的一部分（本书的推导；表 18.1），这种高估来自本节的两种情形，每一种都有受限的卖空（本书的判断）。<a href="#fn4" id="fnref4" class="noteref" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="理性预期与调整的速度" class="level3">
+<h3><span class="secnum">20.1.4</span> 理性预期与调整的速度</h3>
+<p>Diamond 与 Verrecchia（1987）问的是，交易者形成理性预期时，卖空约束起什么作用；这个模型把“不从价格学习”（no learning from prices）和无摩擦交易里的卖空部分一并去掉（本书的判断）。他们的模型沿用 Glosten 与 Milgrom（1985），其中做市商是风险中性的，没有库存成本或约束，每笔交易的预期利润为零，交易者是风险中性的，要么是知情交易者（informed trader），要么是未知情交易者（uninformed trader）。当卖空受到约束是共同知识、交易的差别来自信息而与偏好无关时，理性预期改变了“规则”，消除了价格的任何向上偏差。价格是在给定全部公共信息时资产价值的条件期望，所以在利率为零时，它在任何一天的无条件预期变动都为零，这个结果只依赖理性预期和风险中性。</p>
+<p>方向取决于约束挡住的是谁（本书的判断）。按他们的命题 1，当所有能卖空的交易者都可以无成本地卖空时，价格对坏消息和对好消息调整所需的预期期数都随被禁止卖空的交易者所占比例上升，坏消息所需时间与好消息所需时间之比也随之上升。他们的成本函数与交易者的信息水平无关，所以被禁止的比例在知情与未知情交易者中相同，这时没有交易的一期既有一些信息量，又是坏消息（数学框 20.2）。按他们的命题 2，在所得款项限制（proceeds-restrictions）之下，即不让卖空者（short seller）立即使用所得款项，预期调整时间和它们的比值都随受其约束的交易者所占比例上升而下降，而且没有交易的一期不改变未来的买价与卖价。</p>
+<p>作者论证，这些效应不太可能占主导，因为在一个更一般的、有很知情和有些知情两类交易者的模型里，只触及有些知情者的成本可以像禁令一样降低效率。他们的结论是，按知情与未知情交易者各占的人口比例禁止交易的约束，会降低无条件的信息效率，对私人坏消息尤其如此；而就理论而言，只限制未知情者交易的约束会提高信息效率，对私人坏消息尤其如此，他们论证前一种效应在实践中很可能占主导。</p>
+<p>理性预期使价格无偏，所以这个模型不预测宣布坏消息时价格变动的绝对值平均而言更大。在禁令占主导的情形里（他们认为这种情形更可能，在另一种情形里预测相反），作者预测，引入期权交易应当减小公告日价格变动的左偏；论文本身没有检验这个预测（本书的判断）。<a href="#fn5" id="fnref5" class="noteref" role="doc-noteref"><sup>5</sup></a></p>
+</section>
+<section id="理性预期下的期望泡沫" class="level3">
+<h3><span class="secnum">20.1.5</span> 理性预期下的期望泡沫</h3>
+<p>在理性预期下，Allen、Morris 与 Postlewaite（1993）证明，期望泡沫（expected bubble），即在某个日期和状态下价格高于每个主体的边际估值，要求卖空约束在未来的某种情形里严格起作用（据 Brunnermeier 的转述）；21.2.1 节给出了他们的定义和 Tirole 的条件。在他们的四个强泡沫（strong bubble）例子里，交易的收益分别来自异质的信念（belief）、依赖状态的效用、在效用相同且为凹的情形下的随机禀赋，或者在效用函数各不相同且为凹的情形下中期帕累托无效的初始配置（据 Brunnermeier 的转述）。第一个是 20.1.3 节里学不到的分歧的第二种情形；另外三个例子有理性预期和私人信息，这一分支不属于那种情形（本书的判断），而按本书对 Brunnermeier 所列清单的读法，它们有共同先验（本书的推论）；本书没有读过原文。<a href="#fn6" id="fnref6" class="noteref" role="doc-noteref"><sup>6</sup></a></p>
+</section>
+<section id="更贵的空头" class="level3">
+<h3><span class="secnum">20.1.6</span> 更贵的空头</h3>
+<p>在行动层，Abreu 与 Brunnermeier（2002）的套利者以均匀的速率先后意识到新的基本面价值，所以在任何时点上，这个错价在他们之间都不是共同知识，并且为简单起见，所有人都是风险中性的（21.2.4 节）。在表 5.1 为本章列出的放宽（relaxation）之外，从未成为共同知识的错价去掉了一阶知识（first-order knowledge）这一默认，即交易者只需要知道事实本身（本书的判断；21.2 节）。作者用一个持有成本 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 概括保持仓位的显性成本和隐性成本，它使套利者谨慎，并给他们推迟交易的动机，也可以看作对风险套利仓位所要求的风险溢价（risk premium）的一种简化。一个例子是召回风险，即借出股票的一方一旦召回，卖空者就得在不利的条件下买入平仓。</p>
+<p>作者指出，这个模型可以扩展到不对称的持有成本，空头的持有成本通常高于多头的；他们写道，在他们的模型里，定价过高于是比定价过低持续得更久，所以实际上“坏消息传得慢”。他们补充了一个例外。即使是买入被低估资产的风险厌恶套利者，也可能想卖空相近的替代品来对冲，所以证券被低估时也可能出现卖空成本。他们的 5.1 节用文字讨论了这一扩展，没有为它建模（本书的判断）。由于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 把摩擦和风险溢价合在一起，仅凭延迟分辨不出是两者中的哪一个拖住了套利者（本书的判断）；第 23 章处理风险承担能力。</p>
+<p>前面的两个例子适用于此处（本书的判断）：11.6 节的挤压（squeeze）与召回风险属于同一类摩擦，而在 EntreMed 的例子里（1.6.3 节），卖空成本高或卖空难，会是持有成本拖延纠正的一种途径。<a href="#fn7" id="fnref7" class="noteref" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+<section id="反馈与其他不对称的限制" class="level3">
+<h3><span class="secnum">20.1.7</span> 反馈与其他不对称的限制</h3>
+<p>16.8 节给出了管理者从股价里学习时，反馈造成的两种不对称，一种在 Goldstein 与 Guembel 的模型里，未知情的卖出可以获利，而未知情的买入亏损，另一种在 Edmans、Goldstein 与 Jiang 的模型里，一种抑制知情卖出、鼓励知情买入的套利限制（据 Bond、Edmans 与 Goldstein 的转述；工作论文版）。综述的作者们写道，信息反馈为几种原本似乎令人费解的现象给出了自然的解释，其中有操纵性卖空以及坏消息与好消息的不对称传播（工作论文版）。按本书的读法，反馈与卖空约束、压下坏消息的管理者并列，也使坏消息变慢，并提示一项检验：在管理者可以更灵活地根据价格改变决策的公司里，负面的私人信息进入价格应当更慢（本书的判断）。<a href="#fn8" id="fnref8" class="noteref" role="doc-noteref"><sup>8</sup></a></p>
+</section>
+<section id="没有套利的预期下跌" class="level3">
+<h3><span class="secnum">20.1.8</span> 没有套利的预期下跌</h3>
+<p>在 Jouini 与 Kallal（1995a）的结果里，设有卖空约束，交易者只可以使用简单策略并共有同一种信息结构（information structure），价格在本书的读法里不受交易影响（本书的判断）。在这些前提下，没有免费午餐（free lunch），即大致没有不要风险也不要资本的收益，当且仅当在某个增长率介于借出利率与借入利率之间的计价单位（unit of account）之下，并在某个等价测度（equivalent measure），即含有相同可能事件的测度之下，不能卖空的证券的价格是上鞅（supermartingale），即平均而言不上升的过程，而只能持有空头的证券的价格是下鞅（submartingale）。因此，不能卖空的证券可以预期下跌而不提供套利，因为利用这个下跌需要卖空；这个下跌是在定价测度下以计价单位度量的预期，而在真实概率下，有风险的漂移（drift）不受摩擦所划出的区间的约束（本书的判断；5.4 节）。3.7 节完整地给出了这个结果。</p>
+<p>均衡说得更多。Jouini 与 Kallal 写道，除非资产的净供给为零，没有免费午餐并没有穷尽均衡的全部含义，即供给为正的资产必须由某个主体持有，所以它的价格必须是鞅（martingale），即没有漂移的过程，对这个主体的跨期边际替代率所诱导的概率测度而言如此，而其他资产不必如此，因为由于卖空约束，它们可能由边际替代率不同的其他主体持有。</p>
+<p>Harrison 与 Kreps 的例子显示了这两点。在他们的一致价格之下，所有投资者都认为投机（speculation）不比公平赌博更好；对于在某个状态下持有股票的那一类，这个赌博恰好公平，而在没有股息的状态下，另一类预期一期的总回报为 11/9，无风险回报为 4/3，最低一致价格是在由持有者的一步概率拼接出的测度（spliced measure）下的股息现值（本书的推导；数学框 20.1）。<a href="#fn9" id="fnref9" class="noteref" role="doc-noteref"><sup>9</sup></a></p>
+</section>
+<section id="没来的消息的三种读法" class="level3">
+<h3><span class="secnum">20.1.9</span> 没来的消息的三种读法</h3>
+<p>本书把一段没有交易的时间读出三种意思（本书的判断）。在 Easley 与 O<span class="latin-apos">’</span>Hara（1992）的模型里，市场不知道信息事件（information event）有没有发生，没有新信息时，没有交易的可能性更大（3.3 节）。在 Diamond 与 Verrecchia 的模型里，禁止卖空时没有交易是坏消息，只有所得款项限制时没有交易不改变报价（20.1.4 节）。在 Lee（1998）的模型里，交易成本（transaction cost）可能使许多依次交易的交易者无法把他们的私人信息显露出来，所以隐藏的信息在市场里积累，可能由一个小的触发因素释放出来，这时波动很高，同时没有任何相应的事件（21.2.5 节）。同样的沉默因此有不同的意思，要看它出自“有没有发生什么”的不确定、出自卖空禁令，还是出自固定的交易费用（trading costs），读的时候要先说明适用哪一种情形（本书的判断）。<a href="#fn10" id="fnref10" class="noteref" role="doc-noteref"><sup>10</sup></a></p>
+</section>
+<section id="电视上的坏消息" class="level3">
+<h3><span class="secnum">20.1.10</span> 电视上的坏消息</h3>
+<p>5.5 节给出了 Busse 与 Green（2002）对 2000 年 CNBC 的 Morning Call 和 Midday Call 里股票报道的测量，结果是价格对负面报道的反应比对正面报道的反应更渐进，这在它的边界框所述的限度之内。就异常收益（abnormal return）的两种度量，Midday Call 的负面报道都导致累计异常收益，即把超出正常的收益加总起来，在随后一个月里越来越负、越来越显著，作者把它读作一个迹象，说明最初的反应可能是一个更大的长期反应的开始。在负面的 Morning Call 报道之后，作者称这个样本很小，只有五个交易日的 19 篇报道，异常表现在报道当天之后消失。</p>
+<p>作者给出两种读法，卖空成本更高和对公司或行业其他负面公开消息（public news）的渐进反应（5.5 节），两者都没有检验；本节的知晓层和行动层也可以给出同样的形状，所以本书不采用任一种读法，也不印出这篇论文表格里的任何新数字（本书的判断）。<a href="#fn11" id="fnref11" class="noteref" role="doc-noteref"><sup>11</sup></a></p>
+</section>
+<section id="传到持有者的披露" class="level3">
+<h3><span class="secnum">20.1.11</span> 传到持有者的披露</h3>
+<p>卖空受限、价格由依自己的看法交易的人定出，而他们不从交易或价格里读出别人的信息时，如 Miller 的论证，只有持有者能卖出，所以坏消息只有在改变了持有者的看法之后才使价格变动，披露必须传到他们那里（本书的判断）。有理性预期时，缺少知情的卖出本身就可以使报价变动，就像在 Diamond 与 Verrecchia 的模型里禁令之下没有交易那样（20.1.4 节和数学框 20.2）。Ljungqvist 与 Qian（2016）的卖空者在建仓之后发布做空报告（short-seller report）（工作论文版），发布把信息带给股东，股东的资本可以把价格压低（本书的判断；1.6.3 节、12.9 节和 19.3.1 节）。</p>
+</section>
+</section>
+<section id="信息逐步扩散与动量" class="level2">
+<h2><span class="secnum">20.2</span> 信息逐步扩散与动量</h2>
+<p>Hong 与 Stein（1999）的模型是一座桥梁（bridge），把固定的传播过程连到价格上；本节把它与动量的另外三种来源并排放在一起，并回到分析师覆盖。</p>
+<section id="固定时间表上的新闻观察者" class="level3">
+<h3><span class="secnum">20.2.1</span> 固定时间表上的新闻观察者</h3>
+<p>Hong 与 Stein 的新闻观察者（newswatcher）只根据他们私下观察到的消息作出预测，不读价格（工作论文版；16.1 节）。他们分成 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 个同样大小的组，每个组都看到当前的股息水平，在每个时刻 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>，</span>一个关于未来冲击的消息开始透露出来，分成 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 个信息包，加起来就是它；在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> 时刻每个信息包有一个组知道，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t + 1</annotation></semantics></math> 时刻有两个组知道，依此类推，到 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mi>z</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t + z - 1</annotation></semantics></math> 时刻，每个组都看到了全部信息（工作论文版）。所有新闻观察者都具有 CARA 效用，即常绝对风险厌恶（constant absolute risk aversion），在这种效用下，投入风险的数额不取决于财富，并有一个共同的风险厌恶参数；无风险利率为零，资产的供给固定为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>（工作论文版）。只有新闻观察者时，价格服从他们的方程 (1)，所以新信息在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 期里逐步进入价格，收益在短于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 的期限上正相关，价格从不越过它们的长期值（工作论文版；数学框 20.3）。如果新闻观察者读价格，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> 是共同知识时，价格会完全揭示这些消息，所以他们不读价格这一假设，把反应不足（underreaction）建进了模型（工作论文版；16.5 节和 16.10 节）。</p>
+<p>传播的一侧是预先固定的输入，一条确定性的线性时间表，每期增加一个组，人与人之间没有接触，也没有 S 曲线（S-curve）（本书的判断）。在关于抢跑者（frontrunner）的脚注里（20.2.2 节），作者指出，价格于是在没有动量交易时，应当不再有按消息线性调整这个不自然的特点（工作论文版）。Abreu 与 Brunnermeier 的套利者也按固定时间表得知消息（20.1.6 节），第 21 章把两者作比较。</p>
+<p>与根模型相比，按本书的读法，Hong 与 Stein 改了几项默认（本书的判断；表 5.1）。没有人际接触的固定时间表取代了外部来源（external source）和口碑（word of mouth），使均匀混合（homogeneous mixing）没有可以适用的对象，路径是确定性的，如确定性平均场（deterministic mean field）之下那样。每一期都有消息到来，去掉了一次性注入（one-time injection）；各组各自只处理信息的一个子集（10.7 节），去掉了无限注意（unlimited attention），所以表 5.1 在无限注意那一行把本章写在括号里；按规则读过去价格的动量交易者（momentum trader）（20.2.2 节）去掉了不从价格学习，而且是与无限注意一同去掉的；对新闻观察者，不从价格学习这一条仍然保留。在表 5.1 为本章列出的放宽之外，CARA 效用取代了对数效用（log utility），为持有正的供给而设的一个固定折扣，即方程 (1) 里含 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> 的项，取代了与总体风险无关的事实（fact unrelated to aggregate risk），动量交易者的订单流（order flow）是唯一变动的供给，取代了外生交易对手（exogenous counterparty）。</p>
+<p>新闻观察者的交易好像要把头寸持有到最后，这是一种时间上不一致的简化，作者采用它，是因为它大大简化了分析，而且他们写道，他们没有理由相信它会左右他们的任何重要的定性结论（工作论文版）。<a href="#fn12" id="fnref12" class="noteref" role="doc-noteref"><sup>12</sup></a></p>
+</section>
+<section id="动量交易者与过度反应" class="level3">
+<h3><span class="secnum">20.2.2</span> 动量交易者与过度反应</h3>
+<p>动量交易者同样具有 CARA 效用，但期限有限：在每个时刻 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>，</span>新一代进入，持有头寸 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> 期（工作论文版），持有期（holding period）是 Hong 与 Stein 从模型外面设定的（本书的判断）。他们只以过去 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 期的累计价格变动为条件，论文的大部分设 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>，</span>即最近一次价格变动；他们的订单流是一个常数加上 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 乘以最近一次价格变动，即方程 (3)，新闻观察者把它简单地当作一个不含信息的供给冲击（supply shock）（工作论文版；数学框 20.3）。如果动量交易者可以用价格变动的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个滞后项来预测，每一项有自己的权重，作者怀疑在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 足够大时，他们的许多结果会消失（工作论文版）。</p>
+<p>在均衡里 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 是他们方程 (7) 的解，其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> 是动量交易者的总风险容忍度（risk tolerance），即他们合在一起承担风险的意愿（工作论文版；数学框 20.3）。这样的均衡对任意的参数值不一定存在，作者一般地也无法排除多重均衡（multiple equilibria），所以他们的数值搜索总是选取 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 最小的那个（工作论文版）。在任何协方差平稳（covariance stationary）的均衡里，即方差与协方差不随时间变化的均衡，<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\phi &gt; 0</annotation></semantics></math>，</span>所以动量交易者理性地追逐趋势（工作论文版）。</p>
+<p>有两个命题在任何协方差平稳的均衡里成立。按命题 1，在一个正的单位冲击之后，价格的累计脉冲响应（impulse response），即自消息开始传播以来价格的总变动，峰值严格大于 1；如果 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mi>z</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j \ge z - 1</annotation></semantics></math>，</span>它在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">t + j</annotation></semantics></math> 时达到峰值，然后下降，最终收敛到 1；按命题 2，如果收益在短期限上正相关，那么有风险中性的动量交易者时，它们在某个不超过 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j + 1</annotation></semantics></math> 的期限上负相关（工作论文版）。一个在好消息之后不久买入的动量交易者，对跟在他后面的人造成负外部性，而动量交易者分不清价格上涨来自消息还是来自更早几轮的动量交易（工作论文版；16.7 节）。</p>
+<p>在他们的基准情形里，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 为 12 个月，消息冲击的标准差为每月 0.5，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> 等于 1/3；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> = 12 个月时，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 为 0.2605（工作论文版的数字）。脉冲响应于是在冲击后 12 个月达到峰值 1.342，所以在峰值处价格超出长期基本面（fundamentals）变动 34.2%，收益的第一个负自相关出现在滞后 10 个月处（工作论文版的数字）。图 20.1 重画了这一基准（本书的计算）；只有新闻观察者时，价格沿一条直线上升，到第 11 个月达到 1（本书的推导；数学框 20.3）。</p>
+<figure>
+<img src="figures/ch20-bad-news-momentum.svg" width="605" height="618" loading="lazy" alt="图 20.1　一个消息冲击，有动量交易者与没有动量交易者。上图，价格对一个单位消息的累计响应，按月作图，第 0 个月是消息开始传播的那个月，分别是只有新闻观察者，以及加入了动量交易者；长期值 1 用虚线表示，圆点标出峰值（第 12 个月的 1.342）与峰值之后的最低值（第 26 个月的 0.885）。下图，两种情形下月收益在滞后 1 至 25 期的自相关；圆点标出第一个负值，在滞后 10 期。参数取 Hong 与 Stein 工作论文表 1 的基准：消息在 12 期里传到新闻观察者，动量交易者持有 12 期并只用最近一次价格变动，消息冲击的标准差为每期 0.5，总风险容忍度为 1/3，期按作者的读法读作月。传播是一条外生的线性时间表（本书的判断），弹性（elasticity）\phi 约为 0.2605，是协方差平稳解中最小的一个，如作者所选。这些曲线和每一个读数都是本书的计算，它们与论文的表 1 一致，表 1 印出了第 0 至 35 个月的响应和滞后 1 至 25 期的自相关；只有新闻观察者时三角形的自相关是本书的推导。" />
+<figcaption aria-hidden="true">图 20.1　一个消息冲击，有动量交易者与没有动量交易者。上图，价格对一个单位消息的累计响应，按月作图，第 0 个月是消息开始传播的那个月，分别是只有新闻观察者，以及加入了动量交易者；长期值 1 用虚线表示，圆点标出峰值（第 12 个月的 1.342）与峰值之后的最低值（第 26 个月的 0.885）。下图，两种情形下月收益在滞后 1 至 25 期的自相关；圆点标出第一个负值，在滞后 10 期。参数取 Hong 与 Stein 工作论文表 1 的基准：消息在 12 期里传到新闻观察者，动量交易者持有 12 期并只用最近一次价格变动，消息冲击的标准差为每期 0.5，总风险容忍度为 1/3，期按作者的读法读作月。传播是一条外生的线性时间表（本书的判断），弹性（elasticity）<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 约为 0.2605，是协方差平稳解中最小的一个，如作者所选。这些曲线和每一个读数都是本书的计算，它们与论文的表 1 一致，表 1 印出了第 0 至 35 个月的响应和滞后 1 至 25 期的自相关；只有新闻观察者时三角形的自相关是本书的推导。</figcaption>
+</figure>
+<p>一项扩展有它自己的范围。抢跑者，按作者的定义，用他们私下观察到的消息预测短期价格变动，只要他们有一定的风险厌恶，并且像新闻观察者一样不从价格里提取信息，基本结果就仍然成立；他们使消息更快进入价格，但只要他们风险厌恶，就永远不会完全消除反应不足（工作论文版）。作者还直言，他们设计这个模型，就是要在短期限上给出正相关，在较长期限上给出负相关（工作论文版）。<a href="#fn13" id="fnref13" class="noteref" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+<section id="动量来源的比较" class="level3">
+<h3><span class="secnum">20.2.3</span> 动量来源的比较</h3>
+<p>在本书里，先动量后反转（reversal）有几种模型来源，没有一种是唯一的解释（本书的判断；表 20.2）。Andrei 与 Cujean 的噪声理性预期模型（19.2.1 节）有滞后的动量，当且仅当那里的精度弹性（precision elasticity）超过 1，这要求私人信息以递增的速率流入。他们写道，从价格学习对他们的模型产生动量起着工具性的作用，而在 Hong 与 Stein 的模型里，如果投资者从价格学习，就不会出现动量，所以从价格学习在这两个模型里作用相反（本书的判断）。在 Pedersen 的模型里（19.2.2 节），不断回响各种看法的网络自己就产生动量（本书的判断），他对价值加动量策略在模型里有正的预期收益的证明，覆盖的是对称朴素情形（symmetric naive case）。</p>
+<p>在 Daniel、Hirshleifer 与 Subrahmanyam（1998）的模型里（13.4 节），固定的过度自信（overconfidence）使价格变动在短滞后和长滞后上无条件负自相关，而经由有偏的自我归因（self-attribution）而变化的信心，在足够渐进的过度反应（overreaction）或纠正之下，给出无条件的短滞后正自相关和长滞后负自相关；因此，那里的过度自信只有在随结果变动时才给出无条件动量（本书的判断），而在 Scheinkman 与 Xiong 的模型里，对不同信号的过度自信给出转售期权（20.1.3 节）。</p>
+<div class="table-caption">
+<p>表 20.2　动量的四种来源</p>
+</div>
+<div class="table-wrap">
+<table style="width:99%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 28%" />
+<col style="width: 26%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>模型</th>
+<th>慢从哪里来</th>
+<th>从价格学习的作用</th>
+<th>什么能把它分开（本书的判断）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hong 与 Stein（工作论文版）</td>
+<td>消息按外生的线性时间表传播（本书的判断）；动量交易者用单变量规则造成过度反应</td>
+<td>在理性地从价格学习且 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> 是共同知识时，没有序列相关（serial correlation）</td>
+<td>用覆盖作为扩散速度的代理；对私人消息与公开消息的不同反应（20.2.5 节）</td>
+</tr>
+<tr>
+<td>Andrei 与 Cujean</td>
+<td>私人信息以递增的速率流入，加上有噪声的供给和理性预期</td>
+<td>动量的主要渠道，必要而不充分</td>
+<td>信息流的形状；动量相对于会面强度的驼峰（19.2.1 节）</td>
+</tr>
+<tr>
+<td>Pedersen</td>
+<td>各种看法在网络上回响</td>
+<td>朴素者（naive agent）不从价格学习</td>
+<td>网络的结构；证明覆盖的是对称情形</td>
+</tr>
+<tr>
+<td>Daniel、Hirshleifer 与 Subrahmanyam</td>
+<td>随结果变化的信心，经由有偏的自我归因</td>
+<td>不属于他们的渠道；知情的投资者高估自己的私人信号（private signal），而对公开信号（public signal）读得正确</td>
+<td>信心固定时没有无条件动量（13.4 节）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>四个模型在各自的前提下都能给出一些延续，所以先延续后反转本身分不开它们；能把它们分开的是它们的前提，即信息流的形状、有没有人从价格学习、网络，以及信心是否随结果变动（本书的判断；13.4 节）。<a href="#fn14" id="fnref14" class="noteref" role="doc-noteref"><sup>14</sup></a></p>
+</section>
+<section id="作为外部来源的分析师覆盖" class="level3">
+<h3><span class="secnum">20.2.4</span> 作为外部来源的分析师覆盖</h3>
+<p>在 Hong 与 Stein 的表 3 里，信息扩散越渐进，股票对动量交易者越有吸引力，因此在很宽的参数值范围内，导致更明显的过冲和更强的反转；分析师覆盖或许可以作为扩散速度的一个粗略代理，如果接受这个代理，覆盖较少的股票，大概是较小的股票，应当表现出更大的长期过度反应型的可预测性（工作论文版）。</p>
+<p>Hong、Lim 与 Stein 通过引言里的非正式理论来读规模上的倒 U 形：较小的公司信息扩散可能更慢，这会带来更多动量，但做市能力大概也更薄，这可能在供给冲击之后带来更明显的反转（工作论文版）。在事件时间里，对其规模而言分析师多的股票，动量在大约十个月后耗尽，分析师少的股票的动量持续到大约两年的位置（工作论文版；1.8 节）。在他们强调的信息逐步扩散（gradual information diffusion）理论之内，作者把这读作高覆盖公司对滞后六个月收益里的信息反应不足大约 9%，一年不到就赶上，低覆盖公司反应不足约 20%，这些数字用的是经 beta 调整的收益，按残差覆盖分组，在同一个样本里（工作论文版的数字）。</p>
+<p>有两条限制（本书的判断）。这个检验测量的是延续，即反应不足的一侧，没有检验 Hong 与 Stein 预测的长期反转（工作论文版）。Andrei 与 Cujean 补充说，Hong、Lim 与 Stein 的研究涉及截面动量（cross-sectional momentum），即股票相互比较，而 Hong 与 Stein 的模型和他们自己的模型涉及时间序列动量（time-series momentum），即每项资产自己的过去，这两种形式密切相关，但并不相同；他们还用流动性（liquidity）冲击解释了小公司的反转，这是与上面的做市能力薄并列的一种读法。</p>
+<p>1.6.5 节把分析师覆盖读作根模型外部来源 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> 的代理，它的强度可以因股票以及消息是好是坏而异（本书的判断）；这里同一个代理服务于两节，一是通过 20.1.2 节管理者的选择，处在输家与赢家不对称的背后，二是通过 Hong 与 Stein 的缓慢扩散，处在覆盖与动量之间的联系的背后（本书的判断）。<a href="#fn15" id="fnref15" class="noteref" role="doc-noteref"><sup>15</sup></a></p>
+</section>
+<section id="两年内的小公司漂移" class="level3">
+<h3><span class="secnum">20.2.5</span> 两年内的小公司漂移</h3>
+<p>Bernard 与 Thomas（1989）的盈余公告后漂移（post-earnings-announcement drift），即价格在数月里朝着盈余意外的方向变动，对纽约证交所与美国证交所的公司在 1974 年至 1986 年间测量（5.5 节和 12.1 节），提供了一个对照。在他们的表 1 里，小公司的漂移，即盈余意外最高的减去最低的，在第 1 至 180 个交易日是 9.90%，在第 1 至 480 天是 9.99%，而中等公司从 8.85% 降到 7.72%，大公司从 4.47% 降到 3.61%，降幅约为 13% 和 19%（本书的计算）。因此，小公司的累计漂移到第 480 天，约两年的交易，没有显示净反转（本书的计算），不过在第 241 至 300 天，三种规模的差异都显著为负（12.1 节），所以“没有净反转”描述的只是小公司到第 480 天的累计漂移（本书的判断）。</p>
+<p>盈余是公开消息，每个人在同一天都看得到，而 Hong 与 Stein 的过度反应涉及逐步传播的私人消息（本书的判断）。Hong 与 Stein 指出，如果动量交易者可以以公开公告的日期为条件，只在公告之后立刻追逐趋势，对公开消息就不一定出现过度反应，脉冲响应可能处处递增；如果他们没有这么精明，对公开消息的脉冲响应也是驼峰形的（工作论文版）。他们写道，重要的一点是，他们模型的逻辑容许、甚至强烈提示，对公开消息的反应可能不同于对私人信息的反应，他们称这一点显然可以检验（工作论文版）。小公司到第 480 天的净漂移符合第一种情形，不过它们在第 241 至 300 天的负漂移不符合，中等和大公司的降幅符合第二种；这些数据无法在这两种情形与 Bernard 与 Thomas 的读法之间作出裁决，他们的读法是市场没有认识到当期盈余对未来盈余的含义（本书的判断；12.4 节）。<a href="#fn16" id="fnref16" class="noteref" role="doc-noteref"><sup>16</sup></a></p>
+</section>
+<section id="在别处处理的问题" class="level3">
+<h3><span class="secnum">20.2.6</span> 在别处处理的问题</h3>
+<p>第 21 章比较各个泡沫模型，也比较 Hong 与 Stein 的时间表和 Abreu 与 Brunnermeier 的时间表，第 22 章把转售期权放进几类反身性（reflexivity）之中，第 23 章处理套利限制的三个分支，即风险承担能力、融资和同步。</p>
+</section>
+</section>
+<section id="本章引用的实证证据" class="level2">
+<h2><span class="secnum">20.3</span> 本章引用的实证证据</h2>
+<ul>
+<li><strong>测量。</strong> Hong、Lim 与 Stein 1980 年至 1996 年的美国股票，以及 Ljungqvist 与 Qian 的做空报告，本章对后者只是指一下（工作论文版）；Busse 与 Green 2000 年的 CNBC 报道；Bernard 与 Thomas 1974 年至 1986 年的纽约证交所与美国证交所公司季度。</li>
+<li><strong>只通过别人的转述知道的。</strong> Allen、Morris 与 Postlewaite 的结果（据 Brunnermeier 的转述）；Goldstein 与 Guembel 以及 Edmans、Goldstein 与 Jiang 的模型（据 Bond、Edmans 与 Goldstein 的转述；工作论文版）。</li>
+<li><strong>模型、论证和计算。</strong> 其余的一切，其中 Hong 与 Stein 的模型是在工作论文里读的；图 20.1 和 20.2.5 节的降幅是本书的计算，数学框里标为本书所作的步骤是本书的推导。本书没有用自己的数据检验本章的任何机制（本书的判断）。</li>
+</ul>
+</section>
+<section id="交易者的自查清单" class="level2">
+<h2><span class="secnum">20.4</span> 交易者的自查清单</h2>
+<p>这些问题没有一个说该买什么、卖什么，答得好也不会使一笔交易变得安全（本书的判断）。</p>
+<ol type="1">
+<li><strong>坏消息在哪一层变慢？</strong> 检查：消息是不是还没有传到足够多的人，知情的人是不是压不下价格，还是他们压得下，并且在等待，因为持有空头比持有多头更贵，这种延迟要求他们先后得知、错价从未成为共同知识、持有成本相对于错价足够大；在 Hong、Lim 与 Stein 的数据里（工作论文版），低覆盖与过去的输家分不开知晓层和行动层（本书的判断；20.1.1 节、20.1.2 节和 21.2.4 节）。</li>
+<li><strong>价格背后的分歧能学到吗？</strong> 检查：卖空受限且分歧学不到时，若少数人就能吸收供给，Miller 的价格高于平均估值；在有理性预期、交易者与做市商风险中性、约束是共同知识、分歧来自信息时，Diamond 与 Verrecchia 的价格在给定公共信息时无偏，禁令使坏消息变慢，只限制未知情交易的约束使它变快，作者判断这一效应不太可能占主导（本书的判断；20.1.3 节和 20.1.4 节）。</li>
+<li><strong>谁能卖出？</strong> 检查：卖空受限、没有人从交易或价格里读出别人的信息时，如 Miller 的论证，只有持有者能把价格压低，所以坏消息必须传到他们那里；有理性预期时，缺少知情的卖出可以使报价变动（本书的判断；20.1.4 节和 20.1.11 节）。</li>
+<li><strong>在周期的早期还是晚期，私人消息之后还是公开消息之后？</strong> 检查：在 Hong 与 Stein 的模型里，只用一次过去价格变动的动量交易者分不清上涨来自消息还是来自更早的动量交易，而如果他们可以以公开公告的日期为条件、只在公告之后立刻追逐趋势，对公开消息就不一定出现过度反应（工作论文版；20.2.2 节和 20.2.5 节）。</li>
+</ol>
+</section>
+<section id="小结" class="level2">
+<h2><span class="secnum">20.5</span> 小结</h2>
+<ul>
+<li>坏消息可以在三个层面上变慢，即知晓、价格和行动，从价格到管理者的反馈又加上一种不对称的套利限制；检验必须说明它针对哪一层（本书的判断；20.1.1 节）。</li>
+<li>在 Hong、Lim 与 Stein 1980 年至 1996 年的美国数据里，在高于纽约证交所/美国证交所规模第 20 百分位的股票中，残差分析师覆盖低的地方动量更强，由过去的输家推动（工作论文版的数字）；管理者对坏消息的缄默是作者的解释，他们没有直接检验，而且这个交互效应分不开知晓层和行动层（本书的判断；20.1.2 节和 20.2.4 节）。</li>
+<li>在卖空受限、分歧又学不到时，Miller 的静态论证（当少数人能吸收供给时）以及 Harrison 与 Kreps 和 Scheinkman 与 Xiong 的转售期权（当意见不同且最乐观的群体可以变换时）使价格高于平均估值，而在后两者里，去掉带共同先验的贝叶斯更新就足够了，但并非必要（本书的判断）；在 Jarrow 的模型里，同样没有理性预期，偏差可以为正、为负或为零（据 Diamond 与 Verrecchia 的转述；20.1.3 节）。</li>
+<li>在有理性预期、交易者与做市商风险中性、卖空约束是共同知识、分歧来自信息时，Diamond 与 Verrecchia 的价格在给定公共信息时无偏；按比例约束知情与未知情交易者的禁令使调整变慢，对坏消息尤其如此，而只限制未知情交易的约束使它变快，作者判断这一效应不太可能占主导（20.1.4 节）。</li>
+<li>在 Jouini 与 Kallal 的模型里，设有简单策略、所有人共有一种信息结构，并且按本书的读法是价格接受者（price taker）（本书的判断），不能卖空的证券只需是上鞅，在增长率介于借出利率与借入利率之间的计价单位里、并在某个等价测度之下，所以它可以预期下跌而不提供套利；在均衡里，供给为正的资产在其持有者的边际替代率所诱导的测度下还必须是鞅（20.1.8 节）。</li>
+<li>在 Hong 与 Stein 的模型里，消息在不读价格的新闻观察者之间，按模型外固定的确定性线性时间表传播（本书的判断）；只有新闻观察者时，价格反应不足、从不过冲，而只用一次过去价格变动的动量交易者在任何协方差平稳的均衡里使价格过冲然后反转，在他们的基准里峰值为 1.342，作者怀疑，如果动量交易者用足够多的滞后项，这些结果中的许多会消失（工作论文版的数字；20.2.2 节和图 20.1）。</li>
+<li>动量在本书里有几种模型来源，Hong 与 Stein 的缓慢扩散与单变量规则（工作论文版），Andrei 与 Cujean 的私人信息加速流入与从价格学习，Pedersen 的网络，以及 Daniel、Hirshleifer 与 Subrahmanyam 的自我归因，而先延续后反转本身分不开它们（本书的判断；20.2.3 节）。</li>
+</ul>
+</section>
+<section id="写给量化读者的数学框" class="level2">
+<h2><span class="secnum">20.6</span> 写给量化读者的数学框</h2>
+<section id="数学框-20.1-卖空禁令下的价格" class="level4 box">
+<h4><span class="box-label">数学框 20.1</span>　卖空禁令下的价格</h4>
+<p>本框沿用 Harrison 与 Kreps 的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 表示价格，这个字母在本书别处表示信念，沿用 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> 表示贴现因子（discount factor）；他们的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>Q</mi><mn>1</mn></msup><annotation encoding="application/x-tex">Q^1</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>Q</mi><mn>2</mn></msup><annotation encoding="application/x-tex">Q^2</annotation></semantics></math> 与 Hong 与 Stein 的供给 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> 无关。在他们的例子里，两类投资者交易一只股票，它的状态是最近一次股息，为零或一，一步转移概率和贴现因子为 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mn>1</mn></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn><mi>/</mi><mn>2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn><mi>/</mi><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn><mi>/</mi><mn>3</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn><mi>/</mi><mn>3</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo><mspace width="1.0em"></mspace><msup><mi>Q</mi><mn>2</mn></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn><mi>/</mi><mn>3</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn><mi>/</mi><mn>3</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn><mi>/</mi><mn>4</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>3</mn><mi>/</mi><mn>4</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo><mspace width="1.0em"></mspace><mi>γ</mi><mo>=</mo><mn>0.75</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">Q^1 = \begin{bmatrix} 1/2 &amp; 1/2 \\ 2/3 &amp; 1/3 \end{bmatrix}, \quad Q^2 = \begin{bmatrix} 2/3 &amp; 1/3 \\ 1/4 &amp; 3/4 \end{bmatrix}, \quad \gamma = 0.75.</annotation></semantics></math></span>永远持有的价值是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>1</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">p^1(0) = 4/3</annotation></semantics></math>、</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>1</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>11</mn><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">p^1(1) = 11/9</annotation></semantics></math>、</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>16</mn><mi>/</mi><mn>11</mn></mrow><annotation encoding="application/x-tex">p^2(0) = 16/11</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>21</mn><mi>/</mi><mn>11</mn></mrow><annotation encoding="application/x-tex">p^2(1) = 21/11</annotation></semantics></math>。</span>一个一致价格满足他们的方程 (2)，<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>t</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>a</mi></msub><msup><mi>E</mi><mi>a</mi></msup><mo stretchy="false" form="prefix">[</mo><mi>γ</mi><msub><mi>d</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><mi>γ</mi><msub><mi>p</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><msub><mi>χ</mi><mi>t</mi></msub><mo>=</mo><msub><mi>x</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">p_t(x_t) = \max_{a} E^a[\gamma d_{t+1} + \gamma p_{t+1} \mid \chi_t = x_t]</annotation></semantics></math>，</span>所以对每一类来说，买入并持有一期不比公平赌博更好。最低一致价格在状态零是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><mn>13</mn></mrow><annotation encoding="application/x-tex">24/13</annotation></semantics></math>，</span>由第 1 类持有，在状态一是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn><mi>/</mi><mn>13</mn></mrow><annotation encoding="application/x-tex">27/13</annotation></semantics></math>，</span>由第 2 类持有。</p>
+<p>其余是本书的推导。取第 1 类在状态零的概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1/2, 1/2)</annotation></semantics></math> 和第 2 类在状态一的概率 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>4</mn><mo>,</mo><mn>3</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1/4, 3/4)</annotation></semantics></math>。</span>在这个拼接测度下，股息的现值满足 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>3</mn><mn>8</mn></mfrac></mstyle><mo stretchy="false" form="prefix">[</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo>+</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">p(0) = \tfrac{3}{8}[p(0) + 1 + p(1)]</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>3</mn><mn>16</mn></mfrac></mstyle><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mstyle displaystyle="false"><mfrac><mn>9</mn><mn>16</mn></mfrac></mstyle><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>+</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">p(1) = \tfrac{3}{16}p(0) + \tfrac{9}{16}[1 + p(1)]</annotation></semantics></math>，</span>解得 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><mn>13</mn></mrow><annotation encoding="application/x-tex">24/13</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn><mi>/</mi><mn>13</mn></mrow><annotation encoding="application/x-tex">27/13</annotation></semantics></math>。</span>这个测度不属于任何一类的信念，在每个状态里取持有者的信念。在状态零，第 2 类对下一期的股息与价格的估值为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.75</mn><mo>×</mo><mn>88</mn><mi>/</mi><mn>39</mn><mo>=</mo><mn>22</mn><mi>/</mi><mn>13</mn><mo>≈</mo><mn>1.69</mn></mrow><annotation encoding="application/x-tex">0.75 \times 88/39 = 22/13 \approx 1.69</annotation></semantics></math>，</span>低于价格 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><mn>13</mn><mo>≈</mo><mn>1.85</mn></mrow><annotation encoding="application/x-tex">24/13 \approx 1.85</annotation></semantics></math>，</span>也就是按第 2 类的信念，持有一期的总回报为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">11/9</annotation></semantics></math>，</span>无风险回报为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>。</span>利用这一点需要卖空，而这个例子禁止卖空；持有者的贴现价格加股息是鞅，另一类的是上鞅，这是 Jouini 与 Kallal 的结果的模式（20.1.8 节）。<a href="#fn17" id="fnref17" class="noteref" role="doc-noteref"><sup>17</sup></a></p>
+</section>
+<section id="数学框-20.2-diamondverrecchia-的第一个交易期" class="level4 box">
+<h4><span class="box-label">数学框 20.2</span>　Diamond–Verrecchia 的第一个交易期</h4>
+<p>Diamond 与 Verrecchia 用 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> 表示某个交易者可能想交易的概率，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> 表示交易者知情的概率，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> 表示交易者持有该股票的概率；这里三者都取二分之一，资产的价值为 0 或 1。没有约束时，买入之后的期望价值是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\tfrac{1}{2}(1 + a) = 3/4</annotation></semantics></math>，</span>卖出或卖空之后是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\tfrac{1}{2}(1 - a) = 1/4</annotation></semantics></math>，</span>没有交易时是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>，</span>无论价值是多少，没有交易的概率都是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>g</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1 - g = 1/2</annotation></semantics></math>，</span>所以它不含信息。所有人都被禁止卖空时，卖出或卖空之后的价格仍是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>，</span>而没有交易在价值为 0 时的概率是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">11/16</annotation></semantics></math>，</span>在价值为 1 时是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">9/16</annotation></semantics></math>，</span>没有交易把价格降到 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>20</mn></mrow><annotation encoding="application/x-tex">9/20</annotation></semantics></math>，</span>即没有交易是坏消息。所有人都受所得款项限制时，每一次卖出或卖空使价格进一步移动，到 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">1/6</annotation></semantics></math>，</span>而没有交易使报价不变。<a href="#fn18" id="fnref18" class="noteref" role="doc-noteref"><sup>18</sup></a></p>
+</section>
+<section id="数学框-20.3-hongstein-的价格方程" class="level4 box">
+<h4><span class="box-label">数学框 20.3</span>　Hong–Stein 的价格方程</h4>
+<p>只有新闻观察者时，工作论文的方程 (1) 是 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>t</mi></msub><mo>=</mo><msub><mi>D</mi><mi>t</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>ϵ</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>ϵ</mi><mrow><mi>t</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>ϵ</mi><mrow><mi>t</mi><mo>+</mo><mi>z</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mi>/</mi><mi>z</mi><mo>−</mo><mi>θ</mi><mi>Q</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">P_t = D_t + \{(z-1)\epsilon_{t+1} + (z-2)\epsilon_{t+2} + \cdots + \epsilon_{t+z-1}\}/z - \theta Q,</annotation></semantics></math></span>其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>t</mi></msub><annotation encoding="application/x-tex">D_t</annotation></semantics></math> 是股息水平，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϵ</mi><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math> 是消息冲击；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> 是新闻观察者的风险厌恶与冲击方差的函数，此后被标准化为 1（工作论文版），它与根模型的事实无关。动量交易者发出订单流 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>t</mi></msub><mo>=</mo><mi>A</mi><mo>+</mo><mi>ϕ</mi><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">F_t = A + \phi \Delta P_{t-1}</annotation></semantics></math>，</span>即方程 (3)，价格变为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>t</mi></msub><mo>=</mo><msub><mi>D</mi><mi>t</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>ϵ</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>ϵ</mi><mrow><mi>t</mi><mo>+</mo><mi>z</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mi>/</mi><mi>z</mi><mo>−</mo><mi>Q</mi><mo>+</mo><mi>j</mi><mi>A</mi><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>j</mi></msubsup><mi>ϕ</mi><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_t = D_t + \{(z-1)\epsilon_{t+1} + \cdots + \epsilon_{t+z-1}\}/z - Q + jA + \sum_{i=1}^{j} \phi \Delta P_{t-i}</annotation></semantics></math>，</span>即方程 (5)，于是收益服从 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mi>t</mi></msub><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>z</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>ϵ</mi><mrow><mi>t</mi><mo>+</mo><mi>i</mi></mrow></msub></mrow><mi>z</mi></mfrac><mo>+</mo><mi>ϕ</mi><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mi>ϕ</mi><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\Delta P_t = \frac{\sum_{i=0}^{z-1} \epsilon_{t+i}}{z} + \phi \Delta P_{t-1} - \phi \Delta P_{t-(j+1)},</annotation></semantics></math></span>即他们的 (A.2)（工作论文版）。弹性是他们方程 (7) 的解，<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mi>γ</mi><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">v</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>P</mi><mrow><mi>t</mi><mo>+</mo><mi>j</mi></mrow></msub><mo>−</mo><msub><mi>P</mi><mi>t</mi></msub><mo>,</mo><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">{</mo><mrow><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mrow><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>P</mi><mrow><mi>t</mi><mo>+</mo><mi>j</mi></mrow></msub><mo>−</mo><msub><mi>P</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\phi = \gamma\, \mathrm{cov}(P_{t+j} - P_t, \Delta P_{t-1}) / \{\mathrm{var}(\Delta P)\, \mathrm{var}_M(P_{t+j} - P_t)\}</annotation></semantics></math>，</span>其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> 是动量交易者的总风险容忍度，与数学框 20.1 的贴现因子是不同的量，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mi>M</mi></msub><annotation encoding="application/x-tex">\mathrm{var}_M</annotation></semantics></math> 是给定 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\Delta P_{t-1}</annotation></semantics></math> 时的方差（工作论文版）。</p>
+<p>本书的计算由 (A.2) 的 Yule–Walker 方程解出它的自协方差，并从零开始向上搜索 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>，</span>找出第一个满足 (7) 且收益保持协方差平稳的值，它重现了论文的各表，细节见注 19（本书的计算）。只有新闻观察者时，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>P</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\Delta P_t</annotation></semantics></math> 是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 个冲击的等权移动平均，所以它在滞后 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> 的自相关，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&lt;</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">m &lt; z</annotation></semantics></math> 时是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">(z - m)/z</annotation></semantics></math>，</span>之后为零（本书的推导）。<a href="#fn19" id="fnref19" class="noteref" role="doc-noteref"><sup>19</sup></a></p>
+</section>
+</section>
+<section id="本章文献" class="level2 references">
+<h2 class="references">本章文献</h2>
+<p>本章引用的文献。所读版本不是期刊版的，条目里写明读的是哪个版本；尾注里的页码按所读的版本。</p>
+<ul>
+<li>Abreu, D., and M. K. Brunnermeier (2002). Synchronization Risk and Delayed Arbitrage. <em>Journal of Financial Economics</em> 66(2–3): 341–360.</li>
+<li>Abreu, D., and M. K. Brunnermeier (2003). Bubbles and Crashes. <em>Econometrica</em> 71(1): 173–204.</li>
+<li>Allen, F., S. Morris and A. Postlewaite (1993). Finite Bubbles with Short Sale Constraints and Asymmetric Information. <em>Journal of Economic Theory</em> 61: 206–229. 没有读；按 Brunnermeier（2001）的转述介绍。</li>
+<li>Andrei, D., and J. Cujean (2017). Information Percolation, Momentum and Reversal. <em>Journal of Financial Economics</em> 123(3): 617–645.</li>
+<li>Bernard, V. L., and J. K. Thomas (1989). Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium? <em>Journal of Accounting Research</em> 27, Supplement: 1–36.</li>
+<li>Bond, P., A. Edmans and I. Goldstein (2012). The Real Effects of Financial Markets. <em>Annual Review of Financial Economics</em> 4. 所读为 2011 年 12 月的 NBER 工作论文 17719；没有核对期刊版。</li>
+<li>Brunnermeier, M. K. (2001). <em>Asset Pricing under Asymmetric Information: Bubbles, Crashes, Technical Analysis, and Herding</em>. Oxford University Press.</li>
+<li>Busse, J. A., and T. C. Green (2002). Market Efficiency in Real Time. <em>Journal of Financial Economics</em> 65(3): 415–437.</li>
+<li>Daniel, K., D. Hirshleifer and A. Subrahmanyam (1998). Investor Psychology and Security Market Under- and Overreactions. <em>Journal of Finance</em> 53(6): 1839–1885.</li>
+<li>Diamond, D. W., and R. E. Verrecchia (1987). Constraints on Short-Selling and Asset Price Adjustment to Private Information. <em>Journal of Financial Economics</em> 18: 277–311.</li>
+<li>Easley, D., and M. O<span class="latin-apos">’</span>Hara (1992). Time and the Process of Security Price Adjustment. <em>Journal of Finance</em> 47(2): 577–605.</li>
+<li>Edmans, A., I. Goldstein and W. Jiang (2011). Feedback Effects and the Limits to Arbitrage. Working paper, University of Pennsylvania. 没有读；按 Bond、Edmans 与 Goldstein（2012）的转述介绍。</li>
+<li>Glosten, L. R., and P. R. Milgrom (1985). Bid, Ask and Transaction Prices in a Specialist Market with Heterogeneously Informed Traders. <em>Journal of Financial Economics</em> 14(1): 71–100.</li>
+<li>Goldstein, I., and A. Guembel (2008). Manipulation and the Allocational Role of Prices. <em>Review of Economic Studies</em> 75(1): 133–164. 没有读；按 Bond、Edmans 与 Goldstein（2012）的转述介绍。</li>
+<li>Harrison, J. M., and D. M. Kreps (1978). Speculative Investor Behavior in a Stock Market with Heterogeneous Expectations. <em>Quarterly Journal of Economics</em> 92(2): 323–336.</li>
+<li>Hong, H., T. Lim and J. C. Stein (2000). Bad News Travels Slowly: Size, Analyst Coverage, and the Profitability of Momentum Strategies. <em>Journal of Finance</em> 55(1). 所读为 1998 年 5 月的 NBER 工作论文 6553；没有核对期刊版。</li>
+<li>Hong, H., and J. C. Stein (1999). A Unified Theory of Underreaction, Momentum Trading, and Overreaction in Asset Markets. <em>Journal of Finance</em> 54(6): 2143–2184. 所读为 1997 年 12 月的 NBER 工作论文 6324；没有核对期刊版。</li>
+<li>Figlewski, S. (1981). The Informational Effects of Restrictions of Short Sales: Some Empirical Evidence. <em>Journal of Financial and Quantitative Analysis</em> 16: 463–476. 没有读；按 Diamond 与 Verrecchia（1987）的转述介绍。</li>
+<li>Jarrow, R. (1980). Heterogeneous Expectations, Restrictions on Short Sales, and Equilibrium Asset Prices. <em>Journal of Finance</em> 35: 1105–1114. 没有读；按 Diamond 与 Verrecchia（1987）的转述介绍。</li>
+<li>Jouini, E., and H. Kallal (1995a). Arbitrage in Securities Markets with Short-Sales Constraints. <em>Mathematical Finance</em> 5(3): 197–232.</li>
+<li>Lee, I. H. (1998). Market Crashes and Informational Avalanches. <em>Review of Economic Studies</em> 65(4): 741–759.</li>
+<li>Ljungqvist, A., and W. Qian (2016). How Constraining Are Limits to Arbitrage? <em>Review of Financial Studies</em> 29(8). 所读为 2014 年 1 月的 NBER 工作论文 19834，副标题为“Evidence from a Recent Financial Innovation”；没有核对期刊版。</li>
+<li>Miller, E. M. (1977). Risk, Uncertainty, and Divergence of Opinion. <em>Journal of Finance</em> 32(4): 1151–1168.</li>
+<li>Pedersen, L. H. (2022). Game On: Social Networks and Markets. <em>Journal of Financial Economics</em> 146: 1097–1119.</li>
+<li>Scheinkman, J. A., and W. Xiong (2003). Overconfidence and Speculative Bubbles. <em>Journal of Political Economy</em> 111(6): 1183–1219.</li>
+<li>Tirole, J. (1982). On the Possibility of Speculation under Rational Expectations. <em>Econometrica</em> 50: 1163–1182. 没有读；按 Brunnermeier（2001）的转述介绍。</li>
+</ul>
+</section>
+<section id="notes-1" class="level2 unnumbered">
+<h2 class="unnumbered">注释</h2>
+<div class="endnotes">
+<div id="fn1" class="endnote">
+<p><a href="#fnref1" class="backlink" role="doc-backlink">1.</a> Hong、Lim 与 Stein（2000），NBER 工作论文 6553：假说在摘要；规模十分位在 §3.A，第 13–14 页；剔除低于第 20 百分位的股票在 §3.B，第 14 页；残差覆盖与输家在 §3.B，第 16–17 页；赢家之间脆弱的结果在脚注 30，第 16 页；样本期在表 3 的标题里，PDF 第 45 页；舍入之前的差，0.415%，在表 4，PDF 第 46 页。他们的动量度量取过去赢家减过去输家（§3.A）。页码按工作论文；没有核对期刊版。</p>
+</div>
+<div id="fn2" class="endnote">
+<p><a href="#fnref2" class="backlink" role="doc-backlink">2.</a> 表 20.1 的各行依据 20.1.2 节至 20.1.7 节的来源；分层的安排是本书的，依照 19.3.7 节。</p>
+</div>
+<div id="fn3" class="endnote">
+<p><a href="#fnref3" class="backlink" role="doc-backlink">3.</a> Abreu 与 Brunnermeier（2002），期刊版：Hong、Lim 与 Stein 的发现在 §5.1，第 354 页。Hong、Lim 与 Stein（2000），NBER 工作论文 6553：管理者的读法在 §3.B，第 17 页；卖空约束在脚注 8，第 5 页；关于套利的前提在脚注 5，第 3 页。</p>
+</div>
+<div id="fn4" class="endnote">
+<p><a href="#fnref4" class="backlink" role="doc-backlink">4.</a> Diamond 与 Verrecchia（1987），期刊版：现有的研究，Miller（1977）与 Figlewski（1981），以及不变的规则在 §1，第 278 页；Jarrow（1980）和没有理性预期的论文在脚注 1，第 278 页；没有理性预期的模型的直觉在 §4，第 296 页。Miller（1977），期刊版：一股与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 股在第 1152 页；少数人、分歧与一致在第 1153 页；不确定性溢价在第 1158 页；组合理论在第 1159 页；足够的卖空在第 1162 页；风险证券在结论，第 1166 页。Harrison 与 Kreps（1978），期刊版：三种情形在 §I，第 323–324 页。Scheinkman 与 Xiong（2003），期刊版：期权、高于自己估值的价格和成交量在摘要，第 1183 页；排除卖空在 §I，第 1184 页；市场、信号和同意各持己见在第 1185 页；意见的分歧在第 1186 页。他们关于泡沫大小的数值例子这里没有给出；本书还没有确定怎样读它。</p>
+</div>
+<div id="fn5" class="endnote">
+<p><a href="#fnref5" class="backlink" role="doc-backlink">5.</a> Diamond 与 Verrecchia（1987），期刊版：模型在 §2，第 280 页；成本函数在 §2，第 281 页；交易者及其概率在 §2，第 282–284 页；价格作为条件期望在第 286 页；命题 1 在 §3，第 287–288 页；没有交易是坏消息在第 291 页；报价不变在 §4，第 293 页；命题 2 在第 295 页；作者的论证在第 297 页；条件与预测在 §5.1，第 298–299 页；结论在 §6，第 302–303 页。</p>
+</div>
+<div id="fn6" class="endnote">
+<p><a href="#fnref6" class="backlink" role="doc-backlink">6.</a> Brunnermeier（2001）：Allen、Morris 与 Postlewaite（1993）在 §2.3，第 56–58 页，四个例子在第 58 页。21.2.1 节和第 21 章的注 10 给出了定义和 Tirole 的条件。</p>
+</div>
+<div id="fn7" class="endnote">
+<p><a href="#fnref7" class="backlink" role="doc-backlink">7.</a> Abreu 与 Brunnermeier（2002），期刊版：共同知识在 §1，第 344 页；风险中性与均匀速率在 §3，第 347 页；风险溢价与召回风险在第 349 页；持有成本 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 在第 350 页；不对称的持有成本在 §5.1，第 354 页；对冲在脚注 9，第 354 页。</p>
+</div>
+<div id="fn8" class="endnote">
+<p><a href="#fnref8" class="backlink" role="doc-backlink">8.</a> Bond、Edmans 与 Goldstein（2012），NBER 工作论文 17719：这些现象在 §I，第 6–7 页。16.8 节给出了两种不对称的来源。</p>
+</div>
+<div id="fn9" class="endnote">
+<p><a href="#fnref9" class="backlink" role="doc-backlink">9.</a> Jouini 与 Kallal（1995a），期刊版：上鞅在 §1，第 199 页；信息结构与简单策略在 §2，第 200–201 页；计价单位、两条性质、正的供给与鞅在 §2.1，第 204 页。Harrison 与 Kreps（1978），期刊版：公平赌博在 §IV，第 330 页。</p>
+</div>
+<div id="fn10" class="endnote">
+<p><a href="#fnref10" class="backlink" role="doc-backlink">10.</a> Lee（1998），期刊版：摘要，第 741 页。3.3 节给出了 Easley 与 O<span class="latin-apos">’</span>Hara（1992）的来源。</p>
+</div>
+<div id="fn11" class="endnote">
+<p><a href="#fnref11" class="backlink" role="doc-backlink">11.</a> Busse 与 Green（2002），期刊版：更长的期限在 §3.3，第 428–429 页；卖空的成本在 §3.1，第 422 页。5.5 节给出了样本、时点和边界框。</p>
+</div>
+<div id="fn12" class="endnote">
+<p><a href="#fnref12" class="backlink" role="doc-backlink">12.</a> Hong 与 Stein（1999），NBER 工作论文 6324：组与信息包在 §3.A，第 9 页；时间表、效用与供给在第 10 页；方程 (1)、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> 的标准化、它的逐步进入、序列相关与没有过冲在第 11 页；简化在 §3.B，第 15 页；抢跑在脚注 21，第 30 页。页码按工作论文；没有核对期刊版。</p>
+</div>
+<div id="fn13" class="endnote">
+<p><a href="#fnref13" class="backlink" role="doc-backlink">13.</a> Hong 与 Stein（1999），NBER 工作论文 6324：动量交易者、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个滞后项在 §3.B，第 13 页；方程 (3) 与供给冲击在第 14 页；方程 (7)、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> 与存在性在 §3.C，第 16 页；最小的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 与引理 1 在第 17 页；命题 1 在第 18–19 页；命题 2 在第 19 页；外部性在第 21 页；参数在 §3.E，第 22 页；峰值和第一个负自相关在第 23 页；<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>、</span>到第 35 个月的响应和到滞后 25 期的自相关在表 1，PDF 第 52 页；抢跑者的定义与结果在 §4.C，第 30 页；模型的设计在 §5，第 30–31 页。图 20.1 的曲线来自 <code>book/code/btc_pilot/hong_stein.py</code>，由 <code>book/code/btc_pilot/bookfig_ch20.py</code> 绘制。</p>
+</div>
+<div id="fn14" class="endnote">
+<p><a href="#fnref14" class="backlink" role="doc-backlink">14.</a> Andrei 与 Cujean（2017），期刊版：Hong 与 Stein 在 §1，第 619 页。表 20.2 的各行依据 13.4 节、16.10 节、19.2.1 节和 19.2.2 节，以及本章的 20.2.1 节和 20.2.2 节。</p>
+</div>
+<div id="fn15" class="endnote">
+<p><a href="#fnref15" class="backlink" role="doc-backlink">15.</a> Hong 与 Stein（1999），NBER 工作论文 6324：表 3 与分析师覆盖在 §5.B，第 32 页。Hong、Lim 与 Stein（2000），NBER 工作论文 6553：倒 U 形在 §3.A，第 13 页；对事件时间的读法在 §3.E，第 25 页。Andrei 与 Cujean（2017），期刊版：小公司在 §3.3，两种动量在脚注 16，第 625 页。</p>
+</div>
+<div id="fn16" class="endnote">
+<p><a href="#fnref16" class="backlink" role="doc-backlink">16.</a> Bernard 与 Thomas（1989），期刊版：表 1，第 14 页。Hong 与 Stein（1999），NBER 工作论文 6324：公开消息与可检验的命题在 §5.C，第 34 页。本书的计算：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>8.85</mn><mo>−</mo><mn>7.72</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>8.85</mn><mo>≈</mo><mn>12.8</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">(8.85 - 7.72)/8.85 \approx 12.8\%</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>4.47</mn><mo>−</mo><mn>3.61</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4.47</mn><mo>≈</mo><mn>19.2</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">(4.47 - 3.61)/4.47 \approx 19.2\%</annotation></semantics></math>；</span>每年约 250 个交易日，480 个交易日略少于两年。</p>
+</div>
+<div id="fn17" class="endnote">
+<p><a href="#fnref17" class="backlink" role="doc-backlink">17.</a> Harrison 与 Kreps（1978），期刊版：例子里的类别与状态在 §III，第 326 页；<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>Q</mi><mn>1</mn></msup><annotation encoding="application/x-tex">Q^1</annotation></semantics></math>、</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>Q</mi><mn>2</mn></msup><annotation encoding="application/x-tex">Q^2</annotation></semantics></math>、</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> 与永远持有的价值在第 327 页；方程 (2) 与公平赌博在 §IV，第 330 页；最低一致价格在 §V，第 332 页，论文把 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn><mi>/</mi><mn>13</mn></mrow><annotation encoding="application/x-tex">27/13</annotation></semantics></math> 印作 2.04，而这个分数约为 2.077（本书的计算）。本书的推导：从状态零出发，第 2 类以概率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2/3</annotation></semantics></math> 转到状态零，以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math> 转到状态一，所以它的预期股息加价格是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mo>⋅</mo><mstyle displaystyle="false"><mfrac><mn>24</mn><mn>13</mn></mfrac></mstyle><mo>+</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mstyle displaystyle="false"><mfrac><mn>27</mn><mn>13</mn></mfrac></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>88</mn><mi>/</mi><mn>39</mn></mrow><annotation encoding="application/x-tex">\tfrac{2}{3}\cdot\tfrac{24}{13} + \tfrac{1}{3}(1 + \tfrac{27}{13}) = 88/39</annotation></semantics></math>；</span>第 1 类在状态一给出同样的 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>88</mn><mi>/</mi><mn>39</mn></mrow><annotation encoding="application/x-tex">88/39</annotation></semantics></math>，</span>对应的价格是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn><mi>/</mi><mn>13</mn></mrow><annotation encoding="application/x-tex">27/13</annotation></semantics></math>。</span>Jouini 与 Kallal（1995a），期刊版：正的供给在 §2.1，第 204 页。</p>
+</div>
+<div id="fn18" class="endnote">
+<p><a href="#fnref18" class="backlink" role="doc-backlink">18.</a> Diamond 与 Verrecchia（1987），期刊版：表 4，第 289 页；表 5，第 290 页；两种情形下卖出之后的价格在第 289 页；所得款项限制在第 293 页。表 5 把价值为 0 时卖出的概率印作 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>g</mi><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tfrac{1}{2}gh(1 - a)</annotation></semantics></math>，</span>而它的值 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">3/16</annotation></semantics></math> 对应 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>g</mi><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tfrac{1}{2}gh(1 + a)</annotation></semantics></math>（本书的推导）；本框只用这些值。</p>
+</div>
+<div id="fn19" class="endnote">
+<p><a href="#fnref19" class="backlink" role="doc-backlink">19.</a> Hong 与 Stein（1999），NBER 工作论文 6324：方程 (1) 在 §3.A，第 11 页；方程 (3) 在 §3.B，第 14 页；方程 (5) 在第 15 页；方程 (7) 及其各项在 §3.C，第 16 页；方程 (A.2) 在附录 A.1，第 40 页；表 1，PDF 第 52 页，以及表 2 和表 3 的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 行。本书的计算把他们表 1 的 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>、</span>定价误差的标准差、第 0 至 35 个月的脉冲响应和滞后 1 至 25 期的自相关重现到小数点后四位（有一个响应，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">j = 3</annotation></semantics></math> 的第 25 个月，落在舍入的平局上），收益的标准差重现到第四位小数的一个单位以内，并把他们表 2 和表 3 的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> 行重现到小数点后四位。这个计算在 <code>book/code/btc_pilot/hong_stein.py</code> 里，它对照论文各表的检验在 <code>book/code/tests/test_hong_stein.py</code> 里。</p>
+</div>
+</div>
+</section>
+</section>
+
+</article>
+<nav class="pager" aria-label="上一章 / 下一章">
+<a class="pager-prev" href="ch19.html" rel="prev"><span class="pager-label">上一章</span><span class="pager-title">第 19 章　口碑与理性预期</span></a>
+<a class="pager-next" href="ch21.html" rel="next"><span class="pager-label">下一章</span><span class="pager-title">第 21 章　高阶信念、泡沫与协调</span></a>
+</nav>
+</main>
+</div>
+<footer class="site-footer"><p>草稿，2026 年 11 月 21 日</p></footer>
+</body>
+</html>

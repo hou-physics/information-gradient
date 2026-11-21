@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>第 22 章　加密资产 · 信息梯度与传播</title>
+<link rel="alternate" hreflang="en" href="../en/ch22.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..700&amp;family=Noto+Serif+SC:wght@400..700&amp;family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="chapter-page">
+<header class="site-header">
+  <div class="site-header-inner">
+  <a class="site-title" href="index.html">信息梯度与传播</a>
+  <nav class="site-nav" aria-label="目录">
+    <a href="index.html">目录</a>
+    <a href="../en/ch22.html" hreflang="en" lang="en">English</a>
+  </nav>
+  </div>
+</header>
+<div class="layout">
+<nav class="toc-side" aria-label="本章各节">
+<p class="toc-heading">本章各节</p>
+<ol>
+<li><a href="#比特币对框架的检验"><span class="toc-num">22.1</span> <span class="toc-text">比特币对框架的检验</span></a>
+<ol>
+<li><a href="#试点怎样做"><span class="toc-num">22.1.1</span> <span class="toc-text">试点怎样做</span></a></li>
+<li><a href="#从持币读出价值"><span class="toc-num">22.1.2</span> <span class="toc-text">从持币读出价值</span></a></li>
+<li><a href="#按价格拟合的指数"><span class="toc-num">22.1.3</span> <span class="toc-text">按价格拟合的指数</span></a></li>
+<li><a href="#误差相抵的预测"><span class="toc-num">22.1.4</span> <span class="toc-text">误差相抵的预测</span></a></li>
+<li><a href="#什么决定指数"><span class="toc-num">22.1.5</span> <span class="toc-text">什么决定指数</span></a></li>
+<li><a href="#采纳曲线与它的检验"><span class="toc-num">22.1.6</span> <span class="toc-text">采纳曲线与它的检验</span></a></li>
+<li><a href="#听说相信买入与持有"><span class="toc-num">22.1.7</span> <span class="toc-text">听说、相信、买入与持有</span></a></li>
+<li><a href="#重算注意力与价格"><span class="toc-num">22.1.8</span> <span class="toc-text">重算注意力与价格</span></a></li>
+<li><a href="#许多币与同一笔资金"><span class="toc-num">22.1.9</span> <span class="toc-text">许多币与同一笔资金</span></a></li>
+<li><a href="#并排的各项检验"><span class="toc-num">22.1.10</span> <span class="toc-text">并排的各项检验</span></a></li>
+</ol></li>
+<li><a href="#价格改变自己的事实"><span class="toc-num">22.2</span> <span class="toc-text">价格改变自己的事实</span></a>
+<ol>
+<li><a href="#什么算反身性"><span class="toc-num">22.2.1</span> <span class="toc-text">什么算反身性</span></a></li>
+<li><a href="#收益反馈"><span class="toc-num">22.2.2</span> <span class="toc-text">收益反馈</span></a></li>
+<li><a href="#信念协调"><span class="toc-num">22.2.3</span> <span class="toc-text">信念协调</span></a></li>
+<li><a href="#随采纳增长的基本面"><span class="toc-num">22.2.4</span> <span class="toc-text">随采纳增长的基本面</span></a></li>
+<li><a href="#并排的七种"><span class="toc-num">22.2.5</span> <span class="toc-text">并排的七种</span></a></li>
+</ol></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">22.3</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">22.4</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">22.5</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">22.6</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</nav>
+<main class="chapter-main">
+<details class="toc-top">
+<summary>本章各节</summary>
+<ol>
+<li><a href="#比特币对框架的检验"><span class="toc-num">22.1</span> <span class="toc-text">比特币对框架的检验</span></a>
+<ol>
+<li><a href="#试点怎样做"><span class="toc-num">22.1.1</span> <span class="toc-text">试点怎样做</span></a></li>
+<li><a href="#从持币读出价值"><span class="toc-num">22.1.2</span> <span class="toc-text">从持币读出价值</span></a></li>
+<li><a href="#按价格拟合的指数"><span class="toc-num">22.1.3</span> <span class="toc-text">按价格拟合的指数</span></a></li>
+<li><a href="#误差相抵的预测"><span class="toc-num">22.1.4</span> <span class="toc-text">误差相抵的预测</span></a></li>
+<li><a href="#什么决定指数"><span class="toc-num">22.1.5</span> <span class="toc-text">什么决定指数</span></a></li>
+<li><a href="#采纳曲线与它的检验"><span class="toc-num">22.1.6</span> <span class="toc-text">采纳曲线与它的检验</span></a></li>
+<li><a href="#听说相信买入与持有"><span class="toc-num">22.1.7</span> <span class="toc-text">听说、相信、买入与持有</span></a></li>
+<li><a href="#重算注意力与价格"><span class="toc-num">22.1.8</span> <span class="toc-text">重算注意力与价格</span></a></li>
+<li><a href="#许多币与同一笔资金"><span class="toc-num">22.1.9</span> <span class="toc-text">许多币与同一笔资金</span></a></li>
+<li><a href="#并排的各项检验"><span class="toc-num">22.1.10</span> <span class="toc-text">并排的各项检验</span></a></li>
+</ol></li>
+<li><a href="#价格改变自己的事实"><span class="toc-num">22.2</span> <span class="toc-text">价格改变自己的事实</span></a>
+<ol>
+<li><a href="#什么算反身性"><span class="toc-num">22.2.1</span> <span class="toc-text">什么算反身性</span></a></li>
+<li><a href="#收益反馈"><span class="toc-num">22.2.2</span> <span class="toc-text">收益反馈</span></a></li>
+<li><a href="#信念协调"><span class="toc-num">22.2.3</span> <span class="toc-text">信念协调</span></a></li>
+<li><a href="#随采纳增长的基本面"><span class="toc-num">22.2.4</span> <span class="toc-text">随采纳增长的基本面</span></a></li>
+<li><a href="#并排的七种"><span class="toc-num">22.2.5</span> <span class="toc-text">并排的七种</span></a></li>
+</ol></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">22.3</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">22.4</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">22.5</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">22.6</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</details>
+<article class="chapter">
+<section id="第-22-章-加密资产" class="level1">
+<h1><span class="chapter-number">第 22 章　</span><span class="chapter-title">加密资产</span></h1>
+<p>Wheatley、Sornette、Huber、Reppen 与 Gantner（2019）在对数坐标上用一条直线拟合比特币的每日市值（market value）对活跃用户数的关系，共 2,782 个日值，从 2010 年 7 月 17 日到 2018 年 2 月 26 日，得到斜率 1.69（标准误 0.0076）、截距 1.51、决定系数 0.95。他们用一个替代量，即活跃地址（active address）数，来不完美地度量用户数，活跃地址指一天里有使用的地址。在拟合出的直线上，数量高 1%，对应的市值约高 1.7%。1980 年代，Metcalfe 提出网络的价值与它的节点数的平方成正比（据 Wheatley 等的转述）；作者用这条定律的一个推广形式量化了基本价值，并表明在至少四次场合，不断膨胀又破裂的泡沫（bubble）大幅超过了基本价值。</p>
+<p>作者自己也加了几点提醒：互不相关而各有趋势的序列互相回归，常常给出很高的决定系数，即所谓伪回归（spurious regression），而且他们假定活跃用户与市值之间存在因果联系。样本是一个币（coin）、一个时期和一种用户数（本书的判断）。</p>
+<p>这引出一个问题（本书的判断）：1.69 是网络本身的性质，可以单独度量，还是对两条一起变动的序列的描述？比特币涨幅的大小，能不能由与价格分开度量的输入推出？本书只把比特币当作研究案例，本章没有任何一处判断哪个币值得买入或持有。22.1 节用比特币和其他币检验本书的框架，22.2 节把价格改变它所涉及的事实的几种方式分类。<a href="#fn1" id="fnref1" class="noteref" role="doc-noteref"><sup>1</sup></a></p>
+<section id="比特币对框架的检验" class="level2">
+<h2><span class="secnum">22.1</span> 比特币对框架的检验</h2>
+<p>本节的各项检验去掉了根模型（root model）的几条默认（表 5.1）：持币者可以卖出并离开，这去掉永久传播（permanent spreading），即知道的人永不停止传播、也不会忘记这条默认；各币的份额随机涨落，这去掉确定性平均场（deterministic mean field）；新币作为新事件到来，这在去掉前两条的同时去掉一次性注入（one-time injection）；持币高度集中，这去掉对数效用（log utility），它的默认是相等而固定的财富。</p>
+<section id="试点怎样做" class="level3">
+<h3><span class="secnum">22.1.1</span> 试点怎样做</h3>
+<p>本书的比特币试点（pilot）只用免费数据，截至 2026 年 10 月 13 日：价格、供应量和地址数来自 CoinMetrics 社区数据；2010–2011 年的余额由 AWS Public Blockchain Data 里的全部交易重建，本书只印出结果；页面浏览量来自 Wikimedia。<a href="#fn2" id="fnref2" class="noteref" role="doc-noteref"><sup>2</sup></a>一个 e 倍（e-fold）是增长为原来的 e 倍，约 2.72 倍，2.3 个 e 倍约为十倍。试点把任何称为事先确定的读法都在看到结果之前定下；没有及格线，每项检验只报告预测与结果相差多远。</p>
+<p>每项检验有五种判定之一：通过（pass）、部分通过、测量（measurement）、不通过（fail）或尚未检验（untested）。部分通过的检验和测量，本章把它作为带着适用范围的结果给出，除非它的数字还在等待核对，如 22.1.7 节的几项调查；不通过的检验，如果推翻了一种流行的说法或一个已发表的拟合，就作为反面结果（debunking result）出现，写成带着限制的不通过检验；其他不通过的放进注；尚未检验的检验不印任何数字，只说明它缺什么（本书的判断）。本章的十六项检验没有一项通过（表 22.1）。</p>
+</section>
+<section id="从持币读出价值" class="level3">
+<h3><span class="secnum">22.1.2</span> 从持币读出价值</h3>
+<p>1.2.2 节检验了不用任何价格读出价值的唯一一条路。由 Cong、Li 与 Wang（2021）的定价方程得出一个公式，它只需要名次-余额曲线（rank–balance curve，即每个地址按余额从大到小排成的队列）和用户数，前提是用户对币将上涨的预期不变；它只计入为支付而想要的币（本书的推导）。用公式预测的市值涨幅除以用户数的涨幅，二者都以 e 倍计，平均指数在 2010 年 7 月至 2011 年 1 月是 1.44，在 2011 年 1 月至 6 月是 3.20（本书的计算）。在公式的前提下（第二个半年 22 倍的偏差让这个前提成了疑问），不用价格读出的指数在相邻的两个半年之间增加了一倍以上，既不等于 1.69，也不等于任何一个常数（本书的判断）；这些值只对这两个时期成立。试点没有剔除交易所的地址；余额里还有为持有而买的币和替客户保管的币，公式不计这两种；第一个时期的起点计数和第二个时期的终点计数都落在曲线的台阶上，那里有许多地址持有同一个整数余额，第二处很可能来自自动的小额支付（本书的判断）。<a href="#fn3" id="fnref3" class="noteref" role="doc-noteref"><sup>3</sup></a></p>
+<p>第二个时期的开头说明了为什么早期的地址数会高估用户：在 2011 年 1 月 31 日持币的地址里，75%只持有从挖出以后从未移动过的挖矿奖励（本书的计算），持币路线先把这些地址剔除，而那些年有余额的地址（non-zero-balance address）数把它们包括在内（本书的判断）。把这条路线延伸到 2011 年以后，需要一份近期的完整余额表，本书没有得到；还需要把一个人的许多地址合并起来，试点没有尝试。</p>
+<div class="scope">
+<blockquote>
+<p><strong>适用边界</strong>　试点只检验了两个时期，都在 2010–2011 年。2010 年 7 月至 2011 年 1 月，实际的期末价格是预测值的 1.84倍；2011 年 1 月至 6 月，预测值高了约 22 倍，实际的期末价格只有预测值的 0.045。2011 年以后的情形没有检验。</p>
+</blockquote>
+</div>
+</section>
+<section id="按价格拟合的指数" class="level3">
+<h3><span class="secnum">22.1.3</span> 按价格拟合的指数</h3>
+<p>用价格拟合出的用户数固定幂次，如果读作对比特币涨幅的解释，作为检验不通过：1.69 没有与它要解释的价格分开度量（本书的判断）。Wheatley 等是在要解释其涨幅的那一段时期内，用市值对活跃用户回归得到它的；他们用目测选定两条支撑线（support line）的参数，尽管他们写道，这些线对基本价值或许给出更可靠的指示；他们还写道，拟合的残差（residual）实际上就是泡沫与崩盘（crash）。他们也承认内生性（endogeneity）是个问题，因为长期里可能是活跃用户决定市值，而较短的时间尺度（time scale）上，市值的大幅波动可能推动活跃用户，乘数效应是可能的，而他们并不声称把活跃用户的一次增加对市值的影响单独分离出来。</p>
+<p>把这个拟合延伸到超出它的窗口的时间跨度，它就不准了。从 2011 年 1 月 31 日到 2026 年 10 月 13 日，比特币的价格涨了 12.0 个 e 倍，约为 1.6 × 10⁵倍（本书的计算）。对有余额的地址数用 1.69，再减去币数的增长，公式预测价格涨 10.02 个 e 倍，留下 +1.96 的残差，所以实际涨幅约为预测涨幅的 7.1倍（本书的计算）。起点的计数包括只持有未动过的挖矿奖励的地址（22.1.2 节），所以残差有多大，取决于怎样清理起点（本书的判断）。<a href="#fn4" id="fnref4" class="noteref" role="doc-noteref"><sup>4</sup></a></p>
+<p>指数也随窗口变动，在 83% 的一年期窗口里低于 2，在从 2016 年开始的窗口里高于 2.5。活跃地址数下降时，公式指向错误的方向：2023 年 1 月 1 日至 2026 年 10 月 13 日，活跃地址变动了 −0.36 个 e 倍，而价格涨了 1.60 个 e 倍（本书的计算），任何正的指数都预测价格下跌（本书的判断）。试点还试了理论上的指数 1 和 2，它们不是测量；还试了唯一一种不用价格的粗略测量，由交易网络的平均度（degree）得出，它不稳定；这项检验的判定是尚未检验，本书不印出其中的任何数字（本书的判断）。</p>
+<div class="scope">
+<blockquote>
+<p><strong>适用边界</strong>　1.69 这个指数只描述 2010 年到 2018 年市值与活跃地址一起变动的一个拟合，不能当作独立测得的指数来解释涨幅；换一种用户数、窗口、起点或泡沫时期，指数就会改变。</p>
+</blockquote>
+</div>
+</section>
+<section id="误差相抵的预测" class="level3">
+<h3><span class="secnum">22.1.4</span> 误差相抵的预测</h3>
+<p>Wheatley 等还作了一个预测。假定用户增长与他们对 2012 年起活跃用户的回归一致，他们按三条线把比特币 2018 年底的市值定为 770 亿、390 亿和 640 亿美元。作为对 Metcalfe 支撑线是否跟踪基本价值的检验，这个预测不通过，因为它的准确来自两个相互抵消的误差（本书的判断；图 22.1）。</p>
+<p>他们的 Metcalfe 支撑线，截距为 −3、指数为 2，与实际相近：2018 年底的实际市值是它所给预测值 640 亿美元的 1.04倍，只差 4%（本书的计算）。图 22.1 把这次命中拆成两个误差。把 2018 年底数得的活跃地址数，折算成作者的计数，代入同一条线，实际市值是这条线的 5.0倍；两家数据提供方的计数之间换用另一座桥梁，则是 3.05倍（本书的计算）：这条线偏低。预测假设的计数约为后来实际到来的两倍（本书的计算），所以它对活跃用户的预测偏高。两个误差方向相反，它们的乘积碰巧落在 1 附近（本书的判断）。<a href="#fn5" id="fnref5" class="noteref" role="doc-noteref"><sup>5</sup></a></p>
+<figure>
+<img src="figures/ch22-wheatley-forecast.svg" width="605" height="444" loading="lazy" alt="图 22.1　Wheatley 等对 2018 年底的预测及其两个误差。对数坐标，纵轴为以十亿美元计的市值，横轴为按作者的计数的活跃地址数，从 100,000 到 3,000,000：Wheatley 等 2018 年 3 月预印本的三条线，每条线给出的市值等于 e 的截距次幂乘以计数的指数次幂；他们的回归线和支撑线是细虚线，Metcalfe 支撑线是实线。这些线的参数来自价格，两条支撑线由作者目测选定。空心圆是他们在 Metcalfe 支撑线上对 2018 年底的预测，取预测所隐含的计数；小圆点是同一条线在实际到来的计数处；实心圆点是实际市值。沿线的一步是预测在计数上的盈余，向上的一步是实际值高出这条线的部分；换用 22.1.4 节的另一座桥梁，小圆点和实际值都更靠右，向上的一步更小。实际值来自 CoinMetrics 社区数据（许可证 CC BY-NC 4.0）：市值取 2018 年 12 月 31 日前后 31 个日值的中位数（median），活跃地址按两家数据提供方 2012 年至 2018 年 2 月最高计数之比折算成作者的计数（本书的计算）。" />
+<figcaption aria-hidden="true">图 22.1　Wheatley 等对 2018 年底的预测及其两个误差。对数坐标，纵轴为以十亿美元计的市值，横轴为按作者的计数的活跃地址数，从 100,000 到 3,000,000：Wheatley 等 2018 年 3 月预印本的三条线，每条线给出的市值等于 e 的截距次幂乘以计数的指数次幂；他们的回归线和支撑线是细虚线，Metcalfe 支撑线是实线。这些线的参数来自价格，两条支撑线由作者目测选定。空心圆是他们在 Metcalfe 支撑线上对 2018 年底的预测，取预测所隐含的计数；小圆点是同一条线在实际到来的计数处；实心圆点是实际市值。沿线的一步是预测在计数上的盈余，向上的一步是实际值高出这条线的部分；换用 22.1.4 节的另一座桥梁，小圆点和实际值都更靠右，向上的一步更小。实际值来自 CoinMetrics 社区数据（许可证 CC BY-NC 4.0）：市值取 2018 年 12 月 31 日前后 31 个日值的中位数（median），活跃地址按两家数据提供方 2012 年至 2018 年 2 月最高计数之比折算成作者的计数（本书的计算）。</figcaption>
+</figure>
+<p>这里有两点限制。作者把支撑线画在市值的下沿，所以实际值高于它是预料之中的，2018 年底的比值低于 7.19，这是同一比值在 2012 年 1 月至 2018 年 2 月的第 90 百分位数，那是拟合期里桥梁覆盖的部分（本书的计算）。两家数据提供方对活跃地址的计法也不同：它们之间的桥梁，即二者 2012 年至 2018 年 2 月最高计数之比，是 1.13，二者最低计数之比是 0.88，相差约 28%（本书的计算）。我们由作者脚注里的一个变换把他们的端点倒推回来，评为可靠性中等，他们的市值来源也可能与我们的不同（本书的判断）。计数先落后：在主桥梁上，2019 年初的活跃地址是作者对活跃用户的预测的 0.50（本书的计算），所以活跃用户继续增长、市值沿线上升的外推，首先在计数一侧失败（本书的判断）。<a href="#fn6" id="fnref6" class="noteref" role="doc-noteref"><sup>6</sup></a></p>
+<div class="scope">
+<blockquote>
+<p><strong>适用边界</strong>　Metcalfe 支撑线对 2018 年底市值的预测只差 4%，但它对活跃用户的预测约偏高一倍，线本身偏低 3 到 5 倍，取决于两种计数之间的桥梁，尽管支撑线画在市值之下，而从 2012 年 1 月到 2018 年 2 月，实际值与这条线之比的中位数是 2.09倍；两个误差碰巧相抵。作者由价格设定这条线的参数，所以这次命中不能算作解释。</p>
+</blockquote>
+</div>
+</section>
+<section id="什么决定指数" class="level3">
+<h3><span class="secnum">22.1.5</span> 什么决定指数</h3>
+<p>对比特币的涨幅要问的是什么决定指数本身；有两条路可以在区块链上不用价格测量它，预测各不相同（本书的判断）。第一条从持币读出：在边际用户（marginal user）处，即用户数所达到的名次-余额曲线上的那个地址，指数等于曲线在该处的局部陡度，加上边际用户的余额相对于平均用户余额的比值，前提是用户对币将上涨的预期不变（本书的推导；数学框 22.1）；22.1.2 节的 1.44 和 3.20 就是这样得来的，只适用于 2010–2011 年。第二条从网络读出：Wheatley 等把 1.69 读作约 1 + 2/3，即一个稀疏连接的网络，其中每个用户平均与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 个用户中的约 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup><annotation encoding="application/x-tex">N^{2/3}</annotation></semantics></math> 个相连，而梅特卡夫定律（Metcalfe<span class="latin-apos">’</span>s law），他们写道，假定所有用户之间完全连通。如果网络的价值与它的连线数成正比，这种读法把指数的上限定在完全连通时的 2（本书的推导）；试点对平均度的粗略测量，就是 22.1.3 节里那个不稳定的测量。</p>
+<p>名单顶端的集中是另一个量。18.5 节给出了 Kuśmierz 与 Overko 对比特币最大的 100 个地址的 Zipf 系数（Zipf coefficient），即对数坐标上余额对名次的斜率取负，以及他们的提醒：钱包不等于所有者。名单顶端是托管机构（custodian，替客户保管币）和大持有者，而持币路线需要的是名单末端的陡度，边际用户就在那里（本书的判断）。如果读作帕累托尾部，比特币低于 1 的系数预测指数恰为 1，对照 1.69（本书的推导；数学框 22.1）；对七种 ERC-20 代币（token），它们前 100 名的系数从 1.155 到 1.808，同样的读法把它们变成约 1.2 到 1.8 的指数（本书的推导）。这个矛盾只对比特币成立，它的系数低于 1，而且只在顶端的斜率延伸到名单末端时才成立；顶端的斜率不能代替边际用户处的斜率（本书的判断）。</p>
+<p>活跃地址度量的是活动。Wheatley 等把他们的计数称为每日用户与每日交易的一种不清楚的混合，混合到什么程度取决于“每个密钥只用于两笔交易”这条建议遵循到什么程度，而 Rzayev 等的 Bass 系数就是对这样一种计数拟合的（5.2 节）；累计采纳需要另一种计数（本书的判断）。<a href="#fn7" id="fnref7" class="noteref" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+<section id="采纳曲线与它的检验" class="level3">
+<h3><span class="secnum">22.1.6</span> 采纳曲线与它的检验</h3>
+<p>在试点的拟合里，比特币自己的序列与 Bass 曲线不吻合，Bass 曲线是带有外部来源（external source）和口碑（word of mouth）的经典 S 曲线（S-curve）：把它拟合到一家钱包公司的注册数和 2012 年起有余额的地址数上，曲线需要的潜在用户数（market potential），即最终会采纳的人数，低于已经看到的最高计数，而数据仍在上升；口碑与外部来源之比随计时起点的日期变化很大，无法读出（本书的判断）。这项检验的判定是尚未检验，本书不印任何数字。</p>
+<p>相对危险率（relative hazard rate），即新增采纳者除以已采纳的份额再除以尚未采纳的份额，给出 5.6 节中更尖锐的检验。Young 的命题 1 指出，在异质的传染（contagion）和正的外部影响下，它是递减的（工作论文版），而 5.6 节把这些速率读作因人而异、但不随时间变化；所以看到它上升，就排除了这类传染，看到它下降则不能表明有传染（本书的判断）。这项检验需要一个不变的外部来源，而比特币的外部来源在变，随交易所上市、媒体报道和由价格带动的注意力（attention）而变；在外部来源测量出来之前，上升或下降都不能说明什么，这项检验需要按月或更细的持有者数据，先剔除只持有挖矿奖励的地址，并且在同一窗口里测量外部来源（本书的判断）。<a href="#fn8" id="fnref8" class="noteref" role="doc-noteref"><sup>8</sup></a></p>
+</section>
+<section id="听说相信买入与持有" class="level3">
+<h3><span class="secnum">22.1.7</span> 听说、相信、买入与持有</h3>
+<p>有四个量需要分开测量：谁听说过某个币，谁相信并转述，谁买入，谁持有（本书的判断）。知晓的存量，即有多少人听说过，需要调查或去掉重复的累计计数（本书的判断）；页面浏览量和搜索量是流量，数的是新来者或已经在关注的人（10.9 节）。</p>
+<p>按试点的读法，加拿大银行（Bank of Canada）的一份工作人员讨论文件报告了 2016 年至 2023 年的调查，分别问成年人是否听说过比特币、现在是否持有，试点算了两者之比；本书还没有拿调查数字去核对原始报告，所以一个也不印出（本书的判断）。11.7 节给出了 1931 年杂交玉米的对比。</p>
+<p>11.7 节描述了一个时间检验：把注意力与持有量或资金流分开测量，比较各自何时变动；公开披露（public disclosure）是否使曲线中断，会进一步把信息的传播与模仿分开（本书的判断；5.6 节）。试点没有对比特币作这个检验：它有 2015 年以来的页面浏览量，但没有清理过的持有者序列或随时间的资金流序列，调查只在少数几个日期给出听说过的份额，而比较谁听说过与谁持有，需要随时间的知晓存量（本书的判断）。</p>
+</section>
+<section id="重算注意力与价格" class="level3">
+<h3><span class="secnum">22.1.8</span> 重算注意力与价格</h3>
+<p>10.9 节从 Garcia 等和 Kristoufek 那里取来注意力与比特币价格之间的反馈，本节用免费数据重算它。试点对 CoinMetrics 美元价格的每日或每周变化，以及对 Wikipedia 比特币词条的用户页面浏览量（英文的，以及八种语言加总的）的每日或每周变化，拟合了向量自回归（vector autoregression），即一组方程，其中几个序列各自的前期值预测每一个序列，时间是 2015 年 7 月 1 日到 2026 年 10 月 13 日：4,117 天，或 586 周（本书的计算）。</p>
+<p>环路增益（loop gain）度量价格的一次变动沿着穿过注意力的环绕行一圈以后有多少回到价格上，零表示没有反馈；长期乘数（long-run multiplier）是价格受到冲击后价格的总变化，以冲击为单位（数学框 22.2）。按日、用英文浏览量，环路增益是 0.0019，95% 区间从 −0.0048 到 0.0093，所以无法判断它的符号（本书的计算）。长期乘数是 1.035，区间从 0.974 到 1.102，包含 10.9 节用 Garcia 等的系数在 2010–2013 年数据上算出的 1.07（其中一格读作印刷错误）；仅价格自己的滞后就给出 1.033，所以穿过注意力的环几乎没有增加什么（本书的计算）。按周，环路增益的区间 −0.0125 到 0.0179，包含 10.9 节用 Kristoufek 对 2011–2013 年 Google 搜索的反应、按他的单位冲击读法算出的 0.016，所以二者相容（本书的计算）。两处比较都只比量级，因为模型、样本和注意力序列不同（本书的判断）。<a href="#fn9" id="fnref9" class="noteref" role="doc-noteref"><sup>9</sup></a></p>
+<p>在不允许时间趋势的主设定下，检验没有确立对数浏览量与对数价格之间的长期关系，而照样拟合出的那条关系的斜率 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> 是 −0.12；允许趋势时（这是试点看到最初结果之后加上的一种读法），检验支持一种关系，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> 为 +0.62（本书的计算）。只有页面浏览量数的是新来者时，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> 才能读作外部来源随价格上升的幂次（本书的判断）。</p>
+<p>页面浏览量是流量，整个样本得到一个估计，而 Garcia 等的两个环出现在他们的全样本和最后一段时期，不出现在到 2012 年 11 月 28 日为止的数据里；每日浏览量还显示出过度差分的迹象，这会把环路增益压低，而让浏览量以水平值（level）进入时（这是试点看到最初结果之后加上的一项检查），每日环路增益是 0.045，它的区间仍包含 0（本书的计算）。如果两个序列有一个共同的长期关系，这些估计只描述短期；试点没有检验注意力对上涨和下跌的反应是否不同，用的是跨交易所的综合价格，而早先的研究只用 Mt. Gox，也没有走经由 Google 搜索的那条路线（本书的判断）；在这些数据里，按日和按周的平均线性环很小，解释不了几个量级（order of magnitude）的涨幅（本书的判断）。</p>
+<div class="scope">
+<blockquote>
+<p><strong>适用边界</strong>　在 2015 年 7 月至 2026 年 10 月的 Wikipedia 页面浏览量里，价格与注意力之间的平均线性环路增益在主设定下约为 0.002（本书的计算）；它的区间包含 0，在任何设定下都无法判断它的符号，它也解释不了几个量级的涨幅。试点只用了 Wikipedia，没有用 Google 搜索，也没有测量泡沫顶峰附近的反馈。</p>
+</blockquote>
+</div>
+</section>
+<section id="许多币与同一笔资金" class="level3">
+<h3><span class="secnum">22.1.9</span> 许多币与同一笔资金</h3>
+<p>根模型追踪一种资产和一条消息。多个币争夺同一笔资金，是本书的框架仍然缺少的一层，本节把它单独拿出来，把人群中的选择，即谁听说、谁买入，与币的诞生和消亡分开写（本书的判断）。一种映射把每个币看作人口中的一个类型：退出的币去掉永久传播，随机的乘性波动和随机的新生去掉确定性平均场，新币是启动自己一轮传播的新事件，像 8.5 节的移民（immigrant），在去掉另外两条的同时去掉一次性注入（本书的判断）。</p>
+<p>在 2013 年 4 月 28 日至 2018 年 2 月 7 日 2,499 种加密货币的日数据里，Wu、Wheatley 与 Sornette（2018）发现市值的尾部指数（tail exponent），即价值超过 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> 的币的个数大致按 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mrow><mi>−</mi><mi>μ</mi></mrow></msup><annotation encoding="application/x-tex">x^{-\mu}</annotation></semantics></math> 下降的那个 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>，</span>币在 0.5 到 0.7 之间，代币在 1.0 到 1.3 之间，这里币在自己的网络上运行，代币则运行在某个币的网络之上；他们对 2018 年 2 月的最大似然估计，币是 0.48 [0.39, 0.57]，代币是 1.29 [0.83, 1.75]。在他们的模型里，每个币的市值以共同的速率和波动率比例增长（proportional growth），有诞生和退出，它预测币为 0.50、代币为 1.29；它的输入，即增长、诞生和退出的统计量，来自与它所预测的尾部相同的数据、相同的时期和大致相同的那些币（本书的判断），而作者发现预测的指数与测得的指数一致，币低于 1、代币高于 1，尽管承认模型有局限。</p>
+<p>他们强调这是一个非常简单的模型，目标只是抓住大致的动态：它漏掉了强烈的非平稳性，例如泡沫与崩盘，把加密货币当作相互独立的，忽略了适应度（fitness）即质量的差别，也忽略了分叉，并且只在足够高的阈值以上适用，这里大致是按各自一生的平均市值排在前 10% 的币和代币。他们写道，比较其他时间窗口，因为诞生和消亡参数的非平稳而变得复杂，但仍给出一致的结果，本书没有在他们的数据上检验这一说法。</p>
+<div class="scope">
+<blockquote>
+<p><strong>适用边界</strong>　币的 0.50 对 0.48 只对一个窗口给出，即截至 2018 年 2 月 7 日的一年，采用作者选择的对增长的读法，即至多 10 天的时间跨度上的斜率。按本书的读法，稳健的部分是测得指数的排序，币低于 1，代币高于 1（本书的判断）；对币，在作者报告的退出风险为零、诞生规模与诞生强度的增长为零的情形下，只要他们的增长率为正，公式给出的指数就低于 1，而它的值对增长的读法非常敏感（本书的推导；数学框 22.3）。</p>
+</blockquote>
+</div>
+<p>ElBahrawy、Alessandretti、Kandler、Pastor-Satorras 与 Baronchelli（2017）研究了 2013 年 4 月至 2017 年 6 月间推出的 1,469 种加密货币。除比特币外的前 5 名占到了市场的 20% 以上，它们的总份额每年上升 0.021 ± 0.002，而比特币的份额每年下降 0.035 ± 0.002。他们的中性模型（neutral model），即 Wright–Fisher 模型（Wright–Fisher model），有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 个个体，每个个体属于一个币，每一代用新个体把它们全部替换，新个体随机复制上一代的一个币，或者以很小的概率属于一个新币；一代是一周，平均每周 7 个新币，每个新币进入时带 10 到 20 个个体，且 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>10</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">N = 10^5</annotation></semantics></math>。</span>这个模型再现了若干关键观测，尽管它假定一个币相对另一个币没有任何优势，作者把它的领先者份额的线性下降读作新生的币大多损害占优的那一个。</p>
+<p>第二梯队是检验不通过的地方。在中性漂变（neutral drift）下，一条从几个个体开始的谱系大约要经过 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 代达到 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个个体，所以达到份额 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> 大约需要 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">N X</annotation></semantics></math> 代（本书的推导）。以太坊约占 150 亿美元，所在的市场在 2017 年 5 月超过 910 亿美元，约占 16%；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>10</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">N = 10^5</annotation></semantics></math> 时这需要约 16,000 代，按每周一代约为 300 年，而数据覆盖约 4 年（本书的计算）。所以第二梯队的份额在这种设定下否定了中性漂变（本书的判断）。作者称他们的模型简单，没有达到市场的全部复杂性，并把它的拟合读作没有可检测的、关于哪种货币最好的总体层面的共识（consensus）；在这种设定下，这一读法背后的拟合失败，所以第二梯队抽掉了它的支持，币在类型上是否有差别仍然悬而未决（本书的判断）。模型按份额复制币，也就去掉了贝叶斯更新（Bayesian updating），去掉了无观察学习（no observational learning），这两项在表 5.1 为本章列出的放宽（relaxation）之外（本书的判断）。<a href="#fn10" id="fnref10" class="noteref" role="doc-noteref"><sup>10</sup></a></p>
+<div class="scope">
+<blockquote>
+<p><strong>适用边界</strong>　数据否定的是原始设定下的中性漂变，即每周 100,000 个个体按份额复制；它对领先者下降的再现不能算作定量上的成功，币在类型上是否有差别仍然悬而未决（本书的判断）。对于帕累托尾部，Zipf 系数是尾部指数的倒数（本书的推导），然而 Kuśmierz 与 Overko 也把 Wu 等跨币的尾部指数称为 Zipf 系数，而他们的表 I 的系数度量的是单一币之内最大的 100 个地址，所以引用时必须把二者分开。</p>
+</blockquote>
+</div>
+</section>
+<section id="并排的各项检验" class="level3">
+<h3><span class="secnum">22.1.10</span> 并排的各项检验</h3>
+<p>表 22.1 列出十六项检验及其判定；每一项的数字和限制在最后一列所指的地方。在每个模型里什么决定或限制泡沫的大小，见 21.2.6 节和它的表 21.3；对分歧泡沫，本书不印任何数字。</p>
+<div class="table-caption">
+<p>表 22.1　加密资产的十六项检验及其判定</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>检验</th>
+<th>判定</th>
+<th>所在</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新产品的 Bass 参数</td>
+<td>测量</td>
+<td>5.2 节</td>
+</tr>
+<tr>
+<td>币与代币的尾部指数</td>
+<td>部分通过</td>
+<td>22.1.9 节</td>
+</tr>
+<tr>
+<td>中性漂变与市场份额</td>
+<td>不通过（反面结果）</td>
+<td>22.1.9 节</td>
+</tr>
+<tr>
+<td>按价格拟合的指数</td>
+<td>不通过（反面结果）</td>
+<td>22.1.3 节</td>
+</tr>
+<tr>
+<td>Cong、Li 与 Wang 校准的涨幅</td>
+<td>不通过</td>
+<td>22.1.2 节的注</td>
+</tr>
+<tr>
+<td>崩盘风险的补偿</td>
+<td>不通过</td>
+<td>18.7 节的注</td>
+</tr>
+<tr>
+<td>文献中的注意力反馈</td>
+<td>测量</td>
+<td>10.9 节</td>
+</tr>
+<tr>
+<td>用户与理论指数</td>
+<td>尚未检验</td>
+<td>22.1.3 节</td>
+</tr>
+<tr>
+<td>持币曲线</td>
+<td>部分通过</td>
+<td>1.2.2 与 22.1.2 节</td>
+</tr>
+<tr>
+<td>Wheatley 等的预测</td>
+<td>不通过（反面结果）</td>
+<td>22.1.4 节</td>
+</tr>
+<tr>
+<td>比特币的采纳曲线</td>
+<td>尚未检验</td>
+<td>22.1.6 节</td>
+</tr>
+<tr>
+<td>听说过与持有</td>
+<td>测量，待定</td>
+<td>22.1.7 节</td>
+</tr>
+<tr>
+<td>重算的注意力与价格</td>
+<td>测量</td>
+<td>22.1.8 节</td>
+</tr>
+<tr>
+<td>分解其他的币</td>
+<td>尚未检验</td>
+<td>22.1.9 节的注</td>
+</tr>
+<tr>
+<td>上市年份与传播</td>
+<td>尚未检验</td>
+<td>22.1.6 节的注</td>
+</tr>
+<tr>
+<td>市场份额的两个模型</td>
+<td>不通过</td>
+<td>22.1.9 节的注</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="价格改变自己的事实" class="level2">
+<h2><span class="secnum">22.2</span> 价格改变自己的事实</h2>
+<p>本节去掉根模型的单一外生事实（single exogenous fact），即一个其真实值不受交易影响的事实（表 5.1）；在收益反馈（payoff feedback）里，随价格变动的外部来源还去掉一次性注入，所以表 5.1 为一次性注入列出本章时加了括号。</p>
+<section id="什么算反身性" class="level3">
+<h3><span class="secnum">22.2.1</span> 什么算反身性</h3>
+<p>在本书里，反身性（reflexivity）是价格或信念改变了它要反映的事实；价格只改变交易者所知道的东西，如随知情交易者（informed trader）的份额变动，或交易者向价格学习，不算（本书的判断；16.8 节）。本书分出七种，只在有检验能发现的差别时，才把某一种归到加密资产（crypto asset）名下（本书的判断）：信息反馈（information feedback）和激励反馈（incentive feedback）（16.8 节）；收益反馈、信念协调（belief coordination）和随采纳增长的基本面（fundamentals）（本节）；转售期权（resale option）（20.1.3 节）；自我否定的知识（self-defeating knowledge）（第 23 章）。在本书的来源里，加密资产的模型是收益反馈和信念协调的主要例子，不过这两种都没有在加密数据里测量过（本书的判断；22.2.2 节和 22.2.3 节）。</p>
+<p>Cong、Li 与 Wang 自己划了一条线。在他们的模型里信息是完全的，代币把平台用户的增长资本化，而用户的增长在别的情况下是不能交易的，因此在网络效应下加快采纳，他们把这与金融市场反馈到实际活动的信息效应区分开（工作论文版），也就是 16.8 节的信息反馈。<a href="#fn11" id="fnref11" class="noteref" role="doc-noteref"><sup>11</sup></a></p>
+</section>
+<section id="收益反馈" class="level3">
+<h3><span class="secnum">22.2.2</span> 收益反馈</h3>
+<p>在 Cong、Li 与 Wang 的模型里，代币的价值来自把用户为交易而想持有的量加总起来（工作论文版；1.2.2 节）。预期升值降低持有代币的有效成本，从而加快采纳，更多的用户推高未来的代币价格，未来价格又进入当前对升值的预期，带来更大的采纳（工作论文版）。</p>
+<p>可检验的差别有两部分：基本面回落时采纳回落，在给定的基本面下采纳随预期升值上升；第一部分把收益反馈与传染区分开，传染的采纳保有记忆（5.6 节），基本面冲击的持续性把它与随采纳增长的基本面区分开（22.2.4 节），只有第二部分把它与仅仅跟随基本面的采纳区分开（本书的判断）。作者写道，对生产率的负冲击降低用户从交易得到的好处，因此降低用户群，预期升值的上升使这种影响减轻（工作论文版），而他们的命题 2 让用户数随生产率和预期升值增加。这里的采纳只取决于当前的状态，没有记忆，它的路径可以像一条 Bass 曲线，只是机制和时间尺度不同（本书的判断）。</p>
+<p>在根模型里，这里把 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> 读作已采纳的份额（根模型的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> 是听说过的份额），<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> 是口碑的速率，收益反馈让两个速率都依赖价格 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>（本书的推导；数学框 1.2）：</p>
+<p><span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>I</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>β</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>I</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{dI}{dt} = \bigl[\alpha(P) + \beta(P)\, I\bigr](1 - I).</annotation></semantics></math></span></p>
+<p>这里 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha(P)</annotation></semantics></math> 是随价格变化的外部来源，去掉一次性注入；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta(P)</annotation></semantics></math> 是依赖状态的接触率，去掉确定性平均场；而只有采纳抬高需求、价格水平改变资产自身收益的那一半，去掉单一外生事实，这是本书分开的三件事（本书的判断）。</p>
+<p>已测得的证据涵盖的是别的部分（本书的判断）：Wheatley 等承认但没有分离出来的乘数效应（22.1.3 节），Garcia 等估计的从注意力和采纳到价格的路径，经口碑和新用户为正，来自搜索为负（10.9 节），以及 22.1.8 节发现的 2015 年到 2026 年穿过注意力的平均线性环很小；没有一项测量价格水平改变资产自身收益的那一半。在表 5.1 为本章列出的放宽之外，Cong、Li 与 Wang 的采纳阈值（adoption threshold）去掉简单传染（simple contagion）（第 11 章），他们的风险调整定价去掉与总体风险无关的事实（fact unrelated to aggregate risk）（第 18 章）。<a href="#fn12" id="fnref12" class="noteref" role="doc-noteref"><sup>12</sup></a></p>
+</section>
+<section id="信念协调" class="level3">
+<h3><span class="secnum">22.2.3</span> 信念协调</h3>
+<p>Biais 等写道，加密货币的基本价值是它带来的净交易性好处之流，这取决于它的未来价格，所以除基本面之外，均衡（equilibrium）价格还反映太阳黑子（sunspot）（工作论文版），即与基本面无关、因人们相信它们而起作用的信号（本书的判断；21.2.7 节）。对货币而言，他们写道，没有独立于未来价格的锚，因为内生的未来价格决定交易性好处，他们的摘要由对未来价格的依赖得出多重均衡（multiple equilibria）和外生波动（extrinsic volatility），即基本面不变时价格也波动（工作论文版）。随着崩盘概率的变化，存在一个连续的常数价格均衡族，如果把崩盘读作太阳黑子，它的每个取值就是投资者所协调的一种信念（工作论文版）。</p>
+<p>可检验的差别是，信念协调可以在没有新信息时使价格变动，而它与收益反馈之间的检验要问：价格的变动能否由与价格分开测量的基本面变化来解释（本书的判断）。作者自己把他们的模型与 Cong、Li 与 Wang 的作了对比：那里多重性的来源是网络外部性，他们的是太阳黑子，那里的超额波动反映基本面的变化，他们的外生波动则与基本面无关（工作论文版）。</p>
+<p>没有这样的锚，价格是否错误在价格的层面上没有唯一的基准，所以对没有现金流的资产，信息梯度（information gradient）的第二部分，即还没想明白的信息（undigested information），定义在收益的层面，是实际收益中相对于投资者的要求收益（required return）可以预测的那一部分；这样定义，它是第二部分的错价（mispricing）项 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">∥</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(\pi \| F)</annotation></semantics></math>（18.6 节）的类比，而要求收益含有它的风险溢价项（risk-premium term）（本书的判断；1.3 节提到这个定义）。在 Biais 等的均衡里，投资者必须对把一单位消费投入比特币还是投入美元无差异（工作论文版），他们的方程 (52) 让收益补偿崩盘、交易成本和黑客攻击，减去交易性好处（18.7 节）。不过他们把崩盘信念校准到同一个收益序列上，所以收益与要求收益之间的差没有独立测量过（本书的判断），他们还写道，实现收益与预期收益之间的楔子可能反映罕见的灾难，例如崩盘，即比索问题（peso problem）（工作论文版；18.7 节）。</p>
+<p>在他们的模型里每期出生一个连续统的投资者，每人活两期（工作论文版），所以世代固定了持有期（holding period），模型不能说到最后是谁在持有；而要说明为什么几乎没有人在整个泡沫期间一直持有，需要一个持有期在模型内部确定的模型，和个人持有多久的数据，试点没有这些（本书的判断；22.1.7 节）。两期世代和校准中的风险中性（risk neutrality）去掉对数效用，而每个人都知道别人也看到的太阳黑子去掉一阶知识（first-order knowledge），交易费用（trading costs）去掉无摩擦交易（frictionless trading），风险厌恶（risk aversion）下的风险溢价（risk premium）去掉与总体风险无关的事实，这是表 5.1 为本章列出的放宽之外的三项放宽（本书的判断）。<a href="#fn13" id="fnref13" class="noteref" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+<section id="随采纳增长的基本面" class="level3">
+<h3><span class="secnum">22.2.4</span> 随采纳增长的基本面</h3>
+<p>Cong、Li 与 Wang 的主要分析把平台的生产率过程取作外生（工作论文版）。他们写道，现实中许多代币和加密货币应用的生产率取决于用户群：更大的用户群吸引更多资源和研究，加快技术进步，造成正反馈环，而他们的附录 E 让生产率的漂移（drift）取决于用户数（工作论文版；数学框 22.2）。这里事实本身随采纳而随时间变化，所以一次性注入和单一外生事实一起去掉（本书的判断）。</p>
+<p>可检验的差别是持续性：生产率的增长率不再独立同分布，冲击的影响变得更持久（工作论文版）。一项检验要问，用户的增长是否预测以后平台活动的替代量的增长，而这些替代量要与价格分开测量，例如区块链上每个用户的活动；试点没有测量这个（本书的判断）。</p>
+</section>
+<section id="并排的七种" class="level3">
+<h3><span class="secnum">22.2.5</span> 并排的七种</h3>
+<p>表 22.2 把七种并排放出。20.1.3 节的转售期权只在读法上放在反身性一侧，它与前四种不同，因为价格既不改变人们所知道的，也不改变资产的收益，也没有共同的信念选定它的水平（本书的判断；20.1.3 节）；它可检验的一面是，在 Scheinkman 与 Xiong 的均衡里，泡沫伴随着很大的成交量（trading volume）和很高的价格波动。自我否定的知识，即一个已发表的规律随知道的人增多而减弱，是第 23 章的主题。<a href="#fn14" id="fnref14" class="noteref" role="doc-noteref"><sup>14</sup></a></p>
+<div class="table-caption">
+<p>表 22.2　价格改变事实的七种方式</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>种类</th>
+<th>价格改变什么</th>
+<th>可检验的差别（本书的判断）</th>
+<th>例子</th>
+<th>章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>信息反馈</td>
+<td>决策者所知道的，进而他们的决策和现金流</td>
+<td>对同一信息的公开披露使它中断</td>
+<td>Bond、Edmans 与 Goldstein（工作论文版）</td>
+<td>16</td>
+</tr>
+<tr>
+<td>激励反馈</td>
+<td>与价格挂钩的合同下的激励</td>
+<td>对价格有多少信息、有多好的流动性（liquidity）的反应，多于对价格水平的反应</td>
+<td>Fang、Noe 与 Tice（据 Bond、Edmans 与 Goldstein 的转述；工作论文版）</td>
+<td>16</td>
+</tr>
+<tr>
+<td>收益反馈</td>
+<td>采纳和资产自身的收益</td>
+<td>采纳随基本面回落，并且在给定的基本面下随预期升值而变动</td>
+<td>Cong、Li 与 Wang（工作论文版）</td>
+<td>22</td>
+</tr>
+<tr>
+<td>信念协调</td>
+<td>由共同信念选定的价格水平</td>
+<td>价格在没有新信息时变动</td>
+<td>Biais 等（工作论文版）</td>
+<td>22</td>
+</tr>
+<tr>
+<td>随采纳增长的基本面</td>
+<td>事实本身</td>
+<td>对基本面的冲击具有持续性，基本面对用户有反应</td>
+<td>Cong、Li 与 Wang 的附录 E（工作论文版）</td>
+<td>22</td>
+</tr>
+<tr>
+<td>转售期权</td>
+<td>日后卖给更乐观的人的溢价</td>
+<td>溢价伴随大成交量和高波动</td>
+<td>Scheinkman 与 Xiong</td>
+<td>20</td>
+</tr>
+<tr>
+<td>自我否定的知识</td>
+<td>已发表的规律减弱</td>
+<td>发表后可预测性下降</td>
+<td>McLean 与 Pontiff</td>
+<td>23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="本章引用的实证证据" class="level2">
+<h2><span class="secnum">22.3</span> 本章引用的实证证据</h2>
+<ul>
+<li><strong>测量。</strong> 本书的比特币试点（本书的计算），用的是 22.1.1 节及其注里的免费数据；Wheatley 等、Wu 等、ElBahrawy 等和 Kuśmierz 与 Overko 的数据，读的是 arXiv 预印本；本章指回去的 Garcia 等、Kristoufek 和 Rzayev 等，以及第 23 章要谈的 McLean 与 Pontiff。</li>
+<li><strong>只从转述里知道的。</strong> Fang、Noe 与 Tice 的研究（据 Bond、Edmans 与 Goldstein 的转述；工作论文版）；Metcalfe 的提议（据 Wheatley 等的转述）；加拿大银行的调查，试点的数字取自一份工作人员讨论文件，本书没有核对。</li>
+<li><strong>模型、论述与计算。</strong> Cong、Li 与 Wang，Biais 等，Bond、Edmans 与 Goldstein 和 Young，读的是工作论文或手稿（工作论文版），还有 Scheinkman 与 Xiong；图 22.1 是本书的计算，数学框 22.1 至 22.3 是本书的推导。比特币只是研究案例，本章没有任何一处是买入、卖出或持有任何币的建议（本书的判断）。</li>
+</ul>
+</section>
+<section id="交易者的自查清单" class="level2">
+<h2><span class="secnum">22.4</span> 交易者的自查清单</h2>
+<p>这些问题没有一个说该买什么或卖什么，好的回答也不会让一笔交易变得安全（本书的判断）。</p>
+<ol type="1">
+<li><strong>指数是否与价格分开测量？</strong> 核对：按它要解释的价格拟合的指数，例如 Wheatley 等对比特币 2010 年到 2018 年的 1.69，不能解释涨幅；要一项在区块链上的测量，并问它的前提：边际用户处的持币路线只在用户的预期涨幅不变时成立，只覆盖了 2010–2011 年，而试点对网络平均度的测量不稳定、尚未检验（本书的判断；22.1.3 节和 22.1.5 节）。</li>
+<li><strong>这个计数度量的是用户、活动还是托管？</strong> 核对：活跃地址度量每日活动；比特币早年有余额的地址包括只持有未动过的挖矿奖励的地址；最大的 100 个地址度量托管机构和大持有者（本书的判断；22.1.2 节和 22.1.5 节）。</li>
+<li><strong>命中是否来自相抵的误差？</strong> 核对：把预测的误差拆成输入的误差和线的误差；Wheatley 等的 Metcalfe 支撑线对比特币 2018 年底的市值只差 4%，是因为约偏高一倍的活跃用户预测遇上了一条画在市值下沿、偏低 3 到 5 倍的线，偏低多少取决于两家数据提供方计数之间的桥梁，而且它的参数来自价格，所以这次命中什么也解释不了（本书的计算；本书的判断；22.1.4 节）。</li>
+<li><strong>注意力序列是流量还是存量，它对过去价格的回声剔除了吗？</strong> 核对：页面浏览量和搜索量是流量，数的是新来者或已经在关注的人，而有多少人知道需要存量；把它们读作注意力之前，先剔除它们对过去价格的反应（本书的判断；10.9 节和 22.1.8 节）。</li>
+<li><strong>哪一种反身性，什么能把它区分出来？</strong> 核对：在 Cong、Li 与 Wang 的模型里，生产率下降时用户群下降，预期升值的上升使下降减轻，而在给定的生产率下，用户群随预期升值上升，仅仅跟随基本面的采纳不会这样；生产率随用户增长时，如他们的附录 E，对它的冲击具有持续性；在 Biais 等的模型里，价格可以在没有新信息时变动（工作论文版；本书的判断；22.2.2 节至 22.2.4 节）。</li>
+</ol>
+</section>
+<section id="小结" class="level2">
+<h2><span class="secnum">22.5</span> 小结</h2>
+<ul>
+<li>Wheatley 等的 1.69 拟合的是比特币市值与活跃地址在 2010 年到 2018 年一起变动的关系；它没有与价格分开测量，随用户数、窗口、起点或泡沫时期变化，不能解释涨幅，而边际用户处的持币和网络的平均度，可以改在区块链上测量这个指数，前者要在前提之下，并且适用于下一条的两个半年，后者至今不稳定、尚未检验（本书的判断；22.1.3 节和 22.1.5 节）。</li>
+<li>如果用户对币将上涨的预期不变，并且没有剔除交易所的地址，持币曲线只对两个半年不用任何价格读出一个指数：2010 年 7 月至 2011 年 1 月，实际的期末价格是预测值的 1.84倍，2011 年 1 月至 6 月，预测值高了约 22 倍，2011 年以后试点什么也没有检验（本书的推导；本书的计算；22.1.2 节）。</li>
+<li>Wheatley 等预印本的 Metcalfe 支撑线，其参数由价格设定，对比特币 2018 年底市值只差 4%，是因为约偏高一倍的活跃用户预测遇上了偏低 3 到 5 倍的线，偏低多少取决于两家数据提供方计数之间的桥梁，尽管支撑线画在市值的下沿（本书的计算；本书的判断；22.1.4 节）。</li>
+<li>活跃地址度量活动，最大的 100 个地址度量托管机构和大持有者，二者都不是累计采纳；听说、相信并转述、买入和持有需要分开测量，而对听说过和持有，试点只有 2016 年至 2023 年仍待核对的调查数字，对相信并转述和买入则什么也没有；外部来源随上市、媒体报道和由价格带动的注意力而变，相对危险率检验在这个来源与按月或更细的持有者数据（已剔除挖矿奖励地址）一起测量出来之前，什么也决定不了（本书的判断；22.1.5 节至 22.1.7 节）。</li>
+<li>在 2015 年 7 月至 2026 年 10 月的 Wikipedia 页面浏览量里，比特币价格与注意力之间的平均线性环路增益在主设定下约为 0.002，它的区间包含 0，在每种设定下符号都不清楚；每日浏览量的过度差分会把它压低，没有趋势时检验没有确立长期关系，试点也没有用 Google 搜索，在这些限制下，这样小的环解释不了几个量级的涨幅（本书的计算；本书的判断；22.1.8 节）。</li>
+<li>跨币来看，Wu 等的比例增长模型使币的尾部指数低于 1、代币高于 1，较接近的吻合对一个窗口给出，即截至 2018 年 2 月，采用作者的读法；ElBahrawy 等的设定，每周 100,000 个个体按份额复制，其中的中性漂变要约 300 年长出像以太坊那样的份额，所以第二梯队否定这种设定，而币在类型上是否有差别仍然悬而未决（本书的推导；本书的计算；本书的判断；22.1.9 节）。</li>
+<li>在 Cong、Li 与 Wang 和 Biais 等的模型里（工作论文版），生产率下降时收益反馈逆转，预期升值的上升使下降减轻，只有它在给定生产率下对预期升值的反应，能把它与跟随基本面的采纳区分开；信念协调可以在没有新信息时使价格变动；随用户增长的生产率使冲击持续；对没有现金流的资产，梯度的第二部分定义在收益的层面，是它的错价项的类比，要求收益含有它的风险溢价项，不过 Biais 等与要求收益之间的差没有独立测量过（本书的判断；22.2 节）。</li>
+</ul>
+</section>
+<section id="写给量化读者的数学框" class="level2">
+<h2><span class="secnum">22.6</span> 写给量化读者的数学框</h2>
+<section id="数学框-22.1-名次-余额曲线的弹性" class="level4 box">
+<h4><span class="box-label">数学框 22.1</span>　名次-余额曲线的弹性</h4>
+<p>用 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">b(N)</annotation></semantics></math> 表示名次 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 处的余额，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(N)</annotation></semantics></math> 表示前 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 个地址持有的总量。第 1 章的注 6 把市值从 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>1</mn></msub><annotation encoding="application/x-tex">N_1</annotation></semantics></math> 个用户到 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>2</mn></msub><annotation encoding="application/x-tex">N_2</annotation></semantics></math> 个用户的预测增长，以 e 倍计，给作 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>b</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\ln[b(N_1)/b(N_2)] + \ln[T(N_2)/T(N_1)]</annotation></semantics></math>，</span>前提是用户对币将上涨的预期不变（本书的推导）。这个框的其余部分是本书的推导。令 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>2</mn></msub><annotation encoding="application/x-tex">N_2</annotation></semantics></math> 趋近 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>1</mn></msub><annotation encoding="application/x-tex">N_1</annotation></semantics></math>，</span>得到局部弹性（elasticity）</p>
+<p><span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mfrac><mrow><mi>d</mi><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>b</mi></mrow><mrow><mi>d</mi><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mo>+</mo><mfrac><mrow><mi>N</mi><mspace width="0.167em"></mspace><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\varepsilon(N) = -\frac{d \ln b}{d \ln N} + \frac{N\, b(N)}{T(N)},</annotation></semantics></math></span></p>
+<p>即曲线在边际用户处的陡度，加上边际用户的余额相对于前 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 个地址平均余额的比值。两项都从同一条曲线读出，对它的形状没有任何假设。如果曲线是帕累托尾部，<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><msup><mi>N</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">b(N) \propto N^{-s}</annotation></semantics></math>，</span>则 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s &lt; 1</annotation></semantics></math> 时，<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><msup><mi>N</mi><mrow><mn>1</mn><mo>−</mo><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">T(N) \propto N^{1-s}</annotation></semantics></math>，</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>=</mo><mi>s</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\varepsilon = s + (1 - s) = 1</annotation></semantics></math>；</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s &gt; 1</annotation></semantics></math> 时，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> 由顶端决定，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>b</mi><mi>/</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">N b/T</annotation></semantics></math> 随 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> 增大而下降，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math> 趋于 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>。</span>Kuśmierz 与 Overko 对比特币前 100 名的系数 0.787，于是恰给出 1，22.1.5 节的七种代币给出约 1.2 到 1.8。两种读法都把顶端的斜率延伸到名单末端，而他们的系数是样本期上的平均，顶端也不是一条直线，因为前 30、50 和 100 名的系数各不相同。</p>
+</section>
+<section id="数学框-22.2-环路增益与增长的生产率" class="level4 box">
+<h4><span class="box-label">数学框 22.2</span>　环路增益与增长的生产率</h4>
+<p>对价格和页面浏览量的每日或每周变化，一个双变量向量自回归有四个系数之和：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 对应各序列对自己过去的依赖，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> 是浏览量对价格的影响，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 是价格对浏览量的影响。环路增益是</p>
+<p><span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mfrac><mrow><mi>b</mi><mspace width="0.167em"></mspace><mi>c</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">g = \frac{b\,c}{(1 - a)(1 - d)},</annotation></semantics></math></span></p>
+<p>仅由这个环产生的放大是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1 - g)</annotation></semantics></math>，</span>而长期乘数 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> 还计入价格自己的滞后，环路增益只度量 22.2.2 节那个环按日或按周的平均线性部分（本书的推导）。Cong、Li 与 Wang 的附录 E 把生产率写成 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><msub><mi>A</mi><mi>t</mi></msub><mi>/</mi><msub><mi>A</mi><mi>t</mi></msub><mo>=</mo><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mi>t</mi></msub><mo>−</mo><munder><mi>N</mi><mo accent="true">_</mo></munder><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><msup><mi>σ</mi><mi>A</mi></msup><mi>d</mi><msubsup><mi>Z</mi><mi>t</mi><mi>A</mi></msubsup></mrow><annotation encoding="application/x-tex">dA_t/A_t = \omega(N_t - \underline{N})\,dt + \sigma^A dZ_t^A</annotation></semantics></math>，</span>其中 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\omega &gt; 0</annotation></semantics></math>，</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><munder><mi>N</mi><mo accent="true">_</mo></munder><annotation encoding="application/x-tex">\underline{N}</annotation></semantics></math> 是使漂移不为负的最小用户群（工作论文版）。</p>
+</section>
+<section id="数学框-22.3-比例增长下的尾部指数" class="level4 box">
+<h4><span class="box-label">数学框 22.3</span>　比例增长下的尾部指数</h4>
+<p>Wu 等的渐近尾部指数是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mrow><mi>T</mi><mi>H</mi></mrow></msub><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>2</mn><mstyle displaystyle="false"><mfrac><mrow><mi>r</mi><mo>−</mo><msub><mi>c</mi><mn>0</mn></msub></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mstyle><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msqrt><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>2</mn><mstyle displaystyle="false"><mfrac><mrow><mi>r</mi><mo>−</mo><msub><mi>c</mi><mn>0</mn></msub></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mstyle><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>8</mn><mstyle displaystyle="false"><mfrac><mrow><mi>d</mi><mo>+</mo><mi>h</mi></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mstyle></mrow></msqrt><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mu_{TH} = \tfrac{1}{2}\bigl[(1 - 2\tfrac{r - c_0}{\sigma^2}) + \sqrt{(1 - 2\tfrac{r - c_0}{\sigma^2})^2 + 8\tfrac{d + h}{\sigma^2}}\bigr]</annotation></semantics></math>，</span>其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> 是市值的增长率和波动率，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mn>0</mn></msub><annotation encoding="application/x-tex">c_0</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> 是诞生规模和诞生率的增长率，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> 是退出风险。对币，<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>0</mn></msub><mo>=</mo><mi>d</mi><mo>=</mo><mi>h</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c_0 = d = h = 0</annotation></semantics></math>，</span>指数化为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>1</mn><mo>−</mo><mn>2</mn><mi>r</mi><mi>/</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\mu = 1 - 2r/\sigma^2</annotation></semantics></math>，</span>条件是这个值为正（本书的推导）。取 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1.52</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">r = 1.52\%</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>24.67</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">\sigma = 24.67\%</annotation></semantics></math>，</span>它是 0.50（本书的计算）。因为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>μ</mi><mi>/</mi><mi>d</mi><mi>r</mi><mo>=</mo><mi>−</mi><mn>2</mn><mi>/</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">d\mu/dr = -2/\sigma^2</annotation></semantics></math>，</span>约为 −33，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> 变动 0.3 个百分点就使预测移动约 0.1，所以它对增长的读法非常敏感（本书的推导）。</p>
+</section>
+</section>
+<section id="本章文献" class="level2 references">
+<h2 class="references">本章文献</h2>
+<p>本章引用的文献。所读版本不是期刊版的，条目里写明读的是哪个版本；尾注里的页码按所读的版本。</p>
+<ul>
+<li>Bank of Canada (2025). Staff Discussion Paper 2025-4. 本章没有读；试点取用了其中的调查数字，这些数字没有与原文核对，本章一个也不印出。</li>
+<li>Biais, B., C. Bisière, M. Bouvard, C. Casamatta and A. J. Menkveld (2023). Equilibrium Bitcoin Pricing. <em>Journal of Finance</em> 78(2). 所读为录用稿，即 2022 年 2 月的 TSE Working Paper 973；没有核对期刊版。</li>
+<li>Bond, P., A. Edmans and I. Goldstein (2012). The Real Effects of Financial Markets. <em>Annual Review of Financial Economics</em> 4. 所读为 NBER 工作论文 17719，2011 年 12 月。</li>
+<li>Cong, L. W., Y. Li and N. Wang (2021). Tokenomics: Dynamic Adoption and Valuation. <em>Review of Financial Studies</em> 34(3): 1105–1155. 所读为 NBER 工作论文 27222，2020 年 5 月；没有核对期刊版。</li>
+<li>ElBahrawy, A., L. Alessandretti, A. Kandler, R. Pastor-Satorras and A. Baronchelli (2017). Evolutionary Dynamics of the Cryptocurrency Market. <em>Royal Society Open Science</em> 4: 170623. 所读为 2017 年 11 月 21 日的 arXiv 预印本 1705.05334v3；没有核对期刊版。</li>
+<li>Fang, V. W., T. H. Noe and S. Tice (2009). Stock Market Liquidity and Firm Value. <em>Journal of Financial Economics</em> 94(1): 150–169. 没有读；按 Bond、Edmans 与 Goldstein（2012）的转述引用。</li>
+<li>Garcia, D., C. J. Tessone, P. Mavrodiev and N. Perony (2014). The Digital Traces of Bubbles: Feedback Cycles between Socio-Economic Signals in the Bitcoin Economy. <em>Journal of the Royal Society Interface</em> 11: 20140623（据其 DOI）。所读为 arXiv 预印本 1408.1494v1；没有核对期刊版。</li>
+<li>Kristoufek, L. (2013). BitCoin Meets Google Trends and Wikipedia: Quantifying the Relationship between Phenomena of the Internet Era. <em>Scientific Reports</em> 3: 3415.</li>
+<li>Kuśmierz, B., and R. Overko (2022). How Centralized Is Decentralized? Comparison of Wealth Distribution in Coins and Tokens. 2022 IEEE International Conference on Omni-layer Intelligent Systems (COINS). 所读为 arXiv 预印本 2207.01340v1；没有核对会议版。</li>
+<li>McLean, R. D., and J. Pontiff (2016). Does Academic Research Destroy Stock Return Predictability? <em>Journal of Finance</em> 71(1): 5–32.</li>
+<li>Rzayev, K., A. Sakkas and A. Urquhart (2025). An Adoption Model of Cryptocurrencies. <em>European Journal of Operational Research</em> 323(1): 253–266.</li>
+<li>Scheinkman, J. A., and W. Xiong (2003). Overconfidence and Speculative Bubbles. <em>Journal of Political Economy</em> 111(6): 1183–1219.</li>
+<li>Wheatley, S., D. Sornette, T. Huber, M. Reppen and R. N. Gantner (2019). Are Bitcoin Bubbles Predictable? Combining a Generalized Metcalfe<span class="latin-apos">’</span>s Law and the Log-Periodic Power Law Singularity Model. <em>Royal Society Open Science</em> 6: 180538. 所读为 2018 年 3 月的 arXiv 预印本 1803.05663v1；没有核对期刊版。</li>
+<li>Wu, K., S. Wheatley and D. Sornette (2018). Classification of Cryptocurrency Coins and Tokens by the Dynamics of Their Market Capitalizations. <em>Royal Society Open Science</em> 5: 180381. 所读为 2018 年 5 月 16 日的 arXiv 预印本 1803.03088v2；没有核对期刊版。</li>
+<li>Young, H. P. (2009). Innovation Diffusion in Heterogeneous Populations: Contagion, Social Influence, and Social Learning. <em>American Economic Review</em> 99(5). 所读为作者的最终手稿，即 AER 稿件 2007-1161 的第二次修订，2008 年 10 月；没有核对期刊版。</li>
+</ul>
+</section>
+<section id="notes-1" class="level2 unnumbered">
+<h2 class="unnumbered">注释</h2>
+<div class="endnotes">
+<div id="fn1" class="endnote">
+<p><a href="#fnref1" class="backlink" role="doc-backlink">1.</a> Wheatley 等（2019）所读为 arXiv 预印本 1803.05663v1，没有核对 <em>Royal Society Open Science</em> 的版本；页码按从其源文件编译出的预印本：拟合和用户的替代量在第 4 页；伪回归和假定的因果联系在脚注 6，第 4 页；基本价值在摘要。他们写道，2018 年初，他们的回归线、支撑线和 Metcalfe 支撑线表明当时的价值约为 440 亿、220 亿和 330 亿美元，而实际市值为 1,700 亿美元（第 6 页）。</p>
+</div>
+<div id="fn2" class="endnote">
+<p><a href="#fnref2" class="backlink" role="doc-backlink">2.</a> 每项检验回答六个问题：要解释的数是什么，用什么公式，每个参数是否以及怎样在不看那个数的情况下测量过，预测与结果相差多少个 e 倍，模型解释不了什么，以及只用免费数据的代码在哪里复现它。数据的许可：CoinMetrics 社区数据，CC BY-NC 4.0，禁止商业使用；AWS Public Blockchain Data（registry.opendata.aws/aws-public-blockchain），其条款不清楚，本书把它当作禁止再分发；Wikimedia 页面浏览量，CC0。一家钱包公司的注册数来自 Blockchain.com 的图表，其条款不清楚，本书把它当作只供研究；其中的任何数字都不印出。全部结果在 <code>book/code/results/</code> 里，代码在 <code>book/code/btc_pilot/</code> 里。六个问题和五种判定是本书对自己的检验定的规则。</p>
+</div>
+<div id="fn3" class="endnote">
+<p><a href="#fnref3" class="backlink" role="doc-backlink">3.</a> 平均指数是 <code>step3_holdings.json</code> 里的 <code>beta_segment</code>，即公式预测的市值涨幅除以用户数的涨幅，二者都以 e 倍计，来自 <code>book/code/btc_pilot/step3.py</code>。1.2.2 节以及第 1 章的注 6 和注 7 给出公式、日期、用户数和预测。Cong、Li 与 Wang 校准中的持有成本（holding cost），按比例折算到第二个时期，会缩小它的差距，但远不足以弥合（本书的判断）；折算值只是一个量级，不印出。Cong、Li 与 Wang 还用数据校准了他们自己的模型：他们选定参数值，使模型生成他们图 2 和图 4 中的数据模式，设定 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> 使对数价格对用户群的敏感度在用户群的部分范围内与数据吻合（工作论文版；校准附录，第 C-1 和 C-3 页，其中关于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> 的句子有两处拼写错误）。因此他们的校准给出的涨幅不能算作预测，本书的附录把它与数据比较（本书的判断）。</p>
+</div>
+<div id="fn4" class="endnote">
+<p><a href="#fnref4" class="backlink" role="doc-backlink">4.</a> 用 CoinMetrics 的活跃地址，即 Wheatley 等拟合的那类计数，代替有余额的地址，从 2011 年 1 月 31 日起同一指数留下 +3.37 个 e 倍的残差（本书的计算）。要让公式在有余额的地址上恰好吻合，指数从 2011 年 1 月 31 日起必须是 1.98，从 2012 年 1 月 1 日起必须是 2.31；二者都是由要解释的涨幅倒推出来的，只说明拟合有多敏感（本书的计算）。Wheatley 等预印本：残差即泡沫与崩盘，以及内生性，在第 4 页；乘数效应和他们没有分离的效应，在第 5 页；支撑线在第 6 页；窗口在脚注 8，第 4 页，和脚注 15，第 7 页。计算在 <code>book/code/btc_pilot/decomposition.py</code> 里，结果在 <code>step4_decomposition.csv</code> 和 <code>step4_summary.json</code> 里。</p>
+</div>
+<div id="fn5" class="endnote">
+<p><a href="#fnref5" class="backlink" role="doc-backlink">5.</a> Wheatley 等所读为 2018 年 3 月的第一版预印本，没有核对期刊版：市值的预测在第 6–7 页；用户的预测，由从 2012 年和从 2010 年开始的拟合得出，在脚注 12 和 13，第 6 页。使三个预测各自回到它的线上的活跃用户数，回归线是 1.132 × 10⁶，支撑线是 1.127 × 10⁶，Metcalfe 支撑线是 1.134 × 10⁶；2018 年底数得的活跃地址，折算成作者的计数，是 5.15 × 10⁵（本书的计算）。论文说它的预测假定从 2012 年起的回归，该回归对下一年第一天即 2019 年的预测是 106 万活跃用户，而这些计数全都约为 113 万，接近从 2010 年起的拟合给出的 114 万；论文没有说明为什么，本书报告两个拟合（本书的判断）。实际市值是 6.6 × 10¹⁰ 美元，即 CoinMetrics 社区数据（许可证 CC BY-NC 4.0）中 2018 年 12 月 31 日前后 31 个日值的中位数。对回归线和支撑线，实际值分别是预测值的 0.86倍和 1.70倍（本书的计算）。桥梁用 CoinMetrics 的活跃地址数，除以它 2012 年 1 月 1 日至 2018 年 2 月 26 日的最高计数与作者的最高计数之比；作者的最高计数是我们从他们的脚注倒推出来的，不知道它是原始的日值还是平滑过的值；第二座桥梁用两个最低计数。计算在 <code>book/code/btc_pilot/wheatley_oos.py</code> 里，<code>book/code/btc_pilot/bookfig_ch22.py</code> 由它的结果画出图 22.1。</p>
+</div>
+<div id="fn6" class="endnote">
+<p><a href="#fnref6" class="backlink" role="doc-backlink">6.</a> 对 2019 年第一天的预测是 106 万活跃用户，来自从 2012 年开始的拟合。2023 年初，活跃地址在主桥梁上是作者预测的 0.31（本书的计算）。活跃地址从 2011 年 1 月 31 日到 2013 年 1 月 1 日涨了 3.24 个 e 倍，从 2016 年 1 月 1 日到 2019 年 1 月 1 日只涨了 0.34（本书的计算）。</p>
+</div>
+<div id="fn7" class="endnote">
+<p><a href="#fnref7" class="backlink" role="doc-backlink">7.</a> Wheatley 等预印本：用户与交易的混合在脚注 5，第 4 页；完全连通和对 1.69 的读法在脚注 11，第 5 页。Kuśmierz 与 Overko 预印本：系数在表 I，第 4 页；18.5 节给出他们的样本和提醒。5.2 节给出 Rzayev 等的来源。本书统计用户的约定，要求每项检验报告活跃地址、有余额的地址和按实体聚类（entity clustering）的用户，报告结果的大小从一种换到另一种怎样变化，并且用同样的方式统计用户和持币（本书的判断）。</p>
+</div>
+<div id="fn8" class="endnote">
+<p><a href="#fnref8" class="backlink" role="doc-backlink">8.</a> 5.2 节给出新产品的 Bass 参数的参考范围，5.6 节给出区分传染与其他采纳形状的足迹。拟合的代码是 <code>book/code/btc_pilot/scurve.py</code>，结果在 <code>step6_scurve.json</code> 里。Young（2009），作者 2008 年 10 月的最终手稿：命题 1 在第 11 页；5.6 节及其注给出足迹的来源。后来的币的外部来源是否更大，在这些免费数据里无法检验：对大多数币，Bass 拟合无法识别它的参数，数据也没有否定这个想法；本书不印这项检验的任何数字。</p>
+</div>
+<div id="fn9" class="endnote">
+<p><a href="#fnref9" class="backlink" role="doc-backlink">9.</a> 八种语言加总，每日环路增益是 0.0020（本书的计算）。在不允许趋势的主设定下，两个序列之间的长期关系，即协整（cointegration），没有确立，Engle–Granger 检验给出 p 值 0.26；允许趋势时，同一检验给出 0.015（本书的计算）。每日浏览量对自己过去的系数之和为 −1.015，接近 −1，这是过度差分的标志（本书的计算）。试点按事先定下的规则选滞后期数，区间来自 200 次自助法重复（本书的计算）。本书没有导出 Google Trends 数据，所以试点无法走经由搜索的路线。代码在 <code>book/code/btc_pilot/attention.py</code> 里，结果在 <code>step8_attention.json</code> 里。10.9 节和第 10 章的注 11 给出 Garcia 等和 Kristoufek 的来源；Garcia 等分时期的环在他们预印本的第 9 页。</p>
+</div>
+<div id="fn10" class="endnote">
+<p><a href="#fnref10" class="backlink" role="doc-backlink">10.</a> Wu 等（2018）所读为 arXiv 预印本 1803.03088v2，没有核对 <em>Royal Society Open Science</em> 的版本；页码按从其源文件编译出的预印本：数据在脚注 4，第 2 页；指数的范围在摘要；模型、方程 (2) 和 (3) 以及它的局限在第 5–6 页；增长率和波动率的估计在第 6 页；图 5 在第 7 页；吻合、阈值和其他窗口在第 8 页；估计和输入在表 1，第 9 页。ElBahrawy 等（2017）所读为 arXiv 预印本 1705.05334v3，没有核对期刊版；页码按从其源文件编译：样本在摘要；比特币份额的下降和前 5 名份额的上升在第 3–4 页；2017 年 5 月的市值在第 2 页；模型在第 5–6 页和图 5，第 6 页；领先者份额的下降和 4 年在第 7 页；讨论在第 8 页；以太坊在表 1，第 13 页。Kuśmierz 与 Overko 预印本：跨币的 Zipf 系数在第 7 页。试点在 CoinMetrics 仍然覆盖的 102 个币和代币上重做了份额的比较，这是一个由幸存者组成的面板，用 6 个重叠的三年窗口，分别从 2018 年至 2023 年各年的 1 月 1 日开始。在 100,000 个持有者的情况下，领先者的份额在 5 个窗口里落在中性模型 5–95% 的带之外（本书的计算）。在这五个窗口里，按纯漂变的公式，约 128 到 2,855 个持有者会使一个标准差与数据中的变动一样大（本书的计算）。这些数是由数据倒推出来的，从未测量过；没有检验持有者少得多的中性模型，所以币在类型上是否有差别仍然悬而未决；试点在一半的窗口里无法读出与 Gibrat 增长（每个币的价值按与其大小成比例的方式涨跌）的比较，必须重新登记以后再运行它（本书的判断）。试点还把 Wu 等的公式用到它自己 2018 年以后的面板上，这个面板把币和代币混在一起，而且只有幸存者；这一粗略的检查不印出；它没有重现作者的吻合，它的面板与他们的相差太远，不能检验他们的说法。代码在 <code>book/code/btc_pilot/crosscoin_d3.py</code> 里。把其他的币一个一个分解，只用了理论指数和没有清理过的地址数，尚未检验；试点在那里看到的一个条件性规律来自看到结果之后形成的分组，本书不印这项检验的任何数字。</p>
+</div>
+<div id="fn11" class="endnote">
+<p><a href="#fnref11" class="backlink" role="doc-backlink">11.</a> 泡沫与协调是第 21 章的主题，它的表 21.3 对 Biais 等和 Cong、Li 与 Wang 指向这里。</p>
+</div>
+<div id="fn12" class="endnote">
+<p><a href="#fnref12" class="backlink" role="doc-backlink">12.</a> Cong、Li 与 Wang（2021），NBER 工作论文 27222：信息完全，以及与信息反馈的区别，在脚注 2，第 4 页；负冲击及其减轻在第 3 页；图 1 和采纳的概括在第 17 页；命题 2 的重述在第 21 页。1.2.2 节和第 1 章的注 6 给出代币价值的来源，11.3.1 节给出互补性的来源，18.7 节给出风险调整的来源。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>I</mi><mi>/</mi><mi>d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">dI/dt</annotation></semantics></math> 的方程是根模型的方程（数学框 1.2），价格进入两个速率，这是本书的构造。</p>
+</div>
+<div id="fn13" class="endnote">
+<p><a href="#fnref13" class="backlink" role="doc-backlink">13.</a> Biais 等（2023），TSE 工作论文 973：多重均衡和外生波动在摘要，第 2 页；与 Cong、Li 与 Wang 的对比在第 8–9 页；世代在 §I，第 11 页；货币没有锚在第 16 页；均衡的连续族和协调的信念在 §II，第 21 页；无差异在方程 (51) 之后，第 41 页。21.2.7 节给出 Brunnermeier 的崩盘种类里的太阳黑子，18.7 节以及第 18 章的注 8 和注 9 给出方程 (52)、校准、比索问题和补偿因子的来源。</p>
+</div>
+<div id="fn14" class="endnote">
+<p><a href="#fnref14" class="backlink" role="doc-backlink">14.</a> 表 22.2 的各行依据 16.8 节、20.1.3 节以及 22.2.2 节至 22.2.4 节；可检验的差别是本书的（本书的判断），自我否定的知识那一行指向第 23 章。Scheinkman 与 Xiong（2003），期刊版：成交量和波动在摘要，第 1183 页。Cong、Li 与 Wang（2021），NBER 工作论文 27222：附录 E，第 E-2 页。</p>
+</div>
+</div>
+</section>
+</section>
+
+</article>
+<nav class="pager" aria-label="上一章 / 下一章">
+<a class="pager-prev" href="ch21.html" rel="prev"><span class="pager-label">上一章</span><span class="pager-title">第 21 章　高阶信念、泡沫与协调</span></a>
+<a class="pager-next" href="ch23.html" rel="next"><span class="pager-label">下一章</span><span class="pager-title">第 23 章　异象衰减与套利限制</span></a>
+</nav>
+</main>
+</div>
+<footer class="site-footer"><p>草稿，2026 年 11 月 21 日</p></footer>
+</body>
+</html>

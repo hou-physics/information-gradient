@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Chapter 22 Crypto Assets · Information Gradient and Propagation</title>
+<link rel="alternate" hreflang="zh-Hans" href="../zh/ch22.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="chapter-page">
+<header class="site-header">
+  <div class="site-header-inner">
+  <a class="site-title" href="index.html">Information Gradient and Propagation</a>
+  <nav class="site-nav" aria-label="Contents">
+    <a href="index.html">Contents</a>
+    <a href="../zh/ch22.html" hreflang="zh-Hans" lang="zh-Hans">中文</a>
+  </nav>
+  </div>
+</header>
+<div class="layout">
+<nav class="toc-side" aria-label="In this chapter">
+<p class="toc-heading">In this chapter</p>
+<ol>
+<li><a href="#bitcoin-as-a-test-of-the-framework"><span class="toc-num">22.1</span> <span class="toc-text">Bitcoin as a test of the framework</span></a>
+<ol>
+<li><a href="#how-the-pilot-was-run"><span class="toc-num">22.1.1</span> <span class="toc-text">How the pilot was run</span></a></li>
+<li><a href="#value-read-from-holdings"><span class="toc-num">22.1.2</span> <span class="toc-text">Value read from holdings</span></a></li>
+<li><a href="#exponents-fitted-to-the-price"><span class="toc-num">22.1.3</span> <span class="toc-text">Exponents fitted to the price</span></a></li>
+<li><a href="#a-forecast-hit-by-offsetting-errors"><span class="toc-num">22.1.4</span> <span class="toc-text">A forecast hit by offsetting errors</span></a></li>
+<li><a href="#what-sets-the-exponent"><span class="toc-num">22.1.5</span> <span class="toc-text">What sets the exponent</span></a></li>
+<li><a href="#the-adoption-curve-and-its-test"><span class="toc-num">22.1.6</span> <span class="toc-text">The adoption curve and its test</span></a></li>
+<li><a href="#hearing-believing-buying-and-holding"><span class="toc-num">22.1.7</span> <span class="toc-text">Hearing, believing, buying and holding</span></a></li>
+<li><a href="#attention-and-price-recomputed"><span class="toc-num">22.1.8</span> <span class="toc-text">Attention and price, recomputed</span></a></li>
+<li><a href="#many-coins-and-one-pool-of-money"><span class="toc-num">22.1.9</span> <span class="toc-text">Many coins and one pool of money</span></a></li>
+<li><a href="#the-trials-side-by-side"><span class="toc-num">22.1.10</span> <span class="toc-text">The trials side by side</span></a></li>
+</ol></li>
+<li><a href="#prices-that-change-their-own-facts"><span class="toc-num">22.2</span> <span class="toc-text">Prices that change their own facts</span></a>
+<ol>
+<li><a href="#what-counts-as-reflexivity"><span class="toc-num">22.2.1</span> <span class="toc-text">What counts as reflexivity</span></a></li>
+<li><a href="#payoff-feedback"><span class="toc-num">22.2.2</span> <span class="toc-text">Payoff feedback</span></a></li>
+<li><a href="#belief-coordination"><span class="toc-num">22.2.3</span> <span class="toc-text">Belief coordination</span></a></li>
+<li><a href="#fundamentals-that-grow-with-adoption"><span class="toc-num">22.2.4</span> <span class="toc-text">Fundamentals that grow with adoption</span></a></li>
+<li><a href="#seven-kinds-side-by-side"><span class="toc-num">22.2.5</span> <span class="toc-text">Seven kinds side by side</span></a></li>
+</ol></li>
+<li><a href="#evidence-cited-in-this-chapter"><span class="toc-num">22.3</span> <span class="toc-text">Evidence cited in this chapter</span></a></li>
+<li><a href="#a-traders-checklist"><span class="toc-num">22.4</span> <span class="toc-text">A trader’s checklist</span></a></li>
+<li><a href="#summary"><span class="toc-num">22.5</span> <span class="toc-text">Summary</span></a></li>
+<li><a href="#boxes-for-quantitative-readers"><span class="toc-num">22.6</span> <span class="toc-text">Boxes for quantitative readers</span></a></li>
+<li><a href="#references"><span class="toc-text">References</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">Notes</span></a></li>
+</ol>
+</nav>
+<main class="chapter-main">
+<details class="toc-top">
+<summary>In this chapter</summary>
+<ol>
+<li><a href="#bitcoin-as-a-test-of-the-framework"><span class="toc-num">22.1</span> <span class="toc-text">Bitcoin as a test of the framework</span></a>
+<ol>
+<li><a href="#how-the-pilot-was-run"><span class="toc-num">22.1.1</span> <span class="toc-text">How the pilot was run</span></a></li>
+<li><a href="#value-read-from-holdings"><span class="toc-num">22.1.2</span> <span class="toc-text">Value read from holdings</span></a></li>
+<li><a href="#exponents-fitted-to-the-price"><span class="toc-num">22.1.3</span> <span class="toc-text">Exponents fitted to the price</span></a></li>
+<li><a href="#a-forecast-hit-by-offsetting-errors"><span class="toc-num">22.1.4</span> <span class="toc-text">A forecast hit by offsetting errors</span></a></li>
+<li><a href="#what-sets-the-exponent"><span class="toc-num">22.1.5</span> <span class="toc-text">What sets the exponent</span></a></li>
+<li><a href="#the-adoption-curve-and-its-test"><span class="toc-num">22.1.6</span> <span class="toc-text">The adoption curve and its test</span></a></li>
+<li><a href="#hearing-believing-buying-and-holding"><span class="toc-num">22.1.7</span> <span class="toc-text">Hearing, believing, buying and holding</span></a></li>
+<li><a href="#attention-and-price-recomputed"><span class="toc-num">22.1.8</span> <span class="toc-text">Attention and price, recomputed</span></a></li>
+<li><a href="#many-coins-and-one-pool-of-money"><span class="toc-num">22.1.9</span> <span class="toc-text">Many coins and one pool of money</span></a></li>
+<li><a href="#the-trials-side-by-side"><span class="toc-num">22.1.10</span> <span class="toc-text">The trials side by side</span></a></li>
+</ol></li>
+<li><a href="#prices-that-change-their-own-facts"><span class="toc-num">22.2</span> <span class="toc-text">Prices that change their own facts</span></a>
+<ol>
+<li><a href="#what-counts-as-reflexivity"><span class="toc-num">22.2.1</span> <span class="toc-text">What counts as reflexivity</span></a></li>
+<li><a href="#payoff-feedback"><span class="toc-num">22.2.2</span> <span class="toc-text">Payoff feedback</span></a></li>
+<li><a href="#belief-coordination"><span class="toc-num">22.2.3</span> <span class="toc-text">Belief coordination</span></a></li>
+<li><a href="#fundamentals-that-grow-with-adoption"><span class="toc-num">22.2.4</span> <span class="toc-text">Fundamentals that grow with adoption</span></a></li>
+<li><a href="#seven-kinds-side-by-side"><span class="toc-num">22.2.5</span> <span class="toc-text">Seven kinds side by side</span></a></li>
+</ol></li>
+<li><a href="#evidence-cited-in-this-chapter"><span class="toc-num">22.3</span> <span class="toc-text">Evidence cited in this chapter</span></a></li>
+<li><a href="#a-traders-checklist"><span class="toc-num">22.4</span> <span class="toc-text">A trader’s checklist</span></a></li>
+<li><a href="#summary"><span class="toc-num">22.5</span> <span class="toc-text">Summary</span></a></li>
+<li><a href="#boxes-for-quantitative-readers"><span class="toc-num">22.6</span> <span class="toc-text">Boxes for quantitative readers</span></a></li>
+<li><a href="#references"><span class="toc-text">References</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">Notes</span></a></li>
+</ol>
+</details>
+<article class="chapter">
+<section id="chapter-22-crypto-assets" class="level1">
+<h1><span class="chapter-number">Chapter 22 </span><span class="chapter-title">Crypto Assets</span></h1>
+<p>Wheatley, Sornette, Huber, Reppen and Gantner (2019) fit a straight line on logarithmic axes to Bitcoin’s daily market value against its number of active users, 2,782 daily values from July 17, 2010 to February 26, 2018, and found a slope of 1.69 (standard error 0.0076), an intercept of 1.51 and a coefficient of determination of 0.95. They measure the number of users imperfectly by a stand-in, the number of active addresses, addresses in use on a day. On the fitted line, a count 1% higher goes with a market value about 1.7% higher. In the 1980s Metcalfe proposed that the value of a network is proportional to the square of its number of nodes (as reported by Wheatley and coauthors); with a generalized version of this law, the authors quantified a fundamental value and showed it heavily exceeded, on at least four occasions, by bubbles that grow and burst.</p>
+<p>The authors add their own cautions: unrelated trending series regressed on one another often give high coefficients of determination, so-called spurious regression, and they assume the causal link between active users and market value. The sample is one coin, one period and one count of users (our judgment).</p>
+<p>This raises a question (our judgment): is 1.69 a property of the network that could be measured on its own, or a description of two series that moved together, and can the size of Bitcoin’s rise be told from inputs measured apart from its price? This book uses Bitcoin as a research case only, and nothing in this chapter judges whether any coin is worth buying or holding. Section 22.1 tests the book’s framework on Bitcoin and other coins, and Section 22.2 sorts the ways in which a price can change the facts it is about.<a href="#fn1" id="fnref1" class="noteref" role="doc-noteref"><sup>1</sup></a></p>
+<section id="bitcoin-as-a-test-of-the-framework" class="level2">
+<h2><span class="secnum">22.1</span> Bitcoin as a test of the framework</h2>
+<p>The trials of this section drop several of the root model’s defaults (Table 5.1): holders who can sell and leave drop permanent spreading, the default that those who know never stop telling or forget; coins’ shares rising and falling by chance drop the deterministic mean field; new coins arriving as new events drop one-time injection together with those two; and highly concentrated holdings drop log utility, whose default is equal, fixed wealth.</p>
+<section id="how-the-pilot-was-run" class="level3">
+<h3><span class="secnum">22.1.1</span> How the pilot was run</h3>
+<p>This book’s Bitcoin pilot used free data only, cut off on October 13, 2026: prices, supply and counts of addresses from CoinMetrics community data; balances for 2010–2011 rebuilt from every transaction in the AWS Public Blockchain Data, from which this book prints only results; and page views from Wikimedia.<a href="#fn2" id="fnref2" class="noteref" role="doc-noteref"><sup>2</sup></a> One e-fold is a rise by a factor of e, about 2.72, and 2.3 e-folds is about tenfold. The pilot set any reading called fixed in advance before seeing a result; there is no pass mark, and each trial reports only how far apart prediction and outcome are.</p>
+<p>Each trial has one of five standings: passed, partly passed, measurement, failed or untested. This chapter gives a partly passed trial or a measurement as a result with its scope beside it, unless its figures still await checking, as for the surveys of Section 22.1.7; a failed trial that debunks a popular claim or a published fit appears as a debunking result, stated as a failed test with its limits; other failures go to the notes; and an untested trial prints no number, only what it lacks (our judgment). None of the chapter’s sixteen trials passed (Table 22.1).</p>
+</section>
+<section id="value-read-from-holdings" class="level3">
+<h3><span class="secnum">22.1.2</span> Value read from holdings</h3>
+<p>Section 1.2.2 tested the one route that reads value without any price. From Cong, Li and Wang’s (2021) pricing equations follows a formula that needs only the rank–balance curve, every address lined up from the largest balance to the smallest, and the number of users, provided that users’ expectation of the coin’s rise does not change; it counts only coins wanted for payments (our derivation). Divide the formula’s predicted rise in market value by the rise in users, both in e-folds, and the average exponent is 1.44 from July 2010 to January 2011 and 3.20 from January to June 2011 (our calculation). Under the formula’s premise, which the second half-year’s 22-fold miss puts in doubt, the exponent read without the price more than doubled between two adjacent half-years and equals neither 1.69 nor any one constant (our judgment); these values hold for these two periods only. The pilot did not remove exchange addresses; balances also hold coins bought to keep and coins kept for customers, which the formula does not count; and the first period’s starting count and the second period’s ending count both fall on steps of the curve, where many addresses hold the same round balance, the second probably from automated small payouts (our judgment).<a href="#fn3" id="fnref3" class="noteref" role="doc-noteref"><sup>3</sup></a></p>
+<p>The start of the second period shows why early counts of addresses overstate users: of the addresses holding coins on January 31, 2011, 75% held only mining rewards that had never moved since they were mined (our calculation), which the holdings route removes first and the counts of non-zero-balance addresses of those years include (our judgment). Taking the route past 2011 needs a recent full table of balances, which this book has not obtained, and a merging of the many addresses of one person, which the pilot did not try.</p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> The pilot tested only two periods, both in 2010–2011. From July 2010 to January 2011 the actual end price was 1.84 times the predicted one; from January to June 2011 the prediction was about 22 times too high, the actual end price only 0.045 of the predicted one. It tested nothing after 2011.</p>
+</blockquote>
+</div>
+</section>
+<section id="exponents-fitted-to-the-price" class="level3">
+<h3><span class="secnum">22.1.3</span> Exponents fitted to the price</h3>
+<p>Read as an explanation of Bitcoin’s rise, a fixed power of users fitted to the price fails as a test: 1.69 was not measured apart from the price it is meant to explain (our judgment). Wheatley and coauthors obtained it by regressing market value, over the very period whose rise is to be explained, on active users; they chose the parameters of their two support lines visually, though they write that these lines may give a sounder indication of fundamental value; and they write that the residuals of the fit are in fact the bubbles and crashes. They also grant that endogeneity is an issue, since active users may set market value in the long term while large swings in market value can plausibly move active users on shorter time scales, that a multiplier effect is plausible, and that they do not claim to isolate the effect of a single increment in active users on market value.</p>
+<p>Carried over a span that runs past its window, the fit misses. From January 31, 2011 to October 13, 2026 Bitcoin’s price rose 12.0 e-folds, about 1.6 × 10⁵ times (our calculation). With 1.69 applied to the number of non-zero-balance addresses, less the growth in the number of coins, the formula predicts a price rise of 10.02 e-folds and leaves a residual of +1.96, so the actual rise was about 7.1 times the predicted one (our calculation). The count at the start includes the addresses holding only untouched mining rewards (Section 22.1.2), so the residual’s size depends on how the start is cleaned (our judgment).<a href="#fn4" id="fnref4" class="noteref" role="doc-noteref"><sup>4</sup></a></p>
+<p>The exponent moves with the window too, below 2 on 83% of one-year windows and above 2.5 on windows starting in 2016. When the count of active addresses falls, the formula points the wrong way: from January 1, 2023 to October 13, 2026 active addresses changed by −0.36 e-folds while the price rose 1.60 e-folds (our calculation), and any positive exponent predicts a fall (our judgment). The pilot also tried the theoretical exponents 1 and 2, which are not measurements, and the one rough measure that uses no price, from the average degree of the transaction network, which is unstable; that trial is untested, and this book prints no number from it (our judgment).</p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> The exponent of 1.69 describes only a fit of market value and active addresses moving together from 2010 to 2018 and cannot be used as an independently measured exponent to explain the rise; with another count of users, window, starting point or bubble period, the exponent changes.</p>
+</blockquote>
+</div>
+</section>
+<section id="a-forecast-hit-by-offsetting-errors" class="level3">
+<h3><span class="secnum">22.1.4</span> A forecast hit by offsetting errors</h3>
+<p>Wheatley and coauthors also made a forecast. Assuming user growth in line with their regression of active users from 2012, they put Bitcoin’s market value at the end of 2018 at 77, 39 and 64 billion dollars by their three lines. As a test of whether the Metcalfe support line tracks a fundamental value, the forecast fails, since its accuracy came from two offsetting errors (our judgment; Figure 22.1).</p>
+<p>Their Metcalfe support line, with intercept −3 and exponent 2, came close: actual market value at the end of 2018 was 1.04 times its forecast of 64 billion dollars, only 4% off (our calculation). Figure 22.1 splits this hit into two errors. Put the active addresses counted at the end of 2018, converted to the authors’ count, into the same line, and actual market value was 5.0 times the line, or 3.05 times with another bridge between two data providers’ counts (our calculation): the line was too low. The forecast assumed about twice the count that came (our calculation), so its forecast of active users was too high. The two errors ran in opposite directions, and their product happened to land near 1 (our judgment).<a href="#fn5" id="fnref5" class="noteref" role="doc-noteref"><sup>5</sup></a></p>
+<figure>
+<img src="figures/ch22-wheatley-forecast.svg" width="605" height="444" loading="lazy" alt="Figure 22.1 Wheatley et al.’s end-2018 forecast and its two errors. On logarithmic axes, market value in billions of US dollars against active addresses on the authors’ count, from 100,000 to 3,000,000: the three lines of Wheatley et al.’s preprint of March 2018, each a market value equal to e raised to an intercept times the count raised to an exponent; their regression line and support line are thin and dashed, their Metcalfe support line solid. The lines’ parameters come from the price, and the authors chose the two support lines by eye. The open circle is their forecast for the end of 2018 on the Metcalfe support line, at the count that forecast implies; the small dot is the same line at the count that came; the filled dot is the actual market value. The step along the line is the forecast’s surplus in the count, the step upward the actual value’s excess over the line; with the other bridge of Section 22.1.4, the small dot and the actual value sit further right and the step upward is smaller. Actual values from CoinMetrics community data (license CC BY-NC 4.0): market value the median of 31 daily values around December 31, 2018, and active addresses converted to the authors’ count by the ratio of the two providers’ highest counts from 2012 to February 2018 (our calculation)." />
+<figcaption aria-hidden="true">Figure 22.1 Wheatley et al.’s end-2018 forecast and its two errors. On logarithmic axes, market value in billions of US dollars against active addresses on the authors’ count, from 100,000 to 3,000,000: the three lines of Wheatley et al.’s preprint of March 2018, each a market value equal to e raised to an intercept times the count raised to an exponent; their regression line and support line are thin and dashed, their Metcalfe support line solid. The lines’ parameters come from the price, and the authors chose the two support lines by eye. The open circle is their forecast for the end of 2018 on the Metcalfe support line, at the count that forecast implies; the small dot is the same line at the count that came; the filled dot is the actual market value. The step along the line is the forecast’s surplus in the count, the step upward the actual value’s excess over the line; with the other bridge of Section 22.1.4, the small dot and the actual value sit further right and the step upward is smaller. Actual values from CoinMetrics community data (license CC BY-NC 4.0): market value the median of 31 daily values around December 31, 2018, and active addresses converted to the authors’ count by the ratio of the two providers’ highest counts from 2012 to February 2018 (our calculation).</figcaption>
+</figure>
+<p>Two limits go with this. The authors drew the support line along the lower edge of market value, so an actual value above it is to be expected, and the end-2018 ratio stays below 7.19, the 90th percentile of the same ratio from January 2012 to February 2018, the part of the fitting period that the bridge covers (our calculation). The two providers also count active addresses differently: the bridge between them, the ratio of their highest counts from 2012 to February 2018, is 1.13, and the ratio of their lowest counts 0.88, about 28% apart (our calculation). We worked the authors’ end points back from a transformation in their footnote and rate them of medium reliability, and their source for market value may differ from ours (our judgment). The count fell behind first: on the main bridge, active addresses at the start of 2019 were 0.50 of the authors’ forecast of active users (our calculation), so the extrapolation that active users keep growing and market value rises along the line failed first on the side of the count (our judgment).<a href="#fn6" id="fnref6" class="noteref" role="doc-noteref"><sup>6</sup></a></p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> The Metcalfe support line’s forecast of market value at the end of 2018 was off by only 4%, but its forecast of active users was about twice too high and the line itself 3 to 5 times too low, depending on the bridge between the two counts, though a support line is drawn below market value and from January 2012 to February 2018 the actual value was a median 2.09 times this one; the two errors happened to offset. The authors set the line’s parameters from the price, so the hit cannot count as an explanation.</p>
+</blockquote>
+</div>
+</section>
+<section id="what-sets-the-exponent" class="level3">
+<h3><span class="secnum">22.1.5</span> What sets the exponent</h3>
+<p>The question to ask of Bitcoin’s rise is what sets the exponent itself, and two routes could measure it on the blockchain without the price, with different predictions (our judgment). The first reads it from holdings: at the marginal user, the address down the rank–balance curve that the count of users reaches, the exponent is the curve’s local steepness plus the marginal user’s balance relative to the average user’s, provided that users’ expectation of the coin’s rise does not change (our derivation; Box 22.1); the 1.44 and 3.20 of Section 22.1.2 came this way, for 2010–2011 only. The second reads it from the network: Wheatley and coauthors read 1.69 as about 1 + 2/3, a sparsely connected network in which each user is linked on average to about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup><annotation encoding="application/x-tex">N^{2/3}</annotation></semantics></math> of the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> users, while Metcalfe’s law, they write, assumes full connectivity between all users. If a network’s value is proportional to its number of links, this reading caps the exponent at the 2 of full connectivity (our derivation); the pilot’s rough measure of the average degree is the unstable one of Section 22.1.3.</p>
+<p>Concentration at the top of the list is a different quantity. Section 18.5 gave Kuśmierz and Overko’s Zipf coefficient, the slope of balance against rank on logarithmic axes with its sign reversed, for Bitcoin’s 100 largest addresses, and their caution that wallets are not owners. The top of the list holds custodians, which keep coins for their customers, and large holders, while the holdings route needs the steepness at the end of the list, where the marginal user sits (our judgment). Read as a Pareto tail, Bitcoin’s coefficient, below 1, predicts an exponent of exactly 1, against 1.69 (our derivation; Box 22.1); for seven ERC-20 tokens their coefficients for the top 100 run from 1.155 to 1.808, which the same reading turns into exponents of about 1.2 to 1.8 (our derivation). The contradiction holds only for Bitcoin, whose coefficient is below 1, and only if the top’s slope extends to the end of the list; a slope at the top cannot stand in for the slope at the marginal user (our judgment).</p>
+<p>Active addresses measure activity. Wheatley and coauthors call their count, depending on how far the advice to use each key for only two transactions is followed, an unclear mix of daily users and daily transactions, and Rzayev and coauthors’ Bass coefficients are fitted to such a count (Section 5.2); cumulative adoption needs a different count (our judgment).<a href="#fn7" id="fnref7" class="noteref" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+<section id="the-adoption-curve-and-its-test" class="level3">
+<h3><span class="secnum">22.1.6</span> The adoption curve and its test</h3>
+<p>In the pilot’s fits, Bitcoin’s own series do not fit the Bass curve, the classic S-curve with an external source and word of mouth: fitted to the registrations of one wallet company and to non-zero-balance addresses from 2012, the curve needs a market potential, the number who will ever adopt, below the highest count already seen, while the data are still rising, and the ratio of word of mouth to the external source changes greatly with the date from which time is counted and cannot be read (our judgment). This trial is untested, and this book prints no number from it.</p>
+<p>The relative hazard rate, new adoption divided by the share adopted times the share not yet adopted, gives the sharper test of Section 5.6. Young’s Proposition 1 states that with heterogeneous contagion and positive external influence it decreases (working-paper version), where Section 5.6 read the rates as differing across people but not over time; seeing it rise therefore rules out contagion of that kind, while seeing it fall does not show contagion (our judgment). The test needs an external source that does not change, and Bitcoin’s changes, with listings on exchanges, media coverage and attention driven by the price; until the external source is measured, neither a rise nor a fall decides anything, and the test needs monthly or finer data on holders, with addresses holding only mining rewards removed first, and the external source measured in the same window (our judgment).<a href="#fn8" id="fnref8" class="noteref" role="doc-noteref"><sup>8</sup></a></p>
+</section>
+<section id="hearing-believing-buying-and-holding" class="level3">
+<h3><span class="secnum">22.1.7</span> Hearing, believing, buying and holding</h3>
+<p>Four quantities need to be measured apart, who has heard of a coin, who believes and retells, who buys and who holds (our judgment). A stock of awareness, how many have heard, needs a survey or a cumulative count with repeats removed (our judgment); page views and searches are flows, counting newcomers or people already following (Section 10.9).</p>
+<p>As the pilot read it, a Bank of Canada staff discussion paper reports surveys of 2016 to 2023 that asked adults separately whether they had heard of Bitcoin and whether they now held it, and the pilot computed the ratio of the two; this book has not yet checked the survey figures against the original reports, so it prints none of them (our judgment). Section 11.7 gave the comparison for hybrid corn in 1931.</p>
+<p>Section 11.7 described a timing test: measure attention apart from holdings or flows of money and compare when each moves; whether a public disclosure cuts a curve short would further separate the spread of information from imitation (our judgment; Section 5.6). The pilot has not run this test on Bitcoin: it has page views from 2015 but no cleaned series of holders or of flows of money over time, and the surveys give the share who have heard only at a few dates, whereas comparing who has heard with who holds would need a stock of awareness over time (our judgment).</p>
+</section>
+<section id="attention-and-price-recomputed" class="level3">
+<h3><span class="secnum">22.1.8</span> Attention and price, recomputed</h3>
+<p>This section recomputes on free data the feedback between attention and Bitcoin’s price that Section 10.9 took from Garcia and coauthors and from Kristoufek. The pilot fitted a vector autoregression, a set of equations in which the previous values of several series predict each of them, to the daily or weekly changes of CoinMetrics’ US-dollar price and of the page views by users of Wikipedia’s article on Bitcoin, in English and in eight languages added together, from July 1, 2015 to October 13, 2026: 4,117 days, or 586 weeks (our calculation).</p>
+<p>A loop gain measures how much of a move in the price comes back to it after one trip around the loop through attention, zero meaning no feedback; the long-run multiplier is the total change in the price after a shock to it, in units of the shock (Box 22.2). Daily, with English views, the loop gain is 0.0019, with a 95% interval from −0.0048 to 0.0093, so its sign cannot be told (our calculation). The long-run multiplier is 1.035, with an interval from 0.974 to 1.102 that contains the 1.07 that Section 10.9 computed from Garcia and coauthors’ coefficients, with one cell read as a misprint, on 2010–2013 data; the price’s own lags alone give 1.033, so the loop through attention adds almost nothing (our calculation). Weekly, the interval of the loop gain, −0.0125 to 0.0179, contains the 0.016 that Section 10.9 computed from Kristoufek’s responses to Google searches in 2011–2013, on his unit-shock reading, so the two are compatible (our calculation). Both comparisons are of scale only, since the models, samples and attention series differ (our judgment).<a href="#fn9" id="fnref9" class="noteref" role="doc-noteref"><sup>9</sup></a></p>
+<p>Under the main specification, which allows no time trend, the tests did not establish a long-run relation between log views and log price, and the slope <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> of the relation fitted anyway is −0.12; when a trend is allowed, a reading added after the pilot saw its first results, the tests support a relation with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> of +0.62 (our calculation). Only if page views count newcomers can <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> be read as the power by which the external source rises with the price (our judgment).</p>
+<p>Page views are a flow, and the whole sample gets one estimate, while Garcia and coauthors’ two loops appear in their full sample and in their last period and not in their data up to November 28, 2012; the daily views also show signs of over-differencing, which pushes the loop gain down, and with views entering in levels, a check added after the pilot saw its first results, the daily loop gain is 0.045, its interval still containing 0 (our calculation). If the two series share a long-run relation, the estimates describe only the short run; the pilot did not test whether attention responds differently to rises and falls, used a price that is a composite across exchanges where the earlier studies used Mt. Gox alone, and did not run the route through Google searches (our judgment); in these data the average, linear loop over days and weeks is small and cannot account for rises of orders of magnitude (our judgment).</p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> In Wikipedia page views from July 2015 to October 2026, the average, linear loop gain between price and attention is about 0.002 in the main specification (our calculation); its interval contains 0, its sign cannot be told under any specification, and it cannot account for rises of orders of magnitude. The pilot used only Wikipedia, without Google searches, and did not measure feedback near bubble peaks.</p>
+</blockquote>
+</div>
+</section>
+<section id="many-coins-and-one-pool-of-money" class="level3">
+<h3><span class="secnum">22.1.9</span> Many coins and one pool of money</h3>
+<p>The root model follows one asset and one piece of news. Several coins competing for one pool of money is a layer that this book’s framework still lacks, and this section sets it apart, with selection among people, who hears and who buys, written separately from the birth and death of coins (our judgment). One mapping treats each coin as a type in a population: a coin that exits drops permanent spreading, random multiplicative swings and random births drop the deterministic mean field, and a new coin is a new event that starts its own round of spreading, like an immigrant of Section 8.5, dropping one-time injection together with the other two (our judgment).</p>
+<p>In daily data on 2,499 cryptocurrencies from April 28, 2013 to February 7, 2018, Wu, Wheatley and Sornette (2018) found the tail exponent of market value, the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> by which the number of coins worth more than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> falls roughly as <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mrow><mi>−</mi><mi>μ</mi></mrow></msup><annotation encoding="application/x-tex">x^{-\mu}</annotation></semantics></math>,</span> between 0.5 and 0.7 for coins and between 1.0 and 1.3 for tokens, where coins operate on their own network and tokens on top of a coin’s network; their maximum-likelihood estimates for February 2018 are 0.48 [0.39, 0.57] for coins and 1.29 [0.83, 1.75] for tokens. In their model each coin’s market value grows in proportion to itself at a common rate and volatility, with births and exits, and it predicts 0.50 for coins and 1.29 for tokens; its inputs, statistics of growth, births and exits, come from the same data, period and roughly the same coins as the tail they predict (our judgment), and the authors find predicted and measured exponents consistent, with coins below 1 and tokens above 1, despite admitted model limitations.</p>
+<p>They stress that this is a very simple model whose objective is only to capture the rough dynamics: it misses the strong non-stationarities, such as bubbles and crashes, treats cryptocurrencies as independent, neglects differences in fitness, or quality, and forking, and applies only above a high enough threshold, here roughly the top 10% of coins and tokens by average market value over their lives. Comparing other time windows, they write, is complicated by non-stationary birth and death parameters but still gives consistent results, a claim this book has not tested on their data.</p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> The coins’ 0.50 against 0.48 is presented for one window only, the year ending February 7, 2018, under the reading of growth that the authors chose, the slopes over horizons of up to 10 days. The robust part, on this book’s reading, is the ordering of the measured exponents, coins below 1 and tokens above 1 (our judgment); for coins, with the zero exit hazard and zero growth of birth size and of birth intensity that the authors report, the formula gives an exponent below 1 whenever their growth rate is positive, while its value is very sensitive to how growth is read (our derivation; Box 22.3).</p>
+</blockquote>
+</div>
+<p>ElBahrawy, Alessandretti, Kandler, Pastor-Satorras and Baronchelli (2017) studied 1,469 cryptocurrencies introduced between April 2013 and June 2017. The top 5 apart from Bitcoin had gained more than 20% of the market, their total share rising by 0.021 ± 0.002 a year, while Bitcoin’s share fell by 0.035 ± 0.002 a year. Their neutral model, the Wright–Fisher model, holds <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> individuals, each belonging to a coin, and replaces them all each generation with new individuals that copy a coin of the previous generation at random or, with a small probability, belong to a new one; a generation is a week, with 7 new coins a week on average, each entering with 10 to 20 individuals, and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>10</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">N = 10^5</annotation></semantics></math>.</span> The model reproduces a number of key observations though it assumes no advantage of one coin over another, and the authors read its linear decline of the leader’s share as newborn coins mostly damaging the dominant one.</p>
+<p>The second tier is where the test fails. Under neutral drift a line that starts from a few individuals takes about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> generations to reach <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> individuals, so reaching a share <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> takes about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">N X</annotation></semantics></math> generations (our derivation). Ethereum held about 15 billion dollars of a market that passed 91 billion in May 2017, about 16%; with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>10</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">N = 10^5</annotation></semantics></math> that takes about 16,000 generations, about 300 years at one a week, while the data cover about 4 years (our calculation). The second tier’s shares therefore reject neutral drift in this setting (our judgment). The authors call their model simple, short of the full complexity of the market, and read its fit as showing no detectable population-level consensus on which currency is best; in this setting the fit behind that reading fails, so the second tier removes its support, which leaves open whether coins differ in type (our judgment). Copying coins by their shares, the model also drops Bayesian updating and no observational learning, which lie outside the relaxations that Table 5.1 lists for this chapter (our judgment).<a href="#fn10" id="fnref10" class="noteref" role="doc-noteref"><sup>10</sup></a></p>
+<div class="scope">
+<blockquote>
+<p><strong>Scope.</strong> What the data reject is neutral drift in the original setting, 100,000 individuals copying by share each week; its reproduction of the leader’s decline cannot be counted a quantitative success, and whether coins differ in type remains open (our judgment). For a Pareto tail the Zipf coefficient is the inverse of the tail exponent (our derivation), yet Kuśmierz and Overko also call Wu and coauthors’ tail exponents across coins Zipf coefficients, while the coefficients of their Table I measure the 100 largest addresses within a single coin, so the two must be kept apart when cited.</p>
+</blockquote>
+</div>
+</section>
+<section id="the-trials-side-by-side" class="level3">
+<h3><span class="secnum">22.1.10</span> The trials side by side</h3>
+<p>Table 22.1 lists the sixteen trials with their standings; each one’s numbers and limits are where the last column points. What sets or bounds a bubble’s size in each model is in Section 21.2.6 and its Table 21.3; for a disagreement bubble this book prints no number.</p>
+<div class="table-caption">
+<p>Table 22.1 Sixteen trials on crypto assets and their standing</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 30%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th>Trial</th>
+<th>Standing</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bass parameters of new products</td>
+<td>Measurement</td>
+<td>Section 5.2</td>
+</tr>
+<tr>
+<td>Tail exponents of coins and tokens</td>
+<td>Partly passed</td>
+<td>Section 22.1.9</td>
+</tr>
+<tr>
+<td>Neutral drift and market shares</td>
+<td>Failed (debunking result)</td>
+<td>Section 22.1.9</td>
+</tr>
+<tr>
+<td>An exponent fitted to the price</td>
+<td>Failed (debunking result)</td>
+<td>Section 22.1.3</td>
+</tr>
+<tr>
+<td>The rise in Cong, Li and Wang’s calibration</td>
+<td>Failed</td>
+<td>Note to Section 22.1.2</td>
+</tr>
+<tr>
+<td>Compensation for crash risk</td>
+<td>Failed</td>
+<td>Note to Section 18.7</td>
+</tr>
+<tr>
+<td>Attention feedback in the literature</td>
+<td>Measurement</td>
+<td>Section 10.9</td>
+</tr>
+<tr>
+<td>Users and theoretical exponents</td>
+<td>Untested</td>
+<td>Section 22.1.3</td>
+</tr>
+<tr>
+<td>The holdings curve</td>
+<td>Partly passed</td>
+<td>Sections 1.2.2 and 22.1.2</td>
+</tr>
+<tr>
+<td>Wheatley and coauthors’ forecast</td>
+<td>Failed (debunking result)</td>
+<td>Section 22.1.4</td>
+</tr>
+<tr>
+<td>Bitcoin’s adoption curve</td>
+<td>Untested</td>
+<td>Section 22.1.6</td>
+</tr>
+<tr>
+<td>Heard of and held</td>
+<td>Measurement, undecided</td>
+<td>Section 22.1.7</td>
+</tr>
+<tr>
+<td>Attention and price recomputed</td>
+<td>Measurement</td>
+<td>Section 22.1.8</td>
+</tr>
+<tr>
+<td>Other coins decomposed</td>
+<td>Untested</td>
+<td>Note to Section 22.1.9</td>
+</tr>
+<tr>
+<td>Listing year and spread</td>
+<td>Untested</td>
+<td>Note to Section 22.1.6</td>
+</tr>
+<tr>
+<td>Two models of market shares</td>
+<td>Failed</td>
+<td>Note to Section 22.1.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="prices-that-change-their-own-facts" class="level2">
+<h2><span class="secnum">22.2</span> Prices that change their own facts</h2>
+<p>This section drops the root model’s single exogenous fact, one fact whose true value trading does not touch (Table 5.1); in payoff feedback the external source that moves with the price also drops one-time injection, which is why Table 5.1 lists this chapter for it in parentheses.</p>
+<section id="what-counts-as-reflexivity" class="level3">
+<h3><span class="secnum">22.2.1</span> What counts as reflexivity</h3>
+<p>Reflexivity, in this book, is a price or a belief changing the facts it is meant to reflect; a price that changes only what traders know, as when it moves with the share of informed traders or traders learn from it, does not count (our judgment; Section 16.8). This book sorts seven kinds and credits a kind to crypto assets only with a difference that a test could detect (our judgment): information feedback and incentive feedback (Section 16.8); payoff feedback, belief coordination and fundamentals that grow with adoption (this section); the resale option (Section 20.1.3); and self-defeating knowledge (Chapter 23). In this book’s sources, models of crypto assets are the main example of payoff feedback and of belief coordination, though neither kind has been measured in crypto data (our judgment; Sections 22.2.2 and 22.2.3).</p>
+<p>Cong, Li and Wang draw a line of their own. In their model, which has complete information, a token capitalizes the platform’s growth in users, otherwise not tradable, and so speeds adoption under network effects, which they set apart from the informational effects of financial markets that feed back into real activity (working-paper version), the information feedback of Section 16.8.<a href="#fn11" id="fnref11" class="noteref" role="doc-noteref"><sup>11</sup></a></p>
+</section>
+<section id="payoff-feedback" class="level3">
+<h3><span class="secnum">22.2.2</span> Payoff feedback</h3>
+<p>In Cong, Li and Wang’s model a token’s value comes from adding up what users want to hold for transactions (working-paper version; Section 1.2.2). Expected appreciation reduces the effective cost of holding tokens and so speeds adoption, and more users drive up future token prices, which feed into a current expectation of appreciation and greater adoption (working-paper version).</p>
+<p>The testable difference has two parts: adoption falls back when fundamentals fall back, and at given fundamentals it rises with expected appreciation; the first separates payoff feedback from contagion, whose adoption keeps its memory (Section 5.6), persistence of shocks to fundamentals separates it from fundamentals that grow with adoption (Section 22.2.4), and only the second part separates it from adoption that merely follows fundamentals (our judgment). The authors write that a negative shock to productivity reduces users’ benefit from transactions and so lowers the user base, an effect mitigated by a rise in expected appreciation (working-paper version), and their Proposition 2 has the number of users increase in productivity and in expected appreciation. Adoption here depends only on the current state, with no memory, and its path can look like a Bass curve with a different mechanism and time scale (our judgment).</p>
+<p>In the root model, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> read here as the share who have adopted (the root model’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> is the share who have heard) and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> the rate of word of mouth, payoff feedback lets both rates depend on the price <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math> (our derivation; Box 1.2):</p>
+<p><span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>I</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>β</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>I</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{dI}{dt} = \bigl[\alpha(P) + \beta(P)\, I\bigr](1 - I).</annotation></semantics></math></span></p>
+<p>Here <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha(P)</annotation></semantics></math>,</span> an external source that changes with the price, drops one-time injection; <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta(P)</annotation></semantics></math>,</span> a contact rate that depends on the state, drops the deterministic mean field; and only the half in which adoption raises demand and the price level changes the asset’s own payoff drops the single exogenous fact, three things this book keeps apart (our judgment).</p>
+<p>The measured evidence covers other parts (our judgment): the multiplier effect that Wheatley and coauthors grant without isolating it (Section 22.1.3), the paths from attention and adoption to the price that Garcia and coauthors estimated, positive through word of mouth and new users and negative from search (Section 10.9), and the average, linear loop through attention that Section 22.1.8 found small from 2015 to 2026; none measured the half in which the price level changes the asset’s own payoff. Outside the relaxations that Table 5.1 lists for this chapter, Cong, Li and Wang’s adoption threshold drops simple contagion (Chapter 11), and their risk-adjusted pricing drops the fact unrelated to aggregate risk (Chapter 18).<a href="#fn12" id="fnref12" class="noteref" role="doc-noteref"><sup>12</sup></a></p>
+</section>
+<section id="belief-coordination" class="level3">
+<h3><span class="secnum">22.2.3</span> Belief coordination</h3>
+<p>Biais and coauthors write that a cryptocurrency’s fundamental value is its stream of net transactional benefits, which depend on its future prices, so that, in addition to fundamentals, equilibrium prices reflect sunspots (working-paper version), signals unrelated to fundamentals that work because people believe in them (our judgment; Section 21.2.7). For currencies, they write, there is no anchor independent of future prices, since endogenous future prices determine transactional benefits, and their abstract draws from the dependence on future prices multiple equilibria and extrinsic volatility, prices that fluctuate even when fundamentals are constant (working-paper version). As the probability of a crash varies there is a continuum of constant-price equilibria, and if crashes are read as a sunspot, each value of it is a belief on which investors coordinate (working-paper version).</p>
+<p>The testable difference is that belief coordination can move the price with no new information, and a test between it and payoff feedback asks whether moves in the price can be explained by changes in fundamentals measured apart from it (our judgment). The authors themselves contrast their model with Cong, Li and Wang’s: the source of multiplicity there is network externalities, theirs sunspots, and the excess volatility there reflects changes in fundamentals, while their extrinsic volatility is unrelated to fundamentals (working-paper version).</p>
+<p>Without such an anchor, whether a price is wrong has no unique benchmark at the level of the price, so for an asset without cash flows the second part of the information gradient, undigested information, is defined at the level of returns, as the part of actual returns that is predictable relative to the return investors require; so defined, it is the analogue of the second part’s mispricing term, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">∥</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(\pi \| F)</annotation></semantics></math> in Section 18.6, and the required return holds its risk-premium term (our judgment; Section 1.3 names this definition). In Biais and coauthors’ equilibrium investors must be indifferent between putting a unit of consumption into bitcoin and putting it into dollars (working-paper version), and their equation (52) has the return compensate for crashes, transactions costs and hacks, minus transactional benefits (Section 18.7). They calibrated their crash beliefs to the same series of returns, though, so the gap between return and required return was not measured independently (our judgment), and they write that the wedge between realized and expected returns could reflect a rare disaster such as a crash, the peso problem (working-paper version; Section 18.7).</p>
+<p>In their model a continuum of investors is born each period and each lives two periods (working-paper version), so the generations fix the holding period and the model cannot say who holds at the end, and saying why almost nobody holds through a bubble needs a model in which holding periods are set inside the model and data on how long individual people hold, which the pilot does not have (our judgment; Section 22.1.7). The two-period generations and the calibration’s risk neutrality drop log utility, while a sunspot that everyone knows the others see drops first-order knowledge, trading costs drop frictionless trading and a risk premium under risk aversion drops the fact unrelated to aggregate risk, three relaxations outside those that Table 5.1 lists for this chapter (our judgment).<a href="#fn13" id="fnref13" class="noteref" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+<section id="fundamentals-that-grow-with-adoption" class="level3">
+<h3><span class="secnum">22.2.4</span> Fundamentals that grow with adoption</h3>
+<p>Cong, Li and Wang’s main analysis takes the platform’s productivity process as exogenous (working-paper version). In reality, they write, many token and cryptocurrency applications have a productivity that depends on the user base: a greater user base attracts more resources and research, speeds technological progress and creates a positive feedback loop, and their Appendix E lets the drift of productivity depend on the number of users (working-paper version; Box 22.2). Here the fact itself changes over time, with adoption, so one-time injection and the single exogenous fact drop together (our judgment).</p>
+<p>The testable difference is persistence: the growth rate of productivity is no longer independent and identically distributed, and a shock’s effect becomes more persistent (working-paper version). A test would ask whether growth in users predicts later growth in stand-ins for platform activity measured apart from the price, such as activity on the blockchain per user; the pilot did not measure this (our judgment).</p>
+</section>
+<section id="seven-kinds-side-by-side" class="level3">
+<h3><span class="secnum">22.2.5</span> Seven kinds side by side</h3>
+<p>Table 22.2 sets the seven kinds side by side. The resale option of Section 20.1.3 sits on the side of reflexivity as a reading only, and it differs from the first four kinds, since the price changes neither what people know nor the asset’s payoff and no shared belief selects its level (our judgment; Section 20.1.3); its testable side is that in Scheinkman and Xiong’s equilibrium bubbles are accompanied by large trading volume and high price volatility. Self-defeating knowledge, a published pattern that weakens as more people know it, is the subject of Chapter 23.<a href="#fn14" id="fnref14" class="noteref" role="doc-noteref"><sup>14</sup></a></p>
+<div class="table-caption">
+<p>Table 22.2 Seven ways a price changes facts</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>Kind</th>
+<th>What the price changes</th>
+<th>Testable difference (our judgment)</th>
+<th>Example</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Information feedback</td>
+<td>What decision makers know, then their decisions and the cash flows</td>
+<td>A public disclosure of the same information cuts it short</td>
+<td>Bond, Edmans and Goldstein (working-paper version)</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Incentive feedback</td>
+<td>Incentives under contracts tied to the price</td>
+<td>Responds to how informative or liquid the price is more than to its level</td>
+<td>Fang, Noe and Tice (as reported by Bond, Edmans and Goldstein; working-paper version)</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Payoff feedback</td>
+<td>Adoption and the asset’s own payoff</td>
+<td>Adoption falls back with fundamentals and, at given fundamentals, moves with expected appreciation</td>
+<td>Cong, Li and Wang (working-paper version)</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Belief coordination</td>
+<td>The price level, selected by shared beliefs</td>
+<td>The price moves with no new information</td>
+<td>Biais and coauthors (working-paper version)</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Fundamentals growing with adoption</td>
+<td>The fact itself</td>
+<td>Shocks to fundamentals persist, and fundamentals respond to users</td>
+<td>Cong, Li and Wang’s Appendix E (working-paper version)</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Resale option</td>
+<td>A premium for selling later to someone more optimistic</td>
+<td>The premium comes with heavy trading and high volatility</td>
+<td>Scheinkman and Xiong</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Self-defeating knowledge</td>
+<td>A published pattern weakens</td>
+<td>Predictability falls after publication</td>
+<td>McLean and Pontiff</td>
+<td>23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="evidence-cited-in-this-chapter" class="level2">
+<h2><span class="secnum">22.3</span> Evidence cited in this chapter</h2>
+<ul>
+<li><strong>Measurements.</strong> This book’s Bitcoin pilot (our calculation), from the free data of Section 22.1.1 and its note; the data of Wheatley and coauthors, Wu and coauthors, ElBahrawy and coauthors and Kuśmierz and Overko, read in arXiv preprints; Garcia and coauthors, Kristoufek and Rzayev and coauthors, to which this chapter points back, and McLean and Pontiff, whom Chapter 23 takes up.</li>
+<li><strong>Known only as others report it.</strong> Fang, Noe and Tice’s study (as reported by Bond, Edmans and Goldstein; working-paper version); Metcalfe’s proposal (as reported by Wheatley and coauthors); the Bank of Canada’s surveys, whose figures the pilot took from a staff discussion paper and this book has not checked.</li>
+<li><strong>Models, arguments and calculations.</strong> Cong, Li and Wang, Biais and coauthors, Bond, Edmans and Goldstein and Young, read in working papers or manuscripts (working-paper version), and Scheinkman and Xiong; Figure 22.1 is our calculation, and Boxes 22.1 to 22.3 are our derivation. Bitcoin is a research case only, and nothing in this chapter is advice to buy, sell or hold any coin (our judgment).</li>
+</ul>
+</section>
+<section id="a-traders-checklist" class="level2">
+<h2><span class="secnum">22.4</span> A trader’s checklist</h2>
+<p>None of these questions says what to buy or sell, and good answers do not make a trade safe (our judgment).</p>
+<ol type="1">
+<li><strong>Was the exponent measured apart from the price?</strong> Check: an exponent fitted to the price it is meant to explain, such as Wheatley and coauthors’ 1.69 for Bitcoin from 2010 to 2018, cannot explain the rise; ask for a measurement on the blockchain and for its premises: the holdings route at the marginal user holds only if users’ expected rise stays the same and has covered 2010–2011 only, and the pilot’s measure of the network’s average degree is unstable and untested (our judgment; Sections 22.1.3 and 22.1.5).</li>
+<li><strong>Does the count measure users, activity or custody?</strong> Check: active addresses measure daily activity; in Bitcoin’s early years non-zero-balance addresses include addresses holding only untouched mining rewards; and the 100 largest addresses measure custodians and large holders (our judgment; Sections 22.1.2 and 22.1.5).</li>
+<li><strong>Did the hit come from offsetting errors?</strong> Check: split a forecast’s error into the error in its inputs and the error in its line; Wheatley and coauthors’ Metcalfe support line came within 4% of Bitcoin’s market value at the end of 2018 because a forecast of active users about twice too high met a line, drawn along the lower edge of market value, 3 to 5 times below it, depending on the bridge between two providers’ counts, and its parameters came from the price, so the hit explains nothing (our calculation; our judgment; Section 22.1.4).</li>
+<li><strong>Is the attention series a flow or a stock, and is its echo of past prices removed?</strong> Check: page views and searches are flows that count newcomers or people already following, and how many know needs a stock; remove their response to past prices before reading them as attention (our judgment; Sections 10.9 and 22.1.8).</li>
+<li><strong>Which kind of reflexivity, and what would tell it apart?</strong> Check: in Cong, Li and Wang’s model the user base falls when productivity falls, a rise in expected appreciation mitigating the fall, and at given productivity it rises with expected appreciation, which adoption that merely follows fundamentals would not do; where productivity grows with users, as in their Appendix E, shocks to it persist; in Biais and coauthors’ model the price can move with no new information (working-paper version; our judgment; Sections 22.2.2 to 22.2.4).</li>
+</ol>
+</section>
+<section id="summary" class="level2">
+<h2><span class="secnum">22.5</span> Summary</h2>
+<ul>
+<li>Wheatley and coauthors’ 1.69 fits Bitcoin’s market value to active addresses moving together from 2010 to 2018; it was not measured apart from the price, changes with the count of users, window, starting point or bubble period, and cannot explain the rise, while holdings at the marginal user and the network’s average degree could measure the exponent on the blockchain instead, the first under the premise and for the two half-years of the next point, the second so far unstable and untested (our judgment; Sections 22.1.3 and 22.1.5).</li>
+<li>If users’ expectation of the coin’s rise stays the same, and without removing exchange addresses, the holdings curve reads an exponent without any price for two half-years only: from July 2010 to January 2011 the actual end price was 1.84 times the predicted one, from January to June 2011 the prediction was about 22 times too high, and the pilot tested nothing after 2011 (our derivation; our calculation; Section 22.1.2).</li>
+<li>The Metcalfe support line of Wheatley and coauthors’ preprint, its parameters set from the price, came within 4% of Bitcoin’s market value at the end of 2018 because a forecast of active users about twice too high met a line 3 to 5 times too low, depending on the bridge between two providers’ counts, though a support line is drawn along the lower edge of market value (our calculation; our judgment; Section 22.1.4).</li>
+<li>Active addresses measure activity and the 100 largest addresses custodians and large holders, neither of them cumulative adoption; hearing, believing and retelling, buying and holding need to be measured apart, and for hearing of and holding the pilot has only survey figures of 2016 to 2023 that still await checking, and nothing for believing and retelling or buying; with an external source that changes through listings, media coverage and attention driven by the price, the relative hazard test decides nothing until that source is measured beside monthly or finer data on holders, mining-reward addresses removed (our judgment; Sections 22.1.5 to 22.1.7).</li>
+<li>In Wikipedia page views from July 2015 to October 2026, the average, linear loop gain between Bitcoin’s price and attention is about 0.002 in the main specification, its interval containing 0 and its sign unclear under every specification; with over-differencing in the daily views pushing it down, the tests establishing no long-run relation without a trend and the pilot using no Google searches, so small a loop cannot account for rises of orders of magnitude (our calculation; our judgment; Section 22.1.8).</li>
+<li>Across coins, Wu and coauthors’ proportional growth model puts coins below 1 and tokens above 1 in tail exponent, with the closer match presented for one window, ending February 2018, under the authors’ reading; neutral drift in ElBahrawy and coauthors’ setting of 100,000 individuals copying by share each week would need about 300 years to grow a share like Ethereum’s, so the second tier rejects that setting, while whether coins differ in type stays open (our derivation; our calculation; our judgment; Section 22.1.9).</li>
+<li>In Cong, Li and Wang’s and Biais and coauthors’ models (working-paper version), payoff feedback reverses when productivity falls, a rise in expected appreciation mitigating the fall, and only its response to expected appreciation at given productivity tells it from adoption that follows fundamentals; belief coordination can move the price with no new information; productivity that grows with users makes shocks persist; and for an asset without cash flows the gradient’s second part is defined at the level of returns, as the analogue of its mispricing term, with the required return holding its risk-premium term, though Biais and coauthors’ gap to the required return was not measured independently (our judgment; Section 22.2).</li>
+</ul>
+</section>
+<section id="boxes-for-quantitative-readers" class="level2">
+<h2><span class="secnum">22.6</span> Boxes for quantitative readers</h2>
+<section id="box-22.1-elasticity-from-a-rankbalance-curve" class="level4 box">
+<h4><span class="box-label">Box 22.1</span> Elasticity from a rank–balance curve</h4>
+<p>Write <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">b(N)</annotation></semantics></math> for the balance at rank <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(N)</annotation></semantics></math> for the total held by the first <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> addresses. Note 6 of Chapter 1 gives the predicted growth of market value from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>1</mn></msub><annotation encoding="application/x-tex">N_1</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>2</mn></msub><annotation encoding="application/x-tex">N_2</annotation></semantics></math> users, in e-folds, as <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>b</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\ln[b(N_1)/b(N_2)] + \ln[T(N_2)/T(N_1)]</annotation></semantics></math>,</span> provided that users’ expectation of the coin’s rise does not change (our derivation). The rest of this box is our derivation. Letting <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>2</mn></msub><annotation encoding="application/x-tex">N_2</annotation></semantics></math> approach <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>1</mn></msub><annotation encoding="application/x-tex">N_1</annotation></semantics></math> gives the local elasticity</p>
+<p><span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mfrac><mrow><mi>d</mi><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>b</mi></mrow><mrow><mi>d</mi><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mo>+</mo><mfrac><mrow><mi>N</mi><mspace width="0.167em"></mspace><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\varepsilon(N) = -\frac{d \ln b}{d \ln N} + \frac{N\, b(N)}{T(N)},</annotation></semantics></math></span></p>
+<p>the curve’s steepness at the marginal user plus the marginal user’s balance relative to the average balance of the first <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.</span> Both terms are read from the same curve, with no assumption about its shape. If the curve is a Pareto tail, <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><msup><mi>N</mi><mrow><mi>−</mi><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">b(N) \propto N^{-s}</annotation></semantics></math>,</span> then for <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s &lt; 1</annotation></semantics></math>,</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><msup><mi>N</mi><mrow><mn>1</mn><mo>−</mo><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">T(N) \propto N^{1-s}</annotation></semantics></math> and <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>=</mo><mi>s</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\varepsilon = s + (1 - s) = 1</annotation></semantics></math>;</span> for <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s &gt; 1</annotation></semantics></math>,</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> is set by the top, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>b</mi><mi>/</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">N b/T</annotation></semantics></math> falls as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> grows and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math> tends to <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>.</span> Kuśmierz and Overko’s coefficient for Bitcoin’s top 100, 0.787, then gives exactly 1, and the seven tokens of Section 22.1.5 about 1.2 to 1.8. Both readings extend the slope at the top to the end of the list, while their coefficients are averages over the sample period and the top is not one straight line, since the coefficients for the top 30, 50 and 100 differ.</p>
+</section>
+<section id="box-22.2-loop-gain-and-productivity-that-grows-with-users" class="level4 box">
+<h4><span class="box-label">Box 22.2</span> Loop gain and productivity that grows with users</h4>
+<p>For the daily or weekly changes of price and page views, a two-variable vector autoregression has four sums of coefficients: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> for each series on its own past, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> for the effect of views on the price and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> for that of the price on views. The loop gain is</p>
+<p><span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mfrac><mrow><mi>b</mi><mspace width="0.167em"></mspace><mi>c</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">g = \frac{b\,c}{(1 - a)(1 - d)},</annotation></semantics></math></span></p>
+<p>the amplification by the loop alone is <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1 - g)</annotation></semantics></math>,</span> and the long-run multiplier <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> also counts the price’s own lags, and a loop gain measures only the average linear part, over days or weeks, of the loop of Section 22.2.2 (our derivation). Cong, Li and Wang’s Appendix E writes productivity as <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><msub><mi>A</mi><mi>t</mi></msub><mi>/</mi><msub><mi>A</mi><mi>t</mi></msub><mo>=</mo><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mi>t</mi></msub><mo>−</mo><munder><mi>N</mi><mo accent="true">_</mo></munder><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><msup><mi>σ</mi><mi>A</mi></msup><mi>d</mi><msubsup><mi>Z</mi><mi>t</mi><mi>A</mi></msubsup></mrow><annotation encoding="application/x-tex">dA_t/A_t = \omega(N_t - \underline{N})\,dt + \sigma^A dZ_t^A</annotation></semantics></math>,</span> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\omega &gt; 0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><munder><mi>N</mi><mo accent="true">_</mo></munder><annotation encoding="application/x-tex">\underline{N}</annotation></semantics></math> is the minimal user base for a drift that is not negative (working-paper version).</p>
+</section>
+<section id="box-22.3-tail-exponent-under-proportional-growth" class="level4 box">
+<h4><span class="box-label">Box 22.3</span> Tail exponent under proportional growth</h4>
+<p>Wu and coauthors’ asymptotic tail exponent is <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mrow><mi>T</mi><mi>H</mi></mrow></msub><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>2</mn><mstyle displaystyle="false"><mfrac><mrow><mi>r</mi><mo>−</mo><msub><mi>c</mi><mn>0</mn></msub></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mstyle><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msqrt><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>2</mn><mstyle displaystyle="false"><mfrac><mrow><mi>r</mi><mo>−</mo><msub><mi>c</mi><mn>0</mn></msub></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mstyle><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>8</mn><mstyle displaystyle="false"><mfrac><mrow><mi>d</mi><mo>+</mo><mi>h</mi></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mstyle></mrow></msqrt><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mu_{TH} = \tfrac{1}{2}\bigl[(1 - 2\tfrac{r - c_0}{\sigma^2}) + \sqrt{(1 - 2\tfrac{r - c_0}{\sigma^2})^2 + 8\tfrac{d + h}{\sigma^2}}\bigr]</annotation></semantics></math>,</span> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> the growth rate and volatility of market value, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mn>0</mn></msub><annotation encoding="application/x-tex">c_0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> the growth rates of birth size and of the rate of births, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> the exit hazard. For coins <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>0</mn></msub><mo>=</mo><mi>d</mi><mo>=</mo><mi>h</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c_0 = d = h = 0</annotation></semantics></math>,</span> and the exponent reduces to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>1</mn><mo>−</mo><mn>2</mn><mi>r</mi><mi>/</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\mu = 1 - 2r/\sigma^2</annotation></semantics></math> where that is positive (our derivation). With <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1.52</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">r = 1.52\%</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>24.67</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">\sigma = 24.67\%</annotation></semantics></math> it is 0.50 (our calculation). Since <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>μ</mi><mi>/</mi><mi>d</mi><mi>r</mi><mo>=</mo><mi>−</mi><mn>2</mn><mi>/</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">d\mu/dr = -2/\sigma^2</annotation></semantics></math>,</span> about −33, a change of 0.3 percentage points in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> moves the prediction by about 0.1, so it is very sensitive to how growth is read (our derivation).</p>
+</section>
+</section>
+<section id="references" class="level2 references">
+<h2 class="references">References</h2>
+<p>Works cited in this chapter. Where the version read is not the journal version, the entry says which version was read; page numbers in the notes follow that version.</p>
+<ul>
+<li>Bank of Canada (2025). Staff Discussion Paper 2025-4. Not read for this chapter; the pilot took its survey figures, which have not been checked against the original, and this chapter prints none of them.</li>
+<li>Biais, B., C. Bisière, M. Bouvard, C. Casamatta and A. J. Menkveld (2023). Equilibrium Bitcoin Pricing. <em>Journal of Finance</em> 78(2). Read in the accepted manuscript, issued as TSE Working Paper 973 of February 2022; the journal version was not checked.</li>
+<li>Bond, P., A. Edmans and I. Goldstein (2012). The Real Effects of Financial Markets. <em>Annual Review of Financial Economics</em> 4. Read as NBER Working Paper 17719, December 2011.</li>
+<li>Cong, L. W., Y. Li and N. Wang (2021). Tokenomics: Dynamic Adoption and Valuation. <em>Review of Financial Studies</em> 34(3): 1105–1155. Read as NBER Working Paper 27222, May 2020; the journal version was not checked.</li>
+<li>ElBahrawy, A., L. Alessandretti, A. Kandler, R. Pastor-Satorras and A. Baronchelli (2017). Evolutionary Dynamics of the Cryptocurrency Market. <em>Royal Society Open Science</em> 4: 170623. Read as arXiv preprint 1705.05334v3 of November 21, 2017; the journal version was not checked.</li>
+<li>Fang, V. W., T. H. Noe and S. Tice (2009). Stock Market Liquidity and Firm Value. <em>Journal of Financial Economics</em> 94(1): 150–169. Not read; cited as Bond, Edmans and Goldstein (2012) report it.</li>
+<li>Garcia, D., C. J. Tessone, P. Mavrodiev and N. Perony (2014). The Digital Traces of Bubbles: Feedback Cycles between Socio-Economic Signals in the Bitcoin Economy. <em>Journal of the Royal Society Interface</em> 11: 20140623 (from its DOI). Read as arXiv preprint 1408.1494v1; the journal version was not checked.</li>
+<li>Kristoufek, L. (2013). BitCoin Meets Google Trends and Wikipedia: Quantifying the Relationship between Phenomena of the Internet Era. <em>Scientific Reports</em> 3: 3415.</li>
+<li>Kuśmierz, B., and R. Overko (2022). How Centralized Is Decentralized? Comparison of Wealth Distribution in Coins and Tokens. 2022 IEEE International Conference on Omni-layer Intelligent Systems (COINS). Read as arXiv preprint 2207.01340v1; the conference version was not checked.</li>
+<li>McLean, R. D., and J. Pontiff (2016). Does Academic Research Destroy Stock Return Predictability? <em>Journal of Finance</em> 71(1): 5–32.</li>
+<li>Rzayev, K., A. Sakkas and A. Urquhart (2025). An Adoption Model of Cryptocurrencies. <em>European Journal of Operational Research</em> 323(1): 253–266.</li>
+<li>Scheinkman, J. A., and W. Xiong (2003). Overconfidence and Speculative Bubbles. <em>Journal of Political Economy</em> 111(6): 1183–1219.</li>
+<li>Wheatley, S., D. Sornette, T. Huber, M. Reppen and R. N. Gantner (2019). Are Bitcoin Bubbles Predictable? Combining a Generalized Metcalfe’s Law and the Log-Periodic Power Law Singularity Model. <em>Royal Society Open Science</em> 6: 180538. Read as arXiv preprint 1803.05663v1 of March 2018; the journal version was not checked.</li>
+<li>Wu, K., S. Wheatley and D. Sornette (2018). Classification of Cryptocurrency Coins and Tokens by the Dynamics of Their Market Capitalizations. <em>Royal Society Open Science</em> 5: 180381. Read as arXiv preprint 1803.03088v2 of May 16, 2018; the journal version was not checked.</li>
+<li>Young, H. P. (2009). Innovation Diffusion in Heterogeneous Populations: Contagion, Social Influence, and Social Learning. <em>American Economic Review</em> 99(5). Read in the author’s final manuscript, the second revision of AER manuscript 2007-1161, October 2008; the journal version was not checked.</li>
+</ul>
+</section>
+<section id="notes-1" class="level2 unnumbered">
+<h2 class="unnumbered">Notes</h2>
+<div class="endnotes">
+<div id="fn1" class="endnote">
+<p><a href="#fnref1" class="backlink" role="doc-backlink">1.</a> Wheatley et al. (2019) were read as arXiv preprint 1803.05663v1, and the <em>Royal Society Open Science</em> version was not checked; pages follow the preprint as compiled from its source: the fit and the proxy for users on p. 4; spurious regression and the assumed causal link in fn. 6, p. 4; the fundamental value in the abstract. In early 2018, they write, their regression line, support line and Metcalfe support line suggested current values around 44, 22 and 33 billion dollars, against an actual market value of 170 billion (p. 6).</p>
+</div>
+<div id="fn2" class="endnote">
+<p><a href="#fnref2" class="backlink" role="doc-backlink">2.</a> Each trial answers six questions: what number is to be explained, by what formula, whether and how each parameter was measured without looking at that number, by how many e-folds prediction and outcome differ, what the model cannot explain, and where code using only free data reproduces it. The data’s licenses: CoinMetrics community data, CC BY-NC 4.0, which forbids commercial use; the AWS Public Blockchain Data (registry.opendata.aws/aws-public-blockchain), whose terms are unclear and which this book treats as forbidding redistribution; Wikimedia pageviews, CC0. The registrations of one wallet company come from Blockchain.com’s charts, whose terms are unclear and which this book treats as research only; no number from them is printed. All results are in <code>book/code/results/</code>, and the code is in <code>book/code/btc_pilot/</code>. The six questions and the five standings are this book’s rules for its trials.</p>
+</div>
+<div id="fn3" class="endnote">
+<p><a href="#fnref3" class="backlink" role="doc-backlink">3.</a> The average exponent is <code>beta_segment</code> in <code>step3_holdings.json</code>, the formula’s predicted rise in market value divided by the rise in the count of users, both in e-folds, from <code>book/code/btc_pilot/step3.py</code>. Section 1.2.2 and notes 6 and 7 of Chapter 1 give the formula, the dates, the count of users and the predictions. The holding cost in Cong, Li and Wang’s calibration, prorated to the second period, would narrow its gap and fall far short of closing it (our judgment); the prorated value is only an order of magnitude and is not printed. Cong, Li and Wang also calibrated their own model to data: they chose parameter values such that the model generates the data patterns in their Figures 2 and 4, setting <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> so that the sensitivity of the log price to the user base matches the data over part of the range of the user base (working-paper version; the calibration appendix, pp. C-1 and C-3, whose sentence on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> has two misspellings). The rise their calibration gives therefore cannot count as a prediction, and this book’s appendix compares it with the data (our judgment).</p>
+</div>
+<div id="fn4" class="endnote">
+<p><a href="#fnref4" class="backlink" role="doc-backlink">4.</a> With CoinMetrics’ active addresses, the kind of count Wheatley et al. fitted, in place of non-zero-balance addresses, the same exponent from January 31, 2011 leaves a residual of +3.37 e-folds (our calculation). For the formula to fit exactly on non-zero-balance addresses, the exponent would have to be 1.98 from January 31, 2011 and 2.31 from January 1, 2012; both are worked back from the rise to be explained and show only how sensitive the fit is (our calculation). Wheatley et al., preprint: the residuals as bubbles and crashes and endogeneity on p. 4; the multiplier effect and the effect they do not isolate on p. 5; the support lines on p. 6; the windows in fn. 8, p. 4, and fn. 15, p. 7. The calculation is in <code>book/code/btc_pilot/decomposition.py</code>, with results in <code>step4_decomposition.csv</code> and <code>step4_summary.json</code>.</p>
+</div>
+<div id="fn5" class="endnote">
+<p><a href="#fnref5" class="backlink" role="doc-backlink">5.</a> Wheatley et al. were read in the first preprint, of March 2018, and the journal version was not checked: the forecasts of market value on pp. 6–7; the forecasts of users from the fits starting in 2012 and in 2010 in fns. 12 and 13, p. 6. The counts of active users that put each of the three forecasts back on its line are 1.132 × 10⁶ for the regression line, 1.127 × 10⁶ for the support line and 1.134 × 10⁶ for the Metcalfe support line; the active addresses counted at the end of 2018, converted to the authors’ count, are 5.15 × 10⁵ (our calculation). The paper says that its forecasts assume the regression from 2012, whose forecast for the first day of the next year, 2019, is 1.06 million active users, yet these counts are all about 1.13 million, close to the 1.14 million that the fit from 2010 gives; the paper does not say why, and this book reports both fits (our judgment). The actual market value is 6.6 × 10¹⁰ dollars, the median of 31 daily values around December 31, 2018 in CoinMetrics community data (license CC BY-NC 4.0). For the regression line and the support line, the actual value was 0.86 and 1.70 times the forecast (our calculation). The bridge divides CoinMetrics’ count of active addresses by the ratio of its highest count from January 1, 2012 to February 26, 2018 to the authors’ highest, which we worked back from their footnote without knowing whether it is a raw daily value or a smoothed one; the second bridge uses the two lowest counts. The calculation is in <code>book/code/btc_pilot/wheatley_oos.py</code>, and <code>book/code/btc_pilot/bookfig_ch22.py</code> draws Figure 22.1 from its results.</p>
+</div>
+<div id="fn6" class="endnote">
+<p><a href="#fnref6" class="backlink" role="doc-backlink">6.</a> The forecast for the first day of 2019 is 1.06 million active users, from the fit starting in 2012. At the start of 2023, active addresses were 0.31 of their forecast on the main bridge (our calculation). Active addresses rose 3.24 e-folds from January 31, 2011 to January 1, 2013 and only 0.34 from January 1, 2016 to January 1, 2019 (our calculation).</p>
+</div>
+<div id="fn7" class="endnote">
+<p><a href="#fnref7" class="backlink" role="doc-backlink">7.</a> Wheatley et al., preprint: the mix of users and transactions in fn. 5, p. 4; full connectivity and the reading of 1.69 in fn. 11, p. 5. Kuśmierz and Overko, preprint: the coefficients in Table I, p. 4; Section 18.5 gives their sample and caution. Section 5.2 gives the sources for Rzayev et al. This book’s convention for counting users asks each trial to report active addresses, non-zero-balance addresses and users clustered by entity, how the size of a result changes from one to another, and to count users and holdings the same way (our judgment).</p>
+</div>
+<div id="fn8" class="endnote">
+<p><a href="#fnref8" class="backlink" role="doc-backlink">8.</a> Section 5.2 gives a reference range of Bass parameters for new products, and Section 5.6 the footprints that tell contagion from other shapes of adoption. The code for the fits is <code>book/code/btc_pilot/scurve.py</code>, and their results are in <code>step6_scurve.json</code>. Young (2009), the author’s final manuscript of October 2008: Proposition 1 on p. 11; Section 5.6 and its notes give the sources for the footprints. Whether later coins had larger external sources cannot be tested in this free data: for most coins the Bass fit could not identify its parameters, and the data do not reject the idea either; this book prints no number from that trial.</p>
+</div>
+<div id="fn9" class="endnote">
+<p><a href="#fnref9" class="backlink" role="doc-backlink">9.</a> Over eight languages added together, the daily loop gain is 0.0020 (our calculation). Under the main specification, which allows no trend, a long-run relation between the two series, cointegration, was not established, the Engle–Granger test giving a p-value of 0.26; with a trend allowed, the same test gives 0.015 (our calculation). The daily views’ coefficients on their own past sum to −1.015, close to −1, the sign of over-differencing (our calculation). The pilot chose the number of lags by a rule fixed in advance, and the intervals come from 200 bootstrap repetitions (our calculation). This book did not export Google Trends data, so the pilot could not run the route through searches. The code is in <code>book/code/btc_pilot/attention.py</code>, with results in <code>step8_attention.json</code>. Section 10.9 and note 11 of Chapter 10 give the sources for Garcia et al. and Kristoufek; Garcia et al.’s loops by period are on p. 9 of their preprint.</p>
+</div>
+<div id="fn10" class="endnote">
+<p><a href="#fnref10" class="backlink" role="doc-backlink">10.</a> Wu et al. (2018) were read as arXiv preprint 1803.03088v2, and the <em>Royal Society Open Science</em> version was not checked; pages follow the preprint as compiled from its source: the data in fn. 4, p. 2; the ranges of the exponents in the abstract; the model, equations (2) and (3) and its limitations on pp. 5–6; the estimation of the growth rate and volatility on p. 6; Figure 5 on p. 7; the agreement, the threshold and other windows on p. 8; the estimates and inputs in Table 1, p. 9. ElBahrawy et al. (2017) were read as arXiv preprint 1705.05334v3, and the journal version was not checked; pages as compiled from its source: the sample in the abstract; Bitcoin’s falling share and the rising share of the top 5 on pp. 3–4; the market value in May 2017 on p. 2; the model on pp. 5–6 and in Fig. 5, p. 6; the decline of the leader’s share and the 4 years on p. 7; the discussion on p. 8; Ethereum in Table 1, p. 13. Kuśmierz and Overko, preprint: the Zipf coefficients across coins on p. 7. The pilot redid the comparison of shares on the 102 coins and tokens that CoinMetrics still covers, a panel of survivors, in 6 overlapping three-year windows starting on January 1 of each year from 2018 to 2023. With 100,000 holders, the leader’s share ended outside the neutral model’s 5–95% band in 5 windows (our calculation). In those five, by the formula for pure drift, about 128 to 2,855 holders would make one standard deviation as large as the move in the data (our calculation). These counts are worked back from the data and were never measured; a neutral model with far fewer holders was not tested, so whether coins differ in type stays open; and the pilot could not read the comparison with Gibrat growth, each coin’s value rising and falling in proportion to its size, in half the windows and must register it again before running it (our judgment). The pilot also applied Wu et al.’s formula to its own panel after 2018, which mixes coins and tokens and holds only survivors; that rough check is not printed; it did not reproduce the authors’ agreement, and its panel is too unlike theirs to test their claim. The code is in <code>book/code/btc_pilot/crosscoin_d3.py</code>. Decomposing other coins one by one used only theoretical exponents and counts of addresses that were not cleaned, and is untested; the one conditional pattern the pilot saw there came from groups formed after the results were seen, and this book prints no number from that trial.</p>
+</div>
+<div id="fn11" class="endnote">
+<p><a href="#fnref11" class="backlink" role="doc-backlink">11.</a> Bubbles and coordination are the subject of Chapter 21, whose Table 21.3 points here for Biais and coauthors and for Cong, Li and Wang.</p>
+</div>
+<div id="fn12" class="endnote">
+<p><a href="#fnref12" class="backlink" role="doc-backlink">12.</a> Cong, Li and Wang (2021), NBER Working Paper 27222: complete information and the distinction from informational feedback in fn. 2, p. 4; the negative shock and its mitigation on p. 3; Figure 1 and the summary of adoption on p. 17; Proposition 2 recalled on p. 21. Section 1.2.2 and note 6 of Chapter 1 give the sources for the token’s value, Section 11.3.1 those for the complementarity, and Section 18.7 those for the risk adjustment. The equation for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>I</mi><mi>/</mi><mi>d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">dI/dt</annotation></semantics></math> is the root model’s (Box 1.2) with the price entering both rates, this book’s construction.</p>
+</div>
+<div id="fn13" class="endnote">
+<p><a href="#fnref13" class="backlink" role="doc-backlink">13.</a> Biais et al. (2023), TSE Working Paper 973: multiple equilibria and extrinsic volatility in the abstract, p. 2; the contrasts with Cong, Li and Wang on pp. 8–9; the generations in §I, p. 11; the absence of an anchor for currencies on p. 16; the continuum of equilibria and coordinated beliefs in §II, p. 21; the indifference after equation (51) on p. 41. Section 21.2.7 gives sunspots in Brunnermeier’s kinds of crash, Section 18.7 and notes 8 and 9 of Chapter 18 those for equation (52), the calibration, the peso problem and the compensation factor.</p>
+</div>
+<div id="fn14" class="endnote">
+<p><a href="#fnref14" class="backlink" role="doc-backlink">14.</a> The rows of Table 22.2 rest on Sections 16.8, 20.1.3 and 22.2.2 to 22.2.4; the testable differences are this book’s (our judgment), and the row for self-defeating knowledge points to Chapter 23. Scheinkman and Xiong (2003), journal version: volume and volatility in the abstract, p. 1183. Cong, Li and Wang (2021), NBER Working Paper 27222: Appendix E, p. E-2.</p>
+</div>
+</div>
+</section>
+</section>
+
+</article>
+<nav class="pager" aria-label="Previous chapter / Next chapter">
+<a class="pager-prev" href="ch21.html" rel="prev"><span class="pager-label">Previous chapter</span><span class="pager-title">Chapter 21 Higher-Order Beliefs, Bubbles and Coordination</span></a>
+<a class="pager-next" href="ch23.html" rel="next"><span class="pager-label">Next chapter</span><span class="pager-title">Chapter 23 Anomaly Decay and Limits to Arbitrage</span></a>
+</nav>
+</main>
+</div>
+<footer class="site-footer"><p>Draft of November 21, 2026</p></footer>
+</body>
+</html>

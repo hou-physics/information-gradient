@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="440" height="362" viewBox="0 0 440 362" font-family="sans-serif">
+  <desc>A schematic of where the five constraint laws act. Along the top row, a box for the world, the state θ, sends an arrow labeled observation to a box for trader i's information set; the arrow is pinched in the middle, marked 3 for the capacity law, and marked 1 for the observation law. A dashed arrow labeled forgetting leaves trader i's box upward. An arrow labeled trade, marked 4, runs from trader i to a box for the price, which is marked 5 for the no-arbitrage law. In the bottom row, an arrow labeled telling, marked 2 for the non-rivalry law, runs down from trader i to a box for trader j's information set, and an arrow labeled seen by, marked 4 for the price endogeneity law, runs from the price to trader j. A grey dashed box for trader k, who does not see the price, has no arrow. A legend below states each law in a few words: 1, observation law, the only way to learn, forgetting allowed; 2, non-rivalry law, i keeps what i knew and "only i knows" ends; 3, capacity law, at most κ per unit of time, prices included; 4, price endogeneity law, set by trades, a signal to those who see it; 5, no-arbitrage law, no free lunch from publicly available information, its form depending on frictions.</desc>
+
+  <rect x="0" y="0" width="440" height="362" fill="#ffffff"/>
+
+  <g stroke-width="2">
+    <rect x="10" y="46" width="76" height="48" rx="4" fill="#dbe3ee" stroke="#4a5a7a"/>
+    <rect x="176" y="46" width="110" height="48" rx="4" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="360" y="46" width="70" height="48" rx="4" fill="#f7dcb4" stroke="#9a6a35"/>
+    <rect x="176" y="188" width="110" height="48" rx="4" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="346" y="188" width="84" height="48" rx="4" fill="#f4f4f4" stroke="#a0a0a0" stroke-dasharray="5 4"/>
+  </g>
+
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="48" y="66" font-size="12" font-weight="bold">World</text>
+    <text x="48" y="83" font-size="11">state <tspan font-style="italic">θ</tspan></text>
+    <text x="231" y="66" font-size="12" font-weight="bold">Trader <tspan font-style="italic">i</tspan></text>
+    <text x="231" y="83" font-size="11">information set</text>
+    <text x="395" y="74" font-size="12" font-weight="bold">Price</text>
+    <text x="231" y="208" font-size="12" font-weight="bold">Trader <tspan font-style="italic">j</tspan></text>
+    <text x="231" y="225" font-size="11">information set</text>
+  </g>
+  <g fill="#7a7a7a" text-anchor="middle">
+    <text x="388" y="205" font-size="12" font-weight="bold">Trader <tspan font-style="italic">k</tspan></text>
+    <text x="388" y="219" font-size="10">does not see</text>
+    <text x="388" y="231" font-size="10">the price</text>
+  </g>
+
+  <g stroke="#4a4a4a" stroke-width="1.6" fill="none">
+    <line x1="86" y1="70" x2="167" y2="70"/>
+    <line x1="286" y1="70" x2="351" y2="70"/>
+    <line x1="214" y1="94" x2="214" y2="179"/>
+    <line x1="380" y1="94" x2="292.4" y2="198.3"/>
+  </g>
+  <line x1="262" y1="46" x2="262" y2="25" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <g fill="#4a4a4a">
+    <polygon points="176,70 166,65 166,75"/>
+    <polygon points="360,70 350,65 350,75"/>
+    <polygon points="214,188 209,178 219,178"/>
+    <polygon points="286,206 296.3,201.5 288.6,195.1"/>
+
+    <polygon points="124,62 138,62 131,68.4"/>
+    <polygon points="124,78 138,78 131,71.6"/>
+  </g>
+  <polygon points="262,16 257,25 267,25" fill="#7a7a7a"/>
+
+  <g fill="#1f1f1f" font-size="11">
+    <text x="131" y="58" text-anchor="middle">observation</text>
+    <text x="318" y="62" text-anchor="middle">trade</text>
+    <text x="206" y="145" text-anchor="end">telling</text>
+    <text x="340" y="152">seen by</text>
+  </g>
+  <text x="270" y="27" font-size="11" fill="#5a5a5a">forgetting</text>
+
+  <g stroke="#1f1f1f" stroke-width="1.2" fill="#ffffff">
+    <circle cx="131" cy="40" r="7.5"/>
+    <circle cx="131" cy="92" r="7.5"/>
+    <circle cx="318" cy="44" r="7.5"/>
+    <circle cx="395" cy="30" r="7.5"/>
+    <circle cx="160" cy="141" r="7.5"/>
+    <circle cx="397" cy="148" r="7.5"/>
+  </g>
+  <g fill="#1f1f1f" font-size="10" font-weight="bold" text-anchor="middle">
+    <text x="131" y="43.5">1</text>
+    <text x="131" y="95.5">3</text>
+    <text x="318" y="47.5">4</text>
+    <text x="395" y="33.5">5</text>
+    <text x="160" y="144.5">2</text>
+    <text x="397" y="151.5">4</text>
+  </g>
+
+  <line x1="10" y1="252" x2="430" y2="252" stroke="#c8c8c8" stroke-width="1"/>
+  <g stroke="#1f1f1f" stroke-width="1.2" fill="#ffffff">
+    <circle cx="20" cy="268" r="7"/>
+    <circle cx="20" cy="285" r="7"/>
+    <circle cx="20" cy="302" r="7"/>
+    <circle cx="20" cy="319" r="7"/>
+    <circle cx="20" cy="336" r="7"/>
+  </g>
+  <g fill="#1f1f1f" font-size="10" font-weight="bold" text-anchor="middle">
+    <text x="20" y="271.5">1</text>
+    <text x="20" y="288.5">2</text>
+    <text x="20" y="305.5">3</text>
+    <text x="20" y="322.5">4</text>
+    <text x="20" y="339.5">5</text>
+  </g>
+  <g fill="#1f1f1f" font-size="11">
+    <text x="34" y="272"><tspan font-weight="bold">Observation law:</tspan> the only way to learn; forgetting allowed</text>
+    <text x="34" y="289"><tspan font-weight="bold">Non-rivalry law:</tspan> <tspan font-style="italic">i</tspan> keeps what <tspan font-style="italic">i</tspan> knew; “only <tspan font-style="italic">i</tspan> knows” ends</text>
+    <text x="34" y="306"><tspan font-weight="bold">Capacity law:</tspan> at most <tspan font-style="italic">κ</tspan> per unit of time, prices included</text>
+    <text x="34" y="323"><tspan font-weight="bold">Price endogeneity law:</tspan> set by trades, a signal to those who see it</text>
+    <text x="34" y="340"><tspan font-weight="bold">No-arbitrage law:</tspan> no free lunch from publicly available information;</text>
+    <text x="34" y="354">its form depends on frictions</text>
+  </g>
+</svg>

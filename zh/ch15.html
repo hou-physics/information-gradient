@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>第 15 章　发送者的选择、分享与披露 · 信息梯度与传播</title>
+<link rel="alternate" hreflang="en" href="../en/ch15.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..700&amp;family=Noto+Serif+SC:wght@400..700&amp;family=Source+Sans+3:wght@400..700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="chapter-page">
+<header class="site-header">
+  <div class="site-header-inner">
+  <a class="site-title" href="index.html">信息梯度与传播</a>
+  <nav class="site-nav" aria-label="目录">
+    <a href="index.html">目录</a>
+    <a href="../en/ch15.html" hreflang="en" lang="en">English</a>
+  </nav>
+  </div>
+</header>
+<div class="layout">
+<nav class="toc-side" aria-label="本章各节">
+<p class="toc-heading">本章各节</p>
+<ol>
+<li><a href="#发送者与他们的目标"><span class="toc-num">15.1</span> <span class="toc-text">发送者与他们的目标</span></a></li>
+<li><a href="#发送者的设计选择"><span class="toc-num">15.2</span> <span class="toc-text">发送者的设计选择</span></a>
+<ol>
+<li><a href="#种子受众与注入时机"><span class="toc-num">15.2.1</span> <span class="toc-text">种子、受众与注入时机</span></a></li>
+<li><a href="#放出的时机与内容"><span class="toc-num">15.2.2</span> <span class="toc-text">放出的时机与内容</span></a></li>
+<li><a href="#呈现方式与公开行动"><span class="toc-num">15.2.3</span> <span class="toc-text">呈现方式与公开行动</span></a></li>
+</ol></li>
+<li><a href="#有交易利益者的分享"><span class="toc-num">15.3</span> <span class="toc-text">有交易利益者的分享</span></a>
+<ol>
+<li><a href="#竞争者之间的互惠分享"><span class="toc-num">15.3.1</span> <span class="toc-text">竞争者之间的互惠分享</span></a></li>
+<li><a href="#出售信息"><span class="toc-num">15.3.2</span> <span class="toc-text">出售信息</span></a></li>
+<li><a href="#建仓之后的可验证证据"><span class="toc-num">15.3.3</span> <span class="toc-text">建仓之后的可验证证据</span></a></li>
+<li><a href="#建仓之后的粗化传言"><span class="toc-num">15.3.4</span> <span class="toc-text">建仓之后的粗化传言</span></a></li>
+<li><a href="#拉盘与引人跟进的交易"><span class="toc-num">15.3.5</span> <span class="toc-text">拉盘与引人跟进的交易</span></a></li>
+<li><a href="#可验证的披露与沉默"><span class="toc-num">15.3.6</span> <span class="toc-text">可验证的披露与沉默</span></a></li>
+</ol></li>
+<li><a href="#按价格反转分类的分支"><span class="toc-num">15.4</span> <span class="toc-text">按价格反转分类的分支</span></a></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">15.5</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">15.6</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">15.7</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">15.8</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</nav>
+<main class="chapter-main">
+<details class="toc-top">
+<summary>本章各节</summary>
+<ol>
+<li><a href="#发送者与他们的目标"><span class="toc-num">15.1</span> <span class="toc-text">发送者与他们的目标</span></a></li>
+<li><a href="#发送者的设计选择"><span class="toc-num">15.2</span> <span class="toc-text">发送者的设计选择</span></a>
+<ol>
+<li><a href="#种子受众与注入时机"><span class="toc-num">15.2.1</span> <span class="toc-text">种子、受众与注入时机</span></a></li>
+<li><a href="#放出的时机与内容"><span class="toc-num">15.2.2</span> <span class="toc-text">放出的时机与内容</span></a></li>
+<li><a href="#呈现方式与公开行动"><span class="toc-num">15.2.3</span> <span class="toc-text">呈现方式与公开行动</span></a></li>
+</ol></li>
+<li><a href="#有交易利益者的分享"><span class="toc-num">15.3</span> <span class="toc-text">有交易利益者的分享</span></a>
+<ol>
+<li><a href="#竞争者之间的互惠分享"><span class="toc-num">15.3.1</span> <span class="toc-text">竞争者之间的互惠分享</span></a></li>
+<li><a href="#出售信息"><span class="toc-num">15.3.2</span> <span class="toc-text">出售信息</span></a></li>
+<li><a href="#建仓之后的可验证证据"><span class="toc-num">15.3.3</span> <span class="toc-text">建仓之后的可验证证据</span></a></li>
+<li><a href="#建仓之后的粗化传言"><span class="toc-num">15.3.4</span> <span class="toc-text">建仓之后的粗化传言</span></a></li>
+<li><a href="#拉盘与引人跟进的交易"><span class="toc-num">15.3.5</span> <span class="toc-text">拉盘与引人跟进的交易</span></a></li>
+<li><a href="#可验证的披露与沉默"><span class="toc-num">15.3.6</span> <span class="toc-text">可验证的披露与沉默</span></a></li>
+</ol></li>
+<li><a href="#按价格反转分类的分支"><span class="toc-num">15.4</span> <span class="toc-text">按价格反转分类的分支</span></a></li>
+<li><a href="#本章引用的实证证据"><span class="toc-num">15.5</span> <span class="toc-text">本章引用的实证证据</span></a></li>
+<li><a href="#交易者的自查清单"><span class="toc-num">15.6</span> <span class="toc-text">交易者的自查清单</span></a></li>
+<li><a href="#小结"><span class="toc-num">15.7</span> <span class="toc-text">小结</span></a></li>
+<li><a href="#写给量化读者的数学框"><span class="toc-num">15.8</span> <span class="toc-text">写给量化读者的数学框</span></a></li>
+<li><a href="#本章文献"><span class="toc-text">本章文献</span></a></li>
+<li><a href="#notes-1"><span class="toc-text">注释</span></a></li>
+</ol>
+</details>
+<article class="chapter">
+<section id="第-15-章-发送者的选择分享与披露" class="level1">
+<h1><span class="chapter-number">第 15 章　</span><span class="chapter-title">发送者的选择、分享与披露</span></h1>
+<p>Ljungqvist 与 Qian（2016）研究了这样一些卖空者（short seller）：他们对一家被高估的公司建立空头头寸，然后向市场披露自己掌握的信息，之后价格平均下跌（工作论文版；1.6.3 节）。这些卖空者是个人或小型精品机构，没有资源按教科书的办法纠正错价（mispricing），也就是不断卖空（short selling），直到价格到达真实价值（工作论文版）。他们的样本涵盖其中 17 个，这些卖空者在 2006 年 7 月至 2011 年 12 月间盯上 113 家美国上市公司，并用公开免费发布的详细报告陈述自己的论点，报告里有许多“铁证”，如电话录音、视频监控和照片，还醒目地披露了自己持有价格下跌时获利的头寸（工作论文版）。发布报告的前一天，目标股票的新增卖空短暂升到比基线高 66%（p = 0.002），也许是卖空者在建仓或加仓，不过作者称这个高峰在经济上很小，那天新卖空的股份平均只占流通股的 0.48%（工作论文版）。报告当天，多头即公司的现有股东的交易量比基线高 415%，其后一个月仍显著偏高（工作论文版）。卖空数据统计的是所有人对这只股票的新增卖空，看不到卖空者自己的头寸（本书的判断）。<a href="#fn1" id="fnref1" class="noteref" role="doc-noteref"><sup>1</sup></a></p>
+<p>卖空者选择了说什么，即别人往往能核查的事实；选择了什么时候说，即建仓之后；也选择了向谁说（本书的判断），看来是现有股东，也就是卖空约束（short-sale constraint）没有拖住的唯一一群人（工作论文版）。</p>
+<p>根模型（root model）假设非策略转发（non-strategic forwarding）：人们以固定的速率把消息传下去，不会为了自己的收益去选择说什么、对谁说、什么时候说。5.8 节的表 5.1 把这条默认与其他默认一起列出，本章去掉它，转而问：发送者怎样选择消息从哪里、什么时候、以什么形式进入（15.2 节），有信息又有交易利益的人怎样分享、出售和披露信息（15.3 节），价格能分辨这些分支中的哪几个（15.4 节）。</p>
+<section id="发送者与他们的目标" class="level2">
+<h2><span class="secnum">15.1</span> 发送者与他们的目标</h2>
+<p>发送者（sender）是任何选择把消息摆到别人面前的人，选择分为两类（本书的判断）。第一类，发送者在网络之外，如营销人员或公司的管理者，选择先告诉谁、什么时候告诉、以什么形式告诉，之后消息按给定的规则传开，转发的人按非策略方式转发。这种选择是设计问题（design problem），由发送者或建模者来解，不改变消息怎样传开；不过取决于消息内容的放出（15.2.2 节）已经在源头放宽了非策略转发（本书的判断）。第二类，掌握信息的人同时有交易利益，他们选择是否开口、说得多精确、卖给谁，所以传播取决于内容，也取决于他们自己的头寸（本书的判断）。</p>
+<p>发送者的目标函数（sender<span class="latin-apos">’</span>s objective function），即发送者想最大化什么，主要有两类（本书的判断）。在覆盖最大化（reach maximization）下，如 Kempe、Kleinberg 与 Tardos（2003）对种子（seed）的选择（15.2.1 节），发送者希望最终知道或采纳的人越多越好。在利润最大化（profit maximization）下，发送者希望从交易中获利，如 Hirshleifer（1971）笔下的知情者作出投机性承诺之后，有充分的动机把信息公之于众（3.4 节），也如开头的卖空者在发布之前先建仓。关心近期股价的管理者（15.2.2 节和 15.2.3 节）的目标接近利润，由价格来衡量，不过他们不一定交易（本书的判断）。</p>
+<p>两种目标的形状不同。发送者建好头寸之前，每多一个知道的人，就多一个按同样方向交易的对手，所以利润目标不一定随知道的人数上升；建好之后，传播消息可以加快价格向价值靠拢，如 15.3.3 节的卖空者所指望的，这时目标可以随覆盖上升（本书的判断）。“先建仓，再传播”的顺序来自这个时间安排，而 Kempe、Kleinberg 与 Tardos 那样的覆盖目标没有对应的项（本书的判断）。<a href="#fn2" id="fnref2" class="noteref" role="doc-noteref"><sup>2</sup></a></p>
+</section>
+<section id="发送者的设计选择" class="level2">
+<h2><span class="secnum">15.2</span> 发送者的设计选择</h2>
+<p>本节里发送者留在传播之外，只选择谁最先收到消息、什么时候收到、以什么形式收到，在 15.2.2 节还选择是否放出；消息一旦出去，传播模型和处理规则（processing rule）都照给定的不变（本书的判断）。</p>
+<section id="种子受众与注入时机" class="level3">
+<h3><span class="secnum">15.2.1</span> 种子、受众与注入时机</h3>
+<p>Kempe、Kleinberg 与 Tardos 把一组起始的活跃者的影响力定义为过程结束时活跃人数的期望，他们的影响力最大化（influence maximization）问题则是：给定一个数 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>，</span>求影响力最大的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 个这样的人，即种子，这重述了 Domingos 与 Richardson 为病毒式营销提出的问题：应当瞄准哪一组人来触发一场后续采纳的大级联（cascade）。他们的贪心算法（greedy algorithm）每次加入一个边际收益最大的种子，在 7.5 节和 11.5 节的条件下有理论保证。</p>
+<p>他们还让发送者选择时机。在他们的非渐进阈值模型（non-progressive threshold model）中，人们可以从活跃变为不活跃再变回来，模型运行固定的步数，发送者最多可以作 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 次干预（intervention），每次针对一个人，在某一步激活他，影响力按所有人各自活跃的步数之和计算。这个问题等价于在网络的分层复本中选择种子，每个人每一步各有一个复本，所以选种子有近似算法的地方，这些算法也可以沿用到同时选人和选步数上，时机便成为设计变量，而目标仍然是覆盖（本书的判断）。<a href="#fn3" id="fnref3" class="noteref" role="doc-noteref"><sup>3</sup></a></p>
+<p>消息源放在哪里，在阈值模型与平均模型下作用不同；阈值模型里，一个人在足够多的联系人行动之后就行动，平均模型里，人们对邻居的看法取平均（本书的判断）。在两个及以上联系人的阈值下，放在彼此认识的人当中的集中种子，可以触及同样数目的分散种子触及不到的人（本书的判断；11.5 节）。在平均模型下，Acemoglu、Ozdaglar 与 ParandehGheibi（2010）发现，同一个网络可以通向很不同的极限，取决于强势者（forceful agent）在哪里，强势者指媒体机构或政治领袖这样的人，他们对别人的影响远大于别人对他们的影响（13.8 节）。由坚定的个体，即不改变想法的人，构成的少数（committed minority）可能动员很大一部分人口，Lucchini 等（2022）引用了这样的工作（据 Lucchini 等的转述；11.6 节），不过本书没有给出这种少数的临界（critical）规模（13.8 节）。<a href="#fn4" id="fnref4" class="noteref" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="放出的时机与内容" class="level3">
+<h3><span class="secnum">15.2.2</span> 放出的时机与内容</h3>
+<p>公司选择什么时候发布公告（announcement）。在 DellaVigna 与 Pollet（2009）的模型里，消息足够坏的短期导向的管理者在分心（distraction）程度高的日子放出消息，因为他们更希望眼前的反应被削弱，作者用这一点解释周五公告前后较低的盈余意外和收益（工作论文版；10.2 节）。选哪一天是他们模型的结果，周五的规律则是他们对一个已知发现的解释（本书的判断）。</p>
+<p>放出也可以取决于消息说了什么。Hong、Lim 与 Stein（2000）这样解读自己的结果：管理者有好消息时大概有充分的动机尽快推出，有坏消息时则很可能不那么坦率，所以外部分析师更要紧，卖空约束也可能是解释的一部分，不过单靠它们似乎解释不了为什么分析师越少，这个效应越强（工作论文版）。管理者的行为是作者的解释，他们没有直接检验（本书的判断）；第 20 章讨论坏消息是否传得慢。</p>
+<p>在这些解读中，选哪一天和推好消息、压坏消息有同一个动机，即近期股价，发送者选择的是放出的时刻和注入的机会，这在源头放宽了非策略转发；压住坏消息只有在投资者读不出沉默时才行得通（本书的判断；15.3.6 节）。<a href="#fn5" id="fnref5" class="noteref" role="doc-noteref"><sup>5</sup></a></p>
+</section>
+<section id="呈现方式与公开行动" class="level3">
+<h3><span class="secnum">15.2.3</span> 呈现方式与公开行动</h3>
+<p>由于有限注意（limited attention），携带同样信息的披露可能因呈现方式不同，对投资者看法产生不同的影响（10.3 节）。在 Hirshleifer 与 Teoh（2003）关于备考利润（pro forma earnings）的模型中，备考利润是在标准会计准则（GAAP）之外披露、剔除了某些成本的数字，公司说明自己的调整，只有专注的投资者（attentive investor）会把调整撤销（9.3 节和 9.6 节）。</p>
+<p>他们的命题 1 讲公司什么时候调整。模型有一个正常状态和一个例外状态，在正常状态里，我们把调整读作 GAAP 利润并不要求的调整（本书的判断）；作者认为正常状态是更有意思的情形。如果一些投资者在评价备考公告时注意力有限，那么调整后披露的概率在正常状态里随以下三个量上升，在例外状态里随它们下降：管理者对更高当前股价的偏好、不专注的投资者的信念在价格中的权重，以及恰当调整后的利润的信噪比（signal-to-noise ratio）。所以，有些投资者不专注时，恰当调整后的利润信息越多，公司在正常状态里越可能调整，我们把这读作操纵（manipulation）的动机更强（本书的判断）。呈现在这里只通过有限注意起作用，因为专注的投资者会撤销任何已说明的调整（本书的判断；9.3 节）。<a href="#fn6" id="fnref6" class="noteref" role="doc-noteref"><sup>6</sup></a></p>
+<p>公司还可以选择公开行动。Daniel、Hirshleifer 与 Subrahmanyam（1998）举了一个例子：理性经营的公司在管理者认为市场低估了自家股票时，可能倾向于多回购股份；这个事件因此反映管理者对估值误差的看法，并预测异常收益（abnormal return），即超出该股票正常水平的收益，回购之后为正，股权发行之后为负。按他们的定义，选择性事件（selective event）是发生与否或规模大小取决于当时错价的事件，在他们的命题 5 中，如果投资者过度自信，股票被低估（高估）时发起的选择性事件，平均而言在公告日伴随着正（负）的异常价格变动，其后平均也跟着正（负）的异常变动。于是公开行动本身就是发送者按错价选时机发出的消息，这类事件之后的漂移（drift）带着发送者的选择；因为这个行动同时是对公司自己股票的一笔交易，它处在 15.1 节两类之间的边缘（本书的判断）。<a href="#fn7" id="fnref7" class="noteref" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+</section>
+<section id="有交易利益者的分享" class="level2">
+<h2><span class="secnum">15.3</span> 有交易利益者的分享</h2>
+<p>本节的人有自己的交易利益，多数还掌握信息。表 15.1 列出他们分享信息的四种方式，以及各自的成本与回报，这是本书的编排，每个单元格概括它所指的那一节（本书的判断）；随后是拉盘（pump）和引人跟进的交易（15.3.5 节）与可验证披露（15.3.6 节）。</p>
+<div class="table-caption">
+<p>表 15.1　四种分享方式及其成本与回报</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>分享方式</th>
+<th>分享者的成本</th>
+<th>分享者的回报</th>
+<th>见</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>竞争者之间的互惠分享</td>
+<td>把信号给了与自己争夺共同客户的对手</td>
+<td>对方在所分享的内容上进一步形成的想法，并传回来</td>
+<td>15.3.1 节</td>
+</tr>
+<tr>
+<td>出售信息</td>
+<td>买家越多、价格越能反映它，它的价值就越低</td>
+<td>费用，在卖方自己不交易的模型里</td>
+<td>15.3.2 节</td>
+</tr>
+<tr>
+<td>建仓之后的可验证证据</td>
+<td>把信息拱手送人，且形式要让股东足以信服</td>
+<td>价格更快地向价值移动，借入成本累积的天数更少</td>
+<td>15.3.3 节</td>
+</tr>
+<tr>
+<td>建仓之后的粗化传言（rumor）</td>
+<td>通过声誉或法律，维持追随者的信念</td>
+<td>价格过冲的地方，传言价格与价值之间的差距，由第二笔交易收取</td>
+<td>15.3.4 节</td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="竞争者之间的互惠分享" class="level3">
+<h3><span class="secnum">15.3.1</span> 竞争者之间的互惠分享</h3>
+<p>Stein（2008）问竞争者为什么互相分享想法，本书称之为互惠分享（reciprocal sharing）。在他的模型里，两个参与者的客户群有一部分重叠，各自对其余的客户拥有垄断，在重叠部分上与对方竞争，Stein 用重叠的大小代表竞争的程度，而拿到对方想法的参与者，有一定概率想出在其上构建并改进的进一步想法（工作论文版）。</p>
+<p>诚实的交换能否持续，取决于互补性。在他的命题 1 中，如果参与者想到一个想法的概率是固定的，不取决于他是否拿到了对方上一个想法的真实报告，那么如实交换永远不可能成为均衡（equilibrium）的一部分；参与者可以偏离，要么什么也不说，要么把自己想法的一个虚假的、在信息上无用的版本传过去（工作论文版）。Stein 写道，激励相容的关键是很强的互补性：参与者只有拿到对方对这个题目先前的想法，才能产生有用的新见解，这时偏离的参与者总是以什么都不报告为最优（工作论文版），所以有互补性时，他的模型里的策略性分享（strategic sharing）不带策略性失真（distortion）（本书的判断）。</p>
+<p>继续一场交谈比用同样成熟的想法开启一场新的交谈更容易，因为继续只多透露一个信号，开启则要把自己持有的全部 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 个信号都透露出去（工作论文版）。在他的命题 3 中，对线性网络上相邻的参与者，在继续条件满足、因此一旦开始的交谈可以持续的情况下，交谈结束时若双方各自最多能产生的信号数不超过阈值，这位参与者就与下一位参与者开启新的交谈；超过阈值，沿网络的传播就停止，这个阈值是对价值从一个信号到下一个信号按几何级数衰减的情形给出的（工作论文版；数学框 15.1）。</p>
+<p>这是一条步数规则（step rule）：想法还单薄时传下去，丰富之后就停下，所以是对非策略转发的反例，因为在非策略转发下，传消息的概率不取决于它的价值（本书的判断）。这条步数规则不需要价值递减：在他的模型之外的一个变体里，价值与信号数成正比，当在已有想法上构建的概率至少等于重叠时，交谈可以持续，而开启仍有上界，取他第一个例子里的竞争程度与概率，上界为 9 个信号（本书的推导；数学框 15.1）。</p>
+<p>这条规则把距离与内容联系起来。Stein 把 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 定义为第一场交谈之后的交谈数，把 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 定义为第一场交谈的长度，他把后者读作由它产生的想法的质量。在他的命题 4 中，继续条件成立时，二者的相关为负，在他的第二个例子里是 −0.402（工作论文版），所以按他的读法，到达最多投资者的想法往往真正的信息含量相对较少（工作论文版；2.6 节）。<a href="#fn8" id="fnref8" class="noteref" role="doc-noteref"><sup>8</sup></a></p>
+</section>
+<section id="出售信息" class="level3">
+<h3><span class="secnum">15.3.2</span> 出售信息</h3>
+<p>信息也可以出售。Admati 与 Pfleiderer（1990）把信息估值中的外部性（externality in the valuation of information）称作信息作为商品的一个重要特征：观察到某条信息的主体越多，它的价值一般就越低，而且一般来说，交易者合计获取的信息越多，价格越有信息含量，信息对任何一个交易者的价值就越低（4.5 节）。</p>
+<p>在直接出售（direct sale）中，按他们 1986 年的结果，卖方可能更愿意卖自己所知信息的噪声更大的版本，或限制知情交易者（informed trader）所占的比例（据 Admati 与 Pfleiderer 的转述；9.5 节）。在间接出售（indirect sale）中，交易者看不到卖方的信息，付费买的是别人替他们对这条信息作出的反应，基金的投资者就是这样。信息间接出售时，加噪声从来都不可取，调整基金的单位价格，比直接卖方加噪声或限制买家更有效地控制信息的使用。</p>
+<p>哪种出售赚得更多，取决于外部性。基金每股只有一个价格时，若外部性相对强烈，间接出售更赚钱，在他们的模型里，这发生在交易者的风险容忍度（risk tolerance）相对较高或供给中噪声很小之时；外部性相对温和时，直接出售更赚钱；他们的比率 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>，</span>即交易者的风险容忍度与供给中噪声之比，外部性越强越大，当它无限增大时，每股单一价格的基金的利润趋于直接出售的两倍。他们的图 3，风险容忍度取为 1，只有在供给噪声（supply noise）和卖方自己信号中的噪声都相对较小时，才让基金领先。</p>
+<p>这些结果建立在作者明确说出的前提之上。卖方与买方之间没有激励问题，买方不转售信息，若信息只在短时间内有用，这是合理的；单一卖方不为自己的账户交易；基金匿名交易，因为如果交易者可以无成本地观察它的头寸，以这种方式出售信息就不可能了。在每股价格之外再加一笔固定参与费时，垄断者从不直接出售，这个结果同其他结果一样，依赖于交易者完全相同。</p>
+<p>基金出售的是信息的使用，买方的信息保持不变，所以他们没有什么可复制的；在他们的模型里，基金设定每股一个价格、外部性强烈、卖方自己的信号足够精确时，控制使用比控制内容赚得更多，而在基金可以加固定费用时，控制使用从不赚得更少，两者都以上述全部前提为条件（本书的判断）。不交易、把信息卖给有资本者的卖方，是信息到达资本的一条路径（第 19 章）。<a href="#fn9" id="fnref9" class="noteref" role="doc-noteref"><sup>9</sup></a></p>
+</section>
+<section id="建仓之后的可验证证据" class="level3">
+<h3><span class="secnum">15.3.3</span> 建仓之后的可验证证据</h3>
+<p>开头的做空报告（short-seller report）是第三种方式。Ljungqvist 与 Qian 写道，自愿披露信息从而加快价格发现，降低策略的风险，并绕开卖空者资源有限的问题，而要做到这一点，信息必须可信，否则多头会置之不理（工作论文版）。更快的收敛即使对打算持有到价格到达价值的卖空者也有价值，因为借入股份的成本按天累积（本书的判断）。</p>
+<p>作者把卖空者的过往记录（track record）定义为他此前报告的三个月累计异常收益的滚动均值，所计的报告限于第三方，如 SEC、司法部或交易所，独立证实过的那些。当较可信的卖空者第一个对某个目标发布报告时，目标的价格在报告当天平均下跌 12.5%（扣除市场变动，p &lt; 0.001），较不可信的报告则为 −4.5%，与零没有显著差别（p = 0.15）（工作论文版）。他们写道，可信度似乎是必要的，但很可能不足以保证多头听进去（工作论文版）。按内容拆分首份报告，报告揭示新信息时，报告当天的收益平均为 −10.2%（p &lt; 0.001），仅仅重新解读已知数据时为不显著的 −1.7%（p = 0.375）（工作论文版）。在 285 份提出了超出对已知数据重新解读的重大质疑的报告中，后来被独立方证伪的只占 19%（工作论文版）。</p>
+<p>利益冲突公开的发送者，可以通过别人能够核查的证据赢得信任，如可验证披露中那样，也可以通过第三方证实过的记录赢得，即 van Bommel 的领头者需要的那种声誉（本书的判断；15.3.4 节和 15.3.6 节）。“先建仓，后公开”这一顺序的早期来源有两个：一是 Hirshleifer 的知情者，他的收益需要不从交易中推断出消息的交易对手（本书的判断；3.4 节和 15.1 节）；二是 Stein 的一条脚注，其中已经持有多头头寸的管理者可能希望把这一点可信地传达给别人，让他们的买入推高他持仓的价格（工作论文版）。这里的信息在小卖空者手里，能把价格压下去的资本在股东手里，所以公开发布把信息带到了资本所在的地方（本书的判断；第 19 章）。<a href="#fn10" id="fnref10" class="noteref" role="doc-noteref"><sup>10</sup></a></p>
+</section>
+<section id="建仓之后的粗化传言" class="level3">
+<h3><span class="secnum">15.3.4</span> 建仓之后的粗化传言</h3>
+<p>Van Bommel（2003）的知情交易者（1.6.7 节和 9.6 节）走的是第四条路。他的领头者在第一次拍卖之前看到资产的价值，价值在 −2 与 2 之间均匀分布，她的交易能力相对于噪声需求，即与信息无关的订单，非常小；他说，散布传言的人有一个共同点，就是交易能力太小，无法充分利用自己的信息。按假设，她在第一次拍卖中按自己的信号交易，并在每次拍卖之后给追随者建议，当传言使价格过冲、超过真实价值时，她会调转自己的头寸。</p>
+<p>传言只说买或卖时，诚实的领头者的预期总利润比沉默的领头者高 50%；他的分析关注财富不多的知情交易者，但所有财富有限的知情交易者都可以用传言策略增加利润，只是增幅小于 50%，模拟表明，小领头者与多次拍卖这两个取得全部 50% 的要求很容易满足。均衡中，价值与零的距离大于 1 时，她不从传言中获利，所以针对过冲的第二笔交易只在某些情形下发生（本书的判断），但这时她仍须发出传言，因此如果散布传言哪怕有一点点成本，这个一次性博弈的均衡就崩溃了。</p>
+<p>消息不受限制时，知情的传言散布者使用这样的消息：“股票大涨或小跌”和“股票大跌或小涨”，含糊正是他们利润的关键。这样的传言是粗化的：它把不同的值合并在一起，丢掉细节，而它说的内容保持真实（本书的判断）。对总是看到价值的诚实领头者，“大”与“小”之间的最佳分界点是 0.8165；此时看涨传言带来的价格是 2/3，她的预期利润是 1.544，比不散布传言高 54.4%，我们认为这一收益和 50% 一样，需要小领头者与多次拍卖，而且散布传言的小额成本也可能使它化为乌有，因为看到的价值超过分界点的领头者，从传言中得不到任何收益（本书的判断）。根据显示原理（revelation principle），任何一组消息都可以取代他所用的那一组：在他选定的均衡中，任何看涨传言，如“这只股票很热”，意思都是股票可能小跌，也可能大涨。价值与零的距离在 0.8165 以内的概率约为 0.41（本书的计算；数学框 15.2），这时传言字面上是真的，仍把价格推到零的另一侧，远离价值（本书的推导）。买在传言价格上的追随者因此在这笔交易上亏损，尽管她给定传言后的信念平均而言是对的；把“这只股票很热”读成单纯的“涨”的人，承担读错的代价（本书的判断；1.6.7 节）。</p>
+<p>追随者必须相信她。在他的命题 4 中，由于她可能欺骗，对追随者说与自己所知相反的话，追随者在一次性博弈中永远不会相信任何传言，机会主义的领头者失去全部传言利润。在重复博弈中，要使她不虚张声势（bluffing），即没看到任何东西时也散布传言，需要足够高的贴现因子（discount factor）：每月一轮、贴现因子为 0.99 时，她每月至少要以 8% 的概率看到价值，约一年一次，以支持有信息含量的均衡。他写道，大概最有力的威慑是美国证券法，依据该法，向其他投资者提供交易建议而不披露自己的利益是违法的。</p>
+<p>廉价话语（cheap talk），即可能为假的、不花成本的话（12.6 节），从说话者的记录获得可信度，van Bommel 的领头者则从她的声誉获得（本书的判断）；1.2.3 节数过一种这样的记录，即 Trump 总统兑现他那些廉价关税威胁的频率，它的价格检验分辨不出价格是否按这个记录对威胁打了折扣。<a href="#fn11" id="fnref11" class="noteref" role="doc-noteref"><sup>11</sup></a></p>
+<p>做空报告和粗化传言是信息多而资本少的人借以获利的两种方式，成本与回报见表 15.1；两者都先建仓，卖空者先建仓是据他们自己的披露，卖空数据里只有间接的证据，van Bommel 的领头者先建仓则是模型的假设（本书的判断）。</p>
+<p>这里有些发送者为了自己的收益故意失真，因此放弃了无偏传递（unbiased transmission），即消息不论真假、不论新奇度（novelty）如何都原样传下去的默认（本书的判断）：加噪声的直接卖方；van Bommel 的领头者，她粗化自己所知，或者在欺骗时故意把自己的故事说成假的；以及没有互补性时可能传一个虚假想法的 Stein 的参与者。Van Bommel 的领头者知道价值，在价值接近零时把价格引到另一侧，这与 Acemoglu、Ozdaglar 与 ParandehGheibi 排除在外的知情说服者很接近（本书的判断；9.5 节）。<a href="#fn12" id="fnref12" class="noteref" role="doc-noteref"><sup>12</sup></a></p>
+</section>
+<section id="拉盘与引人跟进的交易" class="level3">
+<h3><span class="secnum">15.3.5</span> 拉盘与引人跟进的交易</h3>
+<p>拉盘是一群人聚集起来，在约定的时间一起买入某个币（coin），它公开地协调别人：在 Dhawan 与 Putniņš（2023）研究的拉盘中，组织者公开宣布要拉哪些币，付费成员（paid member）在大众广播之前就收到币名之类的拉盘信息，因此能在官方信号之前建仓（工作论文版；1.6.7 节和 4.1 节）。他们付费买的，是在人们得知消息的顺序中靠前的位置；他们随机抽取了 70 次拉盘，其中没有一条消息提示这个币被低估（工作论文版），所以拉盘是先建仓，再公开协调一次不含价值信息的购买（本书的判断）。拉盘后来的买家取代了第 4 章的外生交易对手（exogenous counterparty）的位置，出于信息之外的理由交易，不过知道拉盘时间的人可以预见他们的买入（本书的判断；13.5 节）。</p>
+<p>关于推动价格需要多大规模的资本，Tsang 与 Yang（2026）研究了 Polymarket 上 2024 年美国总统选举中关于 Donald Trump 的市场：10 月里，按他们修正后的度量，把它的预测值推动五个百分点，从 0.50 到 0.55，大约花费 910 万美元，而直接加总的成交量（naive volume）使这个市场看起来比实际深得多，因而比实际更难推动。本书使用这个数字，来自一个市场、一个月，只取它的量级（order of magnitude）：把一个大市场推动五个点，大约要一千万美元；论文没有检验是否有人为了左右别人的信念而交易，本书也没有（本书的判断）。第 18 章讨论这个度量，第 17 章讨论拉盘的价格冲击（price impact）。</p>
+<p>交易者也可以只靠自己的交易去引人跟进。Avery 与 Zemsky（1998）在他们的羊群行为（herding）模型（14.9 节）中加入一个操纵者，他恰好在合适的时刻到来以引发羊群行为，掌握的信息不比做市商（market maker）多，试图用一个并不反映信息的刻意行动去欺骗做市商和其他交易者，从中获利；做市商和其他交易者完全没有意识到这种可能（工作论文版）。他们的推论 18 发现，在他们的第一种信息结构（information structure）里，对任何交易规则，操纵都无利可图，在第二种里，在他们命题 13 的条件下也无利可图，这些条件建立在他们所称的极端假设之上（工作论文版）；这个推论对其他条件没有结论（本书的判断）。<a href="#fn13" id="fnref13" class="noteref" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+<section id="可验证的披露与沉默" class="level3">
+<h3><span class="secnum">15.3.6</span> 可验证的披露与沉默</h3>
+<p>Milgrom（1981）的可验证披露博弈（verifiable-disclosure game）中，发送者可以证明自己说的话（12.6 节），由此得出本书对沉默的读法：当公司的信息可以验证、投资者知道它掌握这条信息、披露成本很低时，投资者可以把公司在本来要报告的日期保持沉默读作坏消息，这三个条件合起来足以支持这种读法，不过本书并不主张每一个都是必要的（本书的判断）。</p>
+<p>Milgrom 还限制了买方能吸收的量。如果买方只能吸收 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 个观测（observation），少于销售员掌握的，修改后的博弈有一个序贯均衡，销售员总是报告最有利的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 个观测，这个命题表明这样的均衡存在，没有说它是唯一的（本书的判断）。</p>
+<p>沉默因此意味着均衡让它意味的东西，取决于信息能否验证、接收者是否知道发送者掌握它、披露花多少成本、接收者能吸收多少（本书的判断），所以管理者靠压住坏消息把它挡在价格之外（15.2.2 节），只有在三个条件中至少有一个不成立的地方才行得通（本书的判断）。Hirshleifer 的发现（discovery）情形里，自然连有利的状态也不揭示，所以没有消息就是坏消息，这一情形见 3.3 节。<a href="#fn14" id="fnref14" class="noteref" role="doc-noteref"><sup>14</sup></a></p>
+</section>
+</section>
+<section id="按价格反转分类的分支" class="level2">
+<h2><span class="secnum">15.4</span> 按价格反转分类的分支</h2>
+<p>消息之后的价格变动是否反转（reversal），即按来路折回，是分辨各个分支的一种办法（本书的判断）。Bradley 等（2024）在 WallStreetBets 上检验这一点，这是散户投资者发帖交流交易想法的论坛。他们选取单家公司的尽调报告（due diligence report），即发帖人标明、版主核实为含有一些分析和明确的买入或卖出信号的帖子：2018 年至 2020 年间发布的 2,340 份报告，这个截止点使他们的全部分析都在 GameStop 和其他模因（meme）股票的疯狂收益之前（工作论文版）。买入建议约占报告的 80%，两日异常收益约为 1.12%，卖出建议没有显著的异常收益（工作论文版）。</p>
+<p>他们的检验建立在反转上：不知情的价格压力（price pressure），即背后没有信息、只是推动价格的买入或卖出，在更长的持有期（holding period）里会随价格回到基本面（fundamentals）而回落，而知情交易不会（工作论文版）。他们没有找到任何反转的证据，收益在其后一个月里继续朝同一方向漂移（工作论文版）。13 周之后，平均的买入报告获得 6.17% 的异常收益，发帖人预测收益的能力不限于搭其他信息事件（information event）的便车（工作论文版）。在交易时段内发布的报告中，散户交易在报告后的五个半小时里，比报告前的五个半小时上升约 7%，作者发现一些适度的证据，表明后来收益较多的报告，散户的净买入也较多，这与散户投资者也许有一定辨别报告质量的能力相一致（工作论文版）。在这个样本里，散户的需求可能有一部分是知情的，这与把散户交易者当作外生交易对手的做法不一致（本书的判断；第 4 章）。</p>
+<p>拉盘之后，价格回到拉盘前的水平（工作论文版；4.1 节）。做空报告之后，目标的价格在其后的三个月和十二个月里继续下跌（工作论文版；1.8 节），不过作者说不出卖空者是怎样选择目标的。粗化传言把价格推到传言价格，即给定传言时的平均价值，所以给定传言，之后的变动均值为零：单个传言要么过冲，要么不足，许多传言的平均则没有反转（本书的推导；数学框 15.2）。</p>
+<p>解读反转需要：对许多事件取平均；视野足够长，让一次变动有时间反转；同时发生的其他消息已经剔除，如 Bradley 等所检查的；以及价格不过度反应，因为在过度反应（overreaction）下，有信息的消息也可能部分反转（本书的判断；13.4 节）。有了这些前提，平均而言的反转，把携带价值信息的消息，即表 15.2 的前三行，与不含内容的协调或不知情的需求，即最后两行，区分开来，但它分辨不了可验证披露与粗化传言；要把这两者分开，需要发送者按传言价格反向交易的数据，因而需要发送者头寸的数据（本书的判断）。</p>
+<div class="table-caption">
+<p>表 15.2　按价值信息与价格反转划分的分支</p>
+</div>
+<div class="table-wrap">
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>分支</th>
+<th>携带价值信息</th>
+<th>价格平均反转</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>论坛里带买入建议的研究帖</td>
+<td>是，按本书对 2018–2020 年样本的读法</td>
+<td>否；收益在其后一个月继续漂移</td>
+<td>Bradley 等（工作论文版）</td>
+</tr>
+<tr>
+<td>做空报告</td>
+<td>是，对揭示新事实的报告而言，按本书的读法</td>
+<td>否；目标的价格在三个月和十二个月里继续下跌，不过作者看不到卖空者是怎样挑出它们的</td>
+<td>Ljungqvist 与 Qian（工作论文版）</td>
+</tr>
+<tr>
+<td>粗化传言</td>
+<td>是，较粗略</td>
+<td>平均不反转；单个传言要么过冲，要么不足</td>
+<td>van Bommel 的模型（本书的推导）</td>
+</tr>
+<tr>
+<td>公开拉盘</td>
+<td>否</td>
+<td>是，回到拉盘前的水平</td>
+<td>Dhawan 与 Putniņš（工作论文版）</td>
+</tr>
+<tr>
+<td>不知情的价格压力</td>
+<td>否</td>
+<td>是，在 Bradley 等的检验设计里</td>
+<td>Bradley 等（工作论文版）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Bradley 等没有检验人们为什么免费分享研究（本书的判断）。<a href="#fn15" id="fnref15" class="noteref" role="doc-noteref"><sup>15</sup></a></p>
+</section>
+<section id="本章引用的实证证据" class="level2">
+<h2><span class="secnum">15.5</span> 本章引用的实证证据</h2>
+<ul>
+<li><strong>测量（measurement）。</strong> Ljungqvist 与 Qian 的 17 个卖空者和 2006 年 7 月至 2011 年 12 月间的 113 家美国上市公司（工作论文版），以及 Bradley 等 2018 年至 2020 年 WallStreetBets 上的 2,340 份尽调报告（工作论文版）；Tsang 与 Yang 的 2024 年 10 月 Polymarket 上的一个市场。前面各章给出拉盘（第 4 章）、周五公告（第 10 章）、分析师覆盖（analyst coverage；第 1 章），以及本书对一条兑现记录（follow-through record）的计数（1.2.3 节）。</li>
+<li><strong>只从转述里知道的。</strong> 关于坚定少数的工作（据 Lucchini 等的转述）；Admati 与 Pfleiderer 1986 年的结果（据 Admati 与 Pfleiderer 1990 的转述）。</li>
+<li><strong>模型、论证与计算。</strong> 其余的一切；本章文献给出所读的每篇作品的版本。数学框 15.1 与 15.2 的步骤是本书的推导，0.41 是本书的计算。</li>
+</ul>
+</section>
+<section id="交易者的自查清单" class="level2">
+<h2><span class="secnum">15.6</span> 交易者的自查清单</h2>
+<p>这些问题没有一个说明该买什么、卖什么，好的答案也不会让交易变得安全（本书的判断）。</p>
+<ol type="1">
+<li><strong>告诉我的人持有头寸吗？</strong> 核对：Ljungqvist 与 Qian 样本里的卖空者在报告中醒目地披露了自己的空头头寸（工作论文版；本章开头）；在 van Bommel 的模型里，传言散布者按假设先交易、后建议，他指出，美国法律禁止不披露自己利益的交易建议（15.3.4 节）。</li>
+<li><strong>这个说法可以核查吗？</strong> 核对：在 Ljungqvist 与 Qian 的样本里，揭示新事实的首份报告在报告当天的收益平均为 −10.2%，重新解读已知数据的报告为不显著的 −1.7%，较不可信的卖空者的首份报告对价格的影响不显著（工作论文版；15.3.3 节）。</li>
+<li><strong>这个说法是不是含糊得很方便？</strong> 核对：在 van Bommel 的模型里，知情交易者资本小、为人诚实、总是看到价值，拍卖次数很多，价值在 −2 与 2 之间均匀分布，这时意思是“大涨或小跌”的看涨传言给她的收益最大，字面上为真，并把价格推到零的错误一侧（本书的推导），概率约为 0.41（本书的计算；15.3.4 节和数学框 15.2）。</li>
+<li><strong>价格把这段变动退回去了吗？</strong> 核对：对许多事件取平均，Dhawan 与 Putniņš 研究中遭拉盘的币回到了拉盘前的水平，而 Bradley 等 2018–2020 年买入报告之后的价格继续漂移（工作论文版）；不反转的变动可能来自可验证披露，也可能来自粗化传言，单个粗化传言可以把整个变动连同更多一起退回去（本书的推导），而在过度反应下，有信息的消息也可能部分反转，所以一次反转不能认定是拉盘（本书的判断；15.4 节和数学框 15.2）。</li>
+<li><strong>为什么是现在，为什么是这种形式？</strong> 核对：在 DellaVigna 与 Pollet 的模型里，消息足够坏的短期导向的管理者选择分心的日子（工作论文版；15.2.2 节）；在 Hirshleifer 与 Teoh 的模型里，有些投资者不专注时，恰当调整后的利润信息越多，公司在正常状态里越可能调整（15.2.3 节）；按 Milgrom 的推理，当信息可验证、投资者知道公司掌握它、披露成本很低时，公司在本来要报告的日期保持沉默，就读作坏消息（本书的判断；15.3.6 节）。</li>
+</ol>
+</section>
+<section id="小结" class="level2">
+<h2><span class="secnum">15.7</span> 小结</h2>
+<ul>
+<li>在网络之外选择种子、时机或呈现方式的发送者，不论消息说了什么，面对的是给定传播规则下的设计问题，而放出取决于内容的发送者在源头放宽了非策略转发；对于有交易利益的信息持有者，利润不像覆盖，在建仓之前不一定随知道的人数上升（本书的判断；15.1 节和 15.2 节）。</li>
+<li>在 Stein 的两人模型中，诚实的交换需要产生想法时的互补性；在他的线性网络中，价值几何衰减、继续条件满足时，参与者只有在自己能产生的信号数不超过阈值时才开启新的交谈，后面交谈的数目与第一场交谈的长度负相关（工作论文版；15.3.1 节）。</li>
+<li>在 Admati 与 Pfleiderer 的模型里，交易者相同且不能转售，没有激励问题，卖方不交易，基金的头寸别人看不到，当信息估值中的外部性强烈、卖方自己的信号足够精确时，每股一个价格的基金比直接出售赚得更多，外部性温和时则赚得更少（15.3.2 节）。</li>
+<li>在 Ljungqvist 与 Qian 的首份报告样本中，较可信的卖空者和揭示新事实的报告在报告当天的下跌是显著的，每种拆分里的其余各组则不显著；作者判断，可信度似乎必要，但很可能不充分（工作论文版；15.3.3 节）。</li>
+<li>在 van Bommel 的模型里，价值均匀分布，资本很小、总是看到价值的诚实知情交易者先交易，再散布最优含糊的传言，比沉默多赚 54.4%；按我们的读法，这还需要许多次拍卖，散布传言若有任何成本就可能失效，她的诚实需要声誉或法律，因为在她可能欺骗的一次性博弈里，追随者不相信任何传言（本书的判断；15.3.4 节）。</li>
+<li>对许多事件取平均，视野足够长，剔除其他消息，价格又不过度反应时，价格反转能把携带价值信息的消息与不含内容的协调和不知情的需求分开，分不开可验证披露与粗化传言（本书的判断；15.4 节）。</li>
+</ul>
+</section>
+<section id="写给量化读者的数学框" class="level2">
+<h2><span class="secnum">15.8</span> 写给量化读者的数学框</h2>
+<section id="数学框-15.1-继续交谈与开启交谈" class="level4 box">
+<h4><span class="box-label">数学框 15.1</span>　继续交谈与开启交谈</h4>
+<p>Stein 的字母：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> 表示客户群的重叠，即他对竞争的代理，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 表示在对方想法上构建的概率，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> 表示价值的衰减，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 表示每一方持有的信号数；这里的 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> 不是世界状态（state of the world）。本框中 Stein 的每个方程都来自他的 NBER 工作论文（工作论文版）。</p>
+<p><strong>价值与继续。</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个信号带来的总成本节省 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math> 满足 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h(0) = 0</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h(\infty) &lt; 1</annotation></semantics></math>。</span>如果参与者在第 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> 步分享一个想法，双方继续报告，直到其中一方没有进一步的想法，预期总节省为 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mo accent="false">∞</mo></munderover><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>+</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">H(t) = \sum_{i=0}^{\infty} p^{i}(1 - p)\,h(t + i),</annotation></semantics></math></span> 即他的 (4)，当 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(H(t) - h(t - 1))/(h(t) - h(t - 1)) \ge 1/(1 - \theta)</annotation></semantics></math> 时继续是值得的，即他的 (6)。取 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>β</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">h(n) = 1 - \beta^n</annotation></semantics></math> 时，这变成 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>β</mi><mo>≥</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">p\beta \ge \theta</annotation></semantics></math>，</span>即他的 (10)，每一步都一样。</p>
+<p><strong>开启。</strong> 在线性网络中，参与者 B 与每个邻居共享他的客户中的一个比例 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>。</span>与 A 交谈后双方各持有 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 个信号，此时 B 与 C 开启交谈的预期收益是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>θ</mi><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1 - \theta)H(k) - \theta h(k)</annotation></semantics></math>，</span>退出的收益是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1 - \theta)h(k)</annotation></semantics></math>，</span>所以只有当 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(k)/h(k) \ge 1/(1 - \theta)</annotation></semantics></math> 时他才开启，即他的 (15)。几何衰减时，这变成 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>β</mi><mi>k</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>β</mi><mi>k</mi></msup></mrow></mfrac><mo>≥</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>θ</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{1 - \beta^{k}(1 - p)/(1 - p\beta)}{1 - \beta^{k}} \ge \frac{1}{1 - \theta},</annotation></semantics></math></span> 而 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>k</mi><mo>*</mo></msup><annotation encoding="application/x-tex">k^*</annotation></semantics></math> 是使它取等号的 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>，</span>为 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mo>*</mo></msup><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>−</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>β</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">k^{*} = \frac{\log(1 - p\beta) + \log\theta - \log\left(\theta(1 - p) + p(1 - \beta)\right)}{\log\beta},</annotation></semantics></math></span> 他的命题 3 把它用作阈值。</p>
+<p><strong>线性价值，在他的模型之外</strong>（本书的推导）。价值与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 成正比，打破了他的上界 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h(\infty) &lt; 1</annotation></semantics></math>，</span>他的脚注 9 把命题 3 推广到严格递增、严格凹且上界小于 1 的 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>，</span>要求 (6) 在每一步都成立，对其他 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> 没有说什么。当 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math> 与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 成正比时，(6) 化为每一步都有 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">p \ge \theta</annotation></semantics></math>，</span>(15) 变为 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1 + p/[(1 - p)k] \ge 1/(1 - \theta)</annotation></semantics></math>，</span>即 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≤</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mi>θ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">k \le p(1 - \theta)/[\theta(1 - p)]</annotation></semantics></math>，</span>在 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">p = 0.5</annotation></semantics></math>、</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\theta = 0.1</annotation></semantics></math> 时为 9，这是他第一个例子的取值。同一个界是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> 趋于 1 时 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>k</mi><mo>*</mo></msup><annotation encoding="application/x-tex">k^*</annotation></semantics></math> 的极限。<a href="#fn16" id="fnref16" class="noteref" role="doc-noteref"><sup>16</sup></a></p>
+</section>
+<section id="数学框-15.2-van-bommel-的最优传言" class="level4 box">
+<h4><span class="box-label">数学框 15.2</span>　van Bommel 的最优传言</h4>
+<p><strong>设定。</strong> 价值 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> 在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-2, 2]</annotation></semantics></math> 上均匀分布，两条消息是“<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> 高于 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>，</span>或位于 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>ξ</mi></mrow><annotation encoding="application/x-tex">-\xi</annotation></semantics></math> 与 0 之间”及其镜像；一条消息的传言价格是给定该消息时的期望价值。</p>
+<p><strong>传言价格</strong>（本书的推导）。看涨消息覆盖的长度是 2，所以 <span class="math-block"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">E</mi><mo stretchy="false" form="prefix">[</mo><mi>v</mi><mo>∣</mo><mi>v</mi><mo>&gt;</mo><mi>ξ</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> or </mtext><mspace width="0.333em"></mspace></mrow><mo>−</mo><mi>ξ</mi><mo>&lt;</mo><mi>v</mi><mo>&lt;</mo><mn>0</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mo>∫</mo><mi>ξ</mi><mn>2</mn></msubsup><mi>v</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>v</mi><mo>+</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>ξ</mi></mrow><mn>0</mn></msubsup><mi>v</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><msup><mi>ξ</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathrm{E}[v \mid v &gt; \xi \text{ or } -\xi &lt; v &lt; 0] = \frac{1}{2}\left(\int_{\xi}^{2} v\,dv + \int_{-\xi}^{0} v\,dv\right) = 1 - \frac{\xi^{2}}{2},</annotation></semantics></math></span> 与他对这条消息给出的传言价格相同，在 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ξ</mi><mo>*</mo></msup><mo>=</mo><msqrt><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">\xi^* = \sqrt{2/3}</annotation></semantics></math> 处为 2/3。</p>
+<p><strong>方向</strong>（本书的推导）。当 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mi>ξ</mi><mo>*</mo></msup><mo>&lt;</mo><mi>v</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">-\xi^* &lt; v &lt; 0</annotation></semantics></math> 时，消息是看涨的，价格走向 2/3，与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> 的符号相反；当 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>v</mi><mo>&lt;</mo><msup><mi>ξ</mi><mo>*</mo></msup></mrow><annotation encoding="application/x-tex">0 &lt; v &lt; \xi^*</annotation></semantics></math> 时，走向 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">-2/3</annotation></semantics></math>。</span>当 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>&gt;</mo><msup><mi>ξ</mi><mo>*</mo></msup></mrow><annotation encoding="application/x-tex">v &gt; \xi^*</annotation></semantics></math> 时，价值与零的距离大于 2/3，价格不会越过零，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>&lt;</mo><mi>−</mi><msup><mi>ξ</mi><mo>*</mo></msup></mrow><annotation encoding="application/x-tex">v &lt; -\xi^*</annotation></semantics></math> 时同样。两种越过零的情形合起来的概率是 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>ξ</mi><mo>*</mo></msup><mi>/</mi><mn>4</mn><mo>=</mo><msup><mi>ξ</mi><mo>*</mo></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">2\xi^*/4 = \xi^*/2</annotation></semantics></math>，</span>约为 0.41（本书的计算）。</p>
+<p><strong>传言之后</strong>（本书的推导）。给定消息 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>，</span>之后的变动 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>−</mo><mi mathvariant="normal">E</mi><mo stretchy="false" form="prefix">[</mo><mi>v</mi><mo>∣</mo><mi>A</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">v - \mathrm{E}[v \mid A]</annotation></semantics></math> 的均值为零，所以许多传言的平均没有反转。9.6 节给出了价格所知内容的界。<a href="#fn17" id="fnref17" class="noteref" role="doc-noteref"><sup>17</sup></a></p>
+</section>
+</section>
+<section id="本章文献" class="level2 references">
+<h2 class="references">本章文献</h2>
+<p>本章引用的文献。所读版本不是期刊版的，条目里写明读的是哪个版本；尾注里的页码按所读的版本。</p>
+<ul>
+<li>Acemoglu, D., A. Ozdaglar and A. ParandehGheibi (2010). Spread of (Mis)information in Social Networks. <em>Games and Economic Behavior</em> 70(2): 194–227. 所读为 arXiv 预印本 0906.5007v1，题为 Spread of Misinformation in Social Networks；没有核对期刊版。</li>
+<li>Admati, A. R., and P. Pfleiderer (1986). A Monopolistic Market for Information. <em>Journal of Economic Theory</em> 39: 400–438. 没有读；按 Admati 与 Pfleiderer（1990）的转述引用。</li>
+<li>Admati, A. R., and P. Pfleiderer (1990). Direct and Indirect Sale of Information. <em>Econometrica</em> 58(4): 901–928.</li>
+<li>Avery, C., and P. Zemsky (1998). Multidimensional Uncertainty and Herd Behavior in Financial Markets. <em>American Economic Review</em> 88(4): 724–748. 所读为 INSEAD 工作论文 96/79/FIN/SM，1996 年 11 月 1 日；没有核对期刊版。</li>
+<li>Bradley, D., J. Hanousek, R. Jame and Z. Xiao (2024). Place Your Bets? The Value of Investment Research on Reddit<span class="latin-apos">’</span>s Wallstreetbets. <em>Review of Financial Studies</em> 37(5). 所读为 MENDELU Working Papers in Business and Economics 76/2021，2021 年 3 月，题为 Place Your Bets? The Market Consequences of Investment Advice on Reddit<span class="latin-apos">’</span>s Wallstreetbets；没有核对期刊版。</li>
+<li>Daniel, K., D. Hirshleifer and A. Subrahmanyam (1998). Investor Psychology and Security Market Under- and Overreactions. <em>Journal of Finance</em> 53(6): 1839–1885.</li>
+<li>DellaVigna, S., and J. M. Pollet (2009). Investor Inattention and Friday Earnings Announcements. <em>Journal of Finance</em> 64(2). 所读为作者 2008 年 2 月 2 日的手稿；没有核对期刊版。</li>
+<li>Dhawan, A., and T. J. Putniņš (2023). A New Wolf in Town? Pump-and-Dump Manipulation in Cryptocurrency Markets. <em>Review of Finance</em> 27(3). 所读为 2020 年 11 月 16 日的工作论文；没有核对期刊版。</li>
+<li>Hirshleifer, D., and S. H. Teoh (2003). Limited Attention, Information Disclosure, and Financial Reporting. <em>Journal of Accounting and Economics</em> 36(1–3): 337–386.</li>
+<li>Hirshleifer, J. (1971). The Private and Social Value of Information and the Reward to Inventive Activity. <em>American Economic Review</em> 61(4): 561–574.</li>
+<li>Hong, H., T. Lim and J. C. Stein (2000). Bad News Travels Slowly: Size, Analyst Coverage, and the Profitability of Momentum Strategies. <em>Journal of Finance</em> 55(1). 所读为 NBER 工作论文 6553，1998 年 5 月；没有核对期刊版。</li>
+<li>Kempe, D., J. Kleinberg and É. Tardos (2003). Maximizing the Spread of Influence through a Social Network. <em>Proceedings of the Ninth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>: 137–146. 所读为作者的最终版，取自 Kleinberg 的康奈尔大学主页；没有核对 ACM Digital Library 的版本。</li>
+<li>Ljungqvist, A., and W. Qian (2016). How Constraining Are Limits to Arbitrage? <em>Review of Financial Studies</em> 29(8). 所读为 NBER 工作论文 19834，2014 年 1 月，副标题为 “Evidence from a Recent Financial Innovation”；没有核对期刊版。</li>
+<li>Lucchini, L., L. M. Aiello, L. Alessandretti, G. De Francisci Morales, M. Starnini and A. Baronchelli (2022). From Reddit to Wall Street: The Role of Committed Minorities in Financial Collective Action. <em>Royal Society Open Science</em> 9(4): 211488. 所读为 arXiv 预印本 2107.07361v2；没有核对期刊版。</li>
+<li>Milgrom, P. R. (1981). Good News and Bad News: Representation Theorems and Applications. <em>Bell Journal of Economics</em> 12(2): 380–391.</li>
+<li>Stein, J. C. (2008). Conversations among Competitors. <em>American Economic Review</em> 98(5). 所读为 NBER 工作论文 13370，2007 年 9 月；没有核对期刊版。</li>
+<li>Tsang, K. P., and Z. Yang (2026). The Anatomy of a Blockchain Prediction Market: Polymarket in the 2024 U.S. Presidential Election. 所读为 2026 年 9 月 14 日的 arXiv 预印本 2603.03136v3；没有期刊版。</li>
+<li>van Bommel, J. (2003). Rumors. <em>Journal of Finance</em> 58(4): 1499–1520.</li>
+</ul>
+</section>
+<section id="notes-1" class="level2 unnumbered">
+<h2 class="unnumbered">注释</h2>
+<div class="endnotes">
+<div id="fn1" class="endnote">
+<p><a href="#fnref1" class="backlink" role="doc-backlink">1.</a> Ljungqvist 与 Qian（2016），NBER 工作论文：卖空者的资源在引言，第 2 页；方法和作为唯一不受约束群体的现有股东在第 3 页；“铁证”在第 4 页，披露的头寸和样本在第 5 页；发布前新增卖空的高峰及其大小在 §3.2，第 20 页；报告当天多头的交易在 §3.3，第 25 页。</p>
+</div>
+<div id="fn2" class="endnote">
+<p><a href="#fnref2" class="backlink" role="doc-backlink">2.</a> Hirshleifer（1971），期刊版：投机性承诺之后公布，在 §III，第 565 页。</p>
+</div>
+<div id="fn3" class="endnote">
+<p><a href="#fnref3" class="backlink" role="doc-backlink">3.</a> Kempe、Kleinberg 与 Tardos（2003），作者的最终版：Domingos 与 Richardson 的问题在摘要，第 1 页；影响力和影响力最大化问题在 §1，第 2 页；贪心选择，即他们的定理 2.1（他们取自先前的工作），在 §2，第 3 页；非渐进阈值过程、随时间的干预、它们的影响力、带分层图的定理 5.1 和近似结果的沿用，在 §5，第 9 页。</p>
+</div>
+<div id="fn4" class="endnote">
+<p><a href="#fnref4" class="backlink" role="doc-backlink">4.</a> Acemoglu、Ozdaglar 与 ParandehGheibi（2010），所读为 arXiv 预印本：强势者的位置和他们的例子在 §6。Lucchini 等（2022），所读为 arXiv 预印本：坚定少数在第 2 页。</p>
+</div>
+<div id="fn5" class="endnote">
+<p><a href="#fnref5" class="backlink" role="doc-backlink">5.</a> DellaVigna 与 Pollet（2009），作者的手稿：日期的选择和对周五发现的解释在 §I，第 6 页。Hong、Lim 与 Stein（2000），NBER 工作论文：好消息与坏消息在 §3.B，第 17 页；卖空约束在脚注 8，第 5 页。</p>
+</div>
+<div id="fn6" class="endnote">
+<p><a href="#fnref6" class="backlink" role="doc-backlink">6.</a> Hirshleifer 与 Teoh（2003），期刊版：呈现方式在 §1，第 338 页；备考利润在 §4，第 351 页；说明的调整和不专注的投资者在第 353 页；命题 1 和正常状态在第 357 页，其中命题 1 给出三个量 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>、</span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math> 和 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>。</span></p>
+</div>
+<div id="fn7" class="endnote">
+<p><a href="#fnref7" class="backlink" role="doc-backlink">7.</a> Daniel、Hirshleifer 与 Subrahmanyam（1998），期刊版：回购的例子在引言，第 1841 页；选择性事件的定义在第 1850 页；命题 5 在第 1851 页。</p>
+</div>
+<div id="fn8" class="endnote">
+<p><a href="#fnref8" class="backlink" role="doc-backlink">8.</a> Stein（2008），NBER 工作论文：在他人想法上构建的想法在 §II.A，第 5 页，虚假的想法在第 6 页；客户群的重叠在 §II.B，第 7–8 页；命题 1 在 §II.C，第 9 页；互补性在摘要，占优的偏离在 §II.D，第 12 页；继续条件在 §II.E，第 15 页；继续与开启的比较在 §III.B，第 19 页；命题 3 在 §III.C，第 21 页；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 和 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 的定义在 §III.D，第 21–22 页，命题 4 在第 22 页，例 2 在第 23 页，其中 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0.95</mn></mrow><annotation encoding="application/x-tex">\beta = 0.95</annotation></semantics></math>、</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\theta = 0.1</annotation></semantics></math>、</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">p = 0.5</annotation></semantics></math>，</span>与例 1 相同；传得远的想法的信息含量在 §IV.B，第 29 页。</p>
+</div>
+<div id="fn9" class="endnote">
+<p><a href="#fnref9" class="backlink" role="doc-backlink">9.</a> Admati 与 Pfleiderer（1990），期刊版：外部性、间接出售、线性定价和基金价格的使用在 §1，第 901–902 页；激励问题和转售在第 902 页，转售又见 §3，第 904–905 页；不交易的卖方在 §2 的假设里，第 904 页；1986 年的结果和信息对单个交易者的价值在 §3，第 905 页；图 3 及其概述在第 915 页，其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>σ</mi><mi>θ</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\sigma_\theta^2</annotation></semantics></math> 是卖方信号中噪声的方差；<span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>ρ</mi><mi>/</mi><msub><mi>σ</mi><mi>Z</mi></msub></mrow><annotation encoding="application/x-tex">m = \rho/\sigma_Z</annotation></semantics></math>，</span>其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> 是交易者共同的风险容忍度，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>σ</mi><mi>Z</mi></msub><annotation encoding="application/x-tex">\sigma_Z</annotation></semantics></math> 是供给的标准差，命题 6.1 和 6.2 在第 914–915 页；相同的交易者在 §8，第 919 页；匿名的基金在 §9，第 923 页。</p>
+</div>
+<div id="fn10" class="endnote">
+<p><a href="#fnref10" class="backlink" role="doc-backlink">10.</a> Ljungqvist 与 Qian，NBER 工作论文：策略及其对可信度的需要在引言，第 3 页；过往记录以及较可信与较不可信的卖空者的报告在 §4.1，第 29–30 页；可信度与新事实在 §4.2，第 31 页，作者在那里按首份报告传达的是新发现的事实还是对已知数据的重新解读来拆分样本；285 份报告在 §3.4，第 27 页。Stein（2008），NBER 工作论文：交换之前的头寸在脚注 3，第 2 页。</p>
+</div>
+<div id="fn11" class="endnote">
+<p><a href="#fnref11" class="backlink" role="doc-backlink">11.</a> van Bommel（2003），期刊版：设定和均匀分布的价值在 §I，第 1502 页；传言散布者的能力和消息的形式在引言，第 1499 和 1502 页；交易与建议的顺序和反转在 §II，第 1504 页；命题 2(v) 和脚注 9，连同传言散布的小额成本，在 §II.A，第 1506 页，财富的说明和模拟在第 1507 页；总是看到价值的诚实领头者和传言价格的定义在 §III，第 1509 页；最优分界点、它的利润和看涨传言在第 1510 页，其中他选定的均衡是他描述为帕累托最优（Pareto optimal）并满足 Cho 与 Kreps 的直观标准（intuitive criterion）的那一个；命题 4 在 §II.C，第 1509 页；不虚张声势的条件 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&gt;</mo><mn>8</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>+</mo><mn>8</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\delta &gt; 8/(q + 8)</annotation></semantics></math>，</span>其中 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> 是贴现因子，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math> 是她在一轮中看到价值的概率，以及每月一轮的例子，在 §IV.A，第 1511 页；证券法在 §IV.B，第 1511 页。关税记录在 1.2.3 节说明，它的价格检验在第 1 章的注 8；本章没有印出两者中任何一个的估计值。</p>
+</div>
+<div id="fn12" class="endnote">
+<p><a href="#fnref12" class="backlink" role="doc-backlink">12.</a> Acemoglu、Ozdaglar 与 ParandehGheibi，所读为 arXiv 预印本：他们排除在外的个体在 §1 的一条脚注里。</p>
+</div>
+<div id="fn13" class="endnote">
+<p><a href="#fnref13" class="backlink" role="doc-backlink">13.</a> Dhawan 与 Putniņš（2023），工作论文：公开宣布在摘要，第 1 页；付费成员在 §2.2，第 9 页；抽样的 70 次公告，其中没有一次提示低估，在第 9 页。Tsang 与 Yang（2026），所读为 arXiv 预印本：从 0.50 到 0.55 的成本在 §5.2，第 18 页，修正后的成本和深度的假象在结论 §7，第 23 页。Avery 与 Zemsky（1998），工作论文：极端假设在 §5.3，第 28 页；操纵者在 §7，第 32 页，推论 18 及其解读在第 32–33 页，他们在那里说操纵者不能采取特别显眼的行动。</p>
+</div>
+<div id="fn14" class="endnote">
+<p><a href="#fnref14" class="backlink" role="doc-backlink">14.</a> Milgrom（1981），期刊版：销售会面博弈在 §5，第 387–389 页，其中买方只能吸收 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">k &lt; N</annotation></semantics></math> 个观测，命题 7 在第 389 页；博弈其余部分的出处见 12.6 节。Hirshleifer（1971），期刊版：发现在 §VI，第 570 页。</p>
+</div>
+<div id="fn15" class="endnote">
+<p><a href="#fnref15" class="backlink" role="doc-backlink">15.</a> Bradley 等（2024），工作论文：报告、样本以及对买入和卖出建议的收益在引言，第 2 页；没有反转在第 2 页；其他信息事件、散户交易和订单失衡在第 3 页；GameStop 之前的截止点在 §3.1，第 10 页；价格压力的检验在第 11 页，13 周在第 12 页。作者把 GameStop 之后的变化留给未来的研究，在 §5，第 18 页；没有核对期刊版。Dhawan 与 Putniņš，工作论文：价格的回落在第 35 页。Ljungqvist 与 Qian，NBER 工作论文：3 个月和 12 个月的下跌在引言，第 2 页；目标的选择在 §2.1，第 12 页。</p>
+</div>
+<div id="fn16" class="endnote">
+<p><a href="#fnref16" class="backlink" role="doc-backlink">16.</a> Stein（2008），NBER 工作论文：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math> 的界在 §II.B，第 7 页；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(t)</annotation></semantics></math> 在 §II.D，第 11 页，条件 (6) 在第 13 页；式 (7) 在 §II.E，第 14 页；线性网络里的重叠在 §III.A，第 16 页；收益 (13) 和 (14) 与条件 (15) 在 §III.B，第 18–19 页；式 (16) 和 (17) 在 §III.C，第 19–20 页；脚注 9 在第 20–21 页；命题 3 和例 1 在第 21 页，其中 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0.95</mn></mrow><annotation encoding="application/x-tex">\beta = 0.95</annotation></semantics></math>、</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\theta = 0.1</annotation></semantics></math>、</span><span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">p = 0.5</annotation></semantics></math>。</span>本书对价值与 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 成正比的推导：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(t) - h(t - 1)</annotation></semantics></math> 是一个信号的价值乘以 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1 - p)</annotation></semantics></math>，</span>所以 (6) 读作 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1 - p) \ge 1/(1 - \theta)</annotation></semantics></math>。</span>本书的推导，作为对他的 (16) 的核对：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(k)</annotation></semantics></math> 是 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math> 的期望，其中 <span class="nobr"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">n - k</annotation></semantics></math>，</span>即进一步信号的个数，服从均值为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p/(1 - p)</annotation></semantics></math> 的几何分布，而 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">E</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>β</mi><mi>n</mi></msup><mo stretchy="false" form="postfix">]</mo><mo>=</mo><msup><mi>β</mi><mi>k</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{E}[\beta^{n}] = \beta^{k}(1 - p)/(1 - p\beta)</annotation></semantics></math> 把 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(k)/h(k)</annotation></semantics></math> 化为他的 (16) 的左边。</p>
+</div>
+<div id="fn17" class="endnote">
+<p><a href="#fnref17" class="backlink" role="doc-backlink">17.</a> van Bommel（2003），期刊版：价值在 §I，第 1502 页；传言价格在 §III，第 1509 页；第一条消息的传言价格、分界点、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\rho = 2/3</annotation></semantics></math> 和公告在第 1510 页。概率 0.41 用的是他的均匀价值和他的分界点。价格所知内容的界在第 9 章的注 7 中推导。</p>
+</div>
+</div>
+</section>
+</section>
+
+</article>
+<nav class="pager" aria-label="上一章 / 下一章">
+<a class="pager-prev" href="ch14.html" rel="prev"><span class="pager-label">上一章</span><span class="pager-title">第 14 章　信息瀑布与羊群行为</span></a>
+<a class="pager-next" href="ch16.html" rel="next"><span class="pager-label">下一章</span><span class="pager-title">第 16 章　从价格中学习</span></a>
+</nav>
+</main>
+</div>
+<footer class="site-footer"><p>草稿，2026 年 11 月 21 日</p></footer>
+</body>
+</html>

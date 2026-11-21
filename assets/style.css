@@ -1,0 +1,351 @@
+/* Stylesheet of the book's website (book/site/build_site.py).
+
+   Direction. A bilingual book on how information spreads through markets and into prices, read on screen chapter
+   by chapter. Patient, exact, a little warm. Its world is the printed book: warm paper, the ink blue of the print
+   edition (#1F4E79, book/build/preamble.tex), and the book's own figures, set on white plates. The one recurring
+   detail is the section number, set apart in muted tabular figures: it hangs in the margin beside each heading and
+   stands in one column in every list.
+
+   Fonts from Google Fonts: Source Serif 4 and Source Sans 3 for Latin text, Noto Serif SC and Noto Sans SC (the
+   Source Han faces, drawn to match them) for Chinese; formulas are MathML in the system's math font. Light and dark
+   follow the reader's system setting. Spacing is on a 4px grid (0.25rem steps). */
+
+:root {
+  /* Warm neutral ramp, light */
+  --bg: #f9f7f2;
+  --surface: #f2eee6;
+  --plate: #ffffff;
+  --text: #1f1b16;
+  --text-2: #5a5248;
+  --text-3: #766e63;
+  --line: rgba(31, 27, 22, 0.1);
+  --line-strong: rgba(31, 27, 22, 0.55);
+  --accent: #1f4e79;
+  --accent-rule: rgba(31, 78, 121, 0.7);
+  --target: #f6ecc8;
+  --figure-filter: none;
+
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans: "Source Sans 3", -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-size: 1.125rem;
+  --leading: 1.65;
+  --measure: 33.5em;
+  --display-tracking: -0.02em;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root:lang(zh-Hans) {
+  --serif: "Noto Serif SC", "Source Serif 4", "Songti SC", "STSong", serif;
+  --sans: "Noto Sans SC", "Source Sans 3", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --text-size: 1.0625rem;
+  --leading: 1.9;
+  --measure: 36em;
+  --display-tracking: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161513;
+    --surface: #1f1d1a;
+    --plate: #ffffff;
+    --text: #ece6da;
+    --text-2: #aaa398;
+    --text-3: #8f887d;
+    --line: rgba(236, 230, 218, 0.1);
+    --line-strong: rgba(236, 230, 218, 0.5);
+    --accent: #93b7dc;
+    --accent-rule: rgba(147, 183, 220, 0.6);
+    --target: #36301f;
+    /* the figures are drawn for a white page: a white plate, a little dimmed against the dark page */
+    --figure-filter: brightness(0.92);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: var(--text-size);
+  line-height: var(--leading);
+  font-optical-sizing: auto;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+  transition: color 150ms var(--ease);
+}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+strong { font-weight: 600; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Header and footer ------------------------------------------------------------------------------------------ */
+
+.site-header { border-bottom: 1px solid var(--line); font-family: var(--sans); }
+.site-header-inner {
+  max-width: 76rem; margin: 0 auto; padding: 1rem 1rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1.5rem;
+}
+.site-title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 1rem; line-height: 1.5rem; }
+.site-nav { display: flex; gap: 1.5rem; font-size: 0.9375rem; line-height: 1.5rem; }
+.site-nav a { color: var(--text-2); text-decoration: none; }
+.site-title:hover, .site-nav a:hover { color: var(--accent); }
+
+.site-footer {
+  max-width: 76rem; margin: 4rem auto 0; padding: 1.5rem 1rem 2.5rem;
+  border-top: 1px solid var(--line); color: var(--text-3); font-family: var(--sans); font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.site-footer p { margin: 0; }
+.site-footer p + p { margin-top: 0.25rem; }
+
+@media (min-width: 48rem) {
+  .site-header-inner, .site-footer { padding-left: 2rem; padding-right: 2rem; }
+}
+
+/* Chapter layout --------------------------------------------------------------------------------------------- */
+
+.layout { max-width: 76rem; margin: 0 auto; padding: 0 1rem; }
+.chapter-main { max-width: var(--measure); margin: 0 auto; min-width: 0; }
+
+.toc-side { display: none; }
+
+.toc-top {
+  margin: 1.5rem 0 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  font-family: var(--sans); font-size: 0.9375rem; line-height: 1.25rem;
+}
+.toc-top summary { cursor: pointer; padding: 0.75rem 1rem; color: var(--text-2); }
+.toc-top summary::marker { color: var(--text-3); }
+.toc-top[open] summary { border-bottom: 1px solid var(--line); }
+
+.toc-side ol, .toc-top ol { list-style: none; margin: 0; padding: 0; }
+.toc-side li, .toc-top li { margin: 0; }
+.toc-top > ol { padding: 0.5rem 1rem 0.75rem; }
+.toc-side a, .toc-top a {
+  display: flex; gap: 0.5rem; padding: 0.25rem 0; color: var(--text-2); text-decoration: none;
+}
+.toc-side a:hover, .toc-top a:hover { color: var(--accent); }
+.toc-side ol ol a, .toc-top ol ol a { padding-left: 2.25rem; font-size: 0.8125rem; line-height: 1.125rem; }
+.toc-num {
+  flex: none; min-width: 1.75rem; color: var(--text-3); font-variant-numeric: tabular-nums;
+}
+.toc-side ol ol .toc-num, .toc-top ol ol .toc-num { min-width: 2.25rem; }
+
+@media (min-width: 48rem) {
+  .layout { padding: 0 2rem; }
+}
+
+@media (min-width: 68rem) {
+  .layout {
+    display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); gap: 5rem; justify-content: center;
+  }
+  .chapter-main { margin: 0; }
+  .toc-top { display: none; }
+  .toc-side {
+    display: block; position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto;
+    padding: 2.5rem 0 2rem; font-family: var(--sans); font-size: 0.875rem; line-height: 1.25rem;
+    scrollbar-width: thin;
+  }
+  .toc-heading { margin: 0 0 0.5rem; color: var(--text-3); font-size: 0.8125rem; }
+}
+
+/* Chapter text ----------------------------------------------------------------------------------------------- */
+
+.chapter h1 { margin: 2.5rem 0 2.5rem; font-family: var(--sans); font-weight: 500; }
+.chapter-number {
+  display: block; margin-bottom: 0.75rem; font-size: 0.9375rem; line-height: 1.25rem; color: var(--text-3);
+}
+.chapter-title { display: block; font-size: 2.25rem; line-height: 1.15; }
+
+.chapter h2, .chapter h3, .chapter h4 { font-family: var(--sans); font-weight: 500; }
+.chapter h2 { font-size: 1.5rem; line-height: 1.25; margin: 3rem 0 1rem; }
+.chapter h3 { font-size: 1.1875rem; line-height: 1.3; margin: 2.5rem 0 0.75rem; }
+.chapter h4 { font-size: 1.0625rem; line-height: 1.4; margin: 0 0 0.75rem; }
+.secnum, .box-label { color: var(--text-3); font-variant-numeric: tabular-nums; }
+
+@media (min-width: 68rem) {
+  /* the section number hangs in the margin, so the heading's words line up with the text */
+  .chapter h2, .chapter h3 { position: relative; }
+  .chapter .secnum { position: absolute; right: 100%; padding-right: 1rem; white-space: nowrap; }
+}
+
+/* a jump to a section, a note or back to the text leaves a little room above */
+[id] { scroll-margin-top: 1.5rem; }
+
+.chapter p { margin: 0 0 1em; }
+.chapter ul, .chapter ol { margin: 0 0 1em; padding-left: 1.5em; }
+.chapter li { margin: 0.25em 0; }
+.chapter li > p { margin: 0 0 0.5em; }
+
+.chapter hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+
+code { font-family: var(--mono); font-size: 0.84em; overflow-wrap: anywhere; }
+
+/* Notes in the text */
+a.noteref { text-decoration: none; }
+a.noteref sup {
+  font-family: var(--sans); font-size: 0.72em; line-height: 0; padding: 0 0.125em; font-weight: 500;
+  font-variant-numeric: lining-nums;
+}
+
+/* Formulas */
+math { font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", "Noto Sans Math", math; font-size: 1.05em; }
+.math-block { display: block; overflow-x: auto; overflow-y: hidden; margin: 0.75em 0; padding: 0.25em 0; }
+/* Aligned formulas (mtable) in display style, as LaTeX sets them; MathML Core draws tables in the compact style */
+.math-block mtable { math-style: normal; }
+/* An inline formula does not break across lines; one wider than a phone screen scrolls with its paragraph */
+.chapter :is(p, li, td):has(math) { overflow-x: auto; overflow-y: hidden; }
+/* A formula keeps the punctuation after it on its line (build_site.py). An inline block, because Chrome does not
+   break before a nowrap span that starts with a formula. */
+.nobr { display: inline-block; white-space: nowrap; }
+/* English words in Chinese text: apostrophes in the Latin face, not the full-width Chinese quote (build_site.py) */
+.latin-apos { font-family: "Source Serif 4", Georgia, serif; }
+
+/* Figures: a white plate, as on the printed page */
+figure { margin: 2.5rem 0; }
+figure img, .contents-figure img {
+  display: block; max-width: 100%; height: auto; margin: 0 auto; padding: 0.75rem; background: var(--plate);
+  border: 1px solid var(--line); border-radius: 12px; filter: var(--figure-filter);
+}
+figcaption {
+  margin-top: 0.75rem; font-family: var(--sans); font-size: 0.875rem; line-height: 1.25rem; color: var(--text-2);
+}
+
+/* Tables: rules above and below, as in print */
+.table-caption p {
+  margin: 2rem 0 0.5rem; font-family: var(--sans); font-size: 0.9375rem; font-weight: 500; line-height: 1.25rem;
+}
+.table-wrap {
+  overflow-x: auto; margin: 0 0 2rem; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong);
+}
+.table-wrap table {
+  border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 0.875rem; line-height: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+.table-wrap th, .table-wrap td { padding: 0.5rem 0.75rem 0.5rem 0; text-align: left; vertical-align: top; }
+.table-wrap thead th { border-bottom: 1px solid var(--line-strong); font-weight: 500; color: var(--text-2); }
+.table-wrap tbody tr + tr td { border-top: 1px solid var(--line); }
+
+@media (max-width: 40rem) {
+  .table-wrap table { min-width: 34rem; }
+}
+
+/* Boxes (Box n.k, 数学框 n.k): a raised panel */
+section.box {
+  margin: 2.5rem 0; padding: 1.5rem 1.5rem 0.5rem; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px;
+}
+section.box figure img { border-radius: 8px; }
+
+/* Scope blocks (Scope, 适用边界): the print edition's ink rule on the left */
+.scope blockquote {
+  margin: 2rem 0; padding: 1rem 1.25rem 0.25rem; background: var(--surface);
+  border-left: 3px solid var(--accent-rule); border-radius: 0 8px 8px 0;
+}
+.scope blockquote > p:first-child > strong:first-child { font-family: var(--sans); font-weight: 500; }
+
+/* References and notes */
+section.references ul, .endnotes { font-size: 0.9375rem; line-height: 1.6; }
+section.references ul { list-style: none; padding-left: 0; }
+section.references li { padding-left: 1.5em; text-indent: -1.5em; margin: 0.5em 0; }
+.endnote { padding: 0.25rem 0.5rem; margin: 0 -0.5rem 0.5rem; border-radius: 8px; }
+.endnote p { margin: 0 0 0.5em; }
+.endnote:target, a.noteref:target { background: var(--target); }
+a.backlink {
+  font-family: var(--sans); font-weight: 500; text-decoration: none; font-variant-numeric: tabular-nums;
+}
+
+/* Previous and next chapter */
+.pager {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 4rem 0 0; padding-top: 1.5rem;
+  border-top: 1px solid var(--line); font-family: var(--sans);
+}
+.pager a { display: block; color: var(--text); text-decoration: none; }
+.pager a:hover .pager-title { color: var(--accent); }
+.pager-next { text-align: right; }
+.pager-label { display: block; margin-bottom: 0.25rem; font-size: 0.8125rem; line-height: 1.25rem; color: var(--text-3); }
+.pager-title { display: block; font-size: 0.9375rem; line-height: 1.25rem; transition: color 150ms var(--ease); }
+
+/* Contents pages --------------------------------------------------------------------------------------------- */
+
+.contents-main { max-width: 42rem; margin: 0 auto; padding: 0 1rem; }
+.contents-head { margin: 3rem 0 2.5rem; }
+.book-title {
+  margin: 0; font-family: var(--sans); font-weight: 500; font-size: 2.5rem; line-height: 1.1;
+  letter-spacing: var(--display-tracking);
+}
+.book-subtitle { margin: 0.75rem 0 0; font-size: 1.25rem; line-height: 1.75rem; color: var(--text-2); }
+
+.contents-figure { margin: 0 0 2.5rem; }
+.contents-figure img { width: 15rem; margin: 0; }
+
+.part { margin: 0 0 3rem; }
+.part h2 { margin: 0 0 0.5rem; font-family: var(--sans); font-size: 1.25rem; font-weight: 500; line-height: 1.75rem; }
+.part-label { color: var(--text-3); font-variant-numeric: tabular-nums; }
+.part-line { margin: 0 0 1rem; color: var(--text-2); font-size: 1rem; line-height: 1.6; }
+.contents-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.contents-list li { border-bottom: 1px solid var(--line); }
+.contents-list a {
+  display: flex; gap: 1rem; padding: 0.75rem 0; color: var(--text); text-decoration: none; line-height: 1.5rem;
+}
+.contents-list a:hover .contents-title { color: var(--accent); }
+.contents-title { transition: color 150ms var(--ease); }
+.contents-num {
+  flex: none; width: 1.5rem; text-align: right; color: var(--text-3); font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 68rem) {
+  .contents-main {
+    max-width: 68rem; padding: 0 2rem;
+    display: grid; grid-template-columns: minmax(0, 40rem) 17rem; column-gap: 5rem; justify-content: center;
+    grid-template-areas: "head figure" "parts figure";
+    grid-template-rows: auto 1fr;
+  }
+  .contents-head { grid-area: head; }
+  .contents-parts { grid-area: parts; }
+  .contents-figure { grid-area: figure; align-self: start; position: sticky; top: 2.5rem; margin: 3rem 0 0; }
+  .contents-figure img { width: 100%; }
+}
+
+/* Landing page: a title page in both languages --------------------------------------------------------------- */
+
+.landing-page { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
+.landing-main {
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+  width: 100%; max-width: 48rem; margin: 0 auto; padding: 4rem 1rem 2rem;
+}
+.edition {
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 0.5rem 1.5rem;
+  padding: 2rem 0; border-top: 1px solid var(--line); color: var(--text); text-decoration: none;
+}
+.edition:last-child { border-bottom: 1px solid var(--line); }
+.edition-title {
+  grid-column: 1; font-family: var(--sans); font-weight: 500; font-size: 2.5rem; line-height: 1.1;
+  letter-spacing: -0.02em; transition: color 150ms var(--ease);
+}
+.edition-subtitle { grid-column: 1; font-family: var(--serif); font-size: 1.25rem; line-height: 1.75rem; color: var(--text-2); }
+.edition-lang { grid-column: 2; grid-row: 1; font-family: var(--sans); font-size: 1rem; color: var(--accent); }
+.edition:hover .edition-title { color: var(--accent); }
+.edition:lang(zh-Hans) .edition-title { font-family: "Noto Sans SC", "PingFang SC", sans-serif; letter-spacing: 0; }
+.edition:lang(zh-Hans) .edition-subtitle { font-family: "Noto Serif SC", "Songti SC", serif; }
+.landing-page .site-footer {
+  width: 100%; max-width: 48rem; margin-top: 0; padding: 0 1rem 2.5rem; border-top: 0;
+}
+
+@media (max-width: 40rem) {
+  .chapter-title { font-size: 1.875rem; }
+  .book-title, .edition-title { font-size: 2rem; letter-spacing: 0; }
+  .edition { grid-template-columns: 1fr; }
+  .edition-lang { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
+}

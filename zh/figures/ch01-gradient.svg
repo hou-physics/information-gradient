@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400" height="300" viewBox="0 0 400 300" font-family="sans-serif">
+  <desc>三条一样宽的横条上下排开，每条都分成同样的三段，不按比例画。最上面一条是关于这个结果、有人知道的全部信息，三段都是实心的：价格已经反映的，决定价格的人已经看到、却还没想明白的，以及决定价格的人还没看到的（还没传开）。中间一条是决定价格的人已经看到的信息，前两段是实心的，最后一段换成虚线框，占着还没传开的部分。最下面一条是价格已经反映的信息，只有第一段是实心的，后两段换成虚线框，占着还没想明白和还没传开的部分。最下面的括号把这两个虚线框合起来叫信息梯度：价格还没有反映出来的信息。</desc>
+
+  <rect x="0" y="0" width="400" height="300" fill="#ffffff"/>
+
+  <g fill="#1f1f1f" font-size="13" font-weight="bold">
+    <text x="20" y="22">关于这个结果，有人知道的全部信息</text>
+    <text x="20" y="104">决定价格的人已经看到的信息</text>
+    <text x="20" y="186">价格已经反映的信息</text>
+  </g>
+
+  <g stroke-width="2">
+    <rect x="20" y="30" width="130" height="48" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="150" y="30" width="115" height="48" fill="#f7dcb4" stroke="#9a6a35"/>
+    <rect x="265" y="30" width="115" height="48" fill="#dbe3ee" stroke="#4a5a7a"/>
+
+    <rect x="20" y="112" width="130" height="48" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="150" y="112" width="115" height="48" fill="#f7dcb4" stroke="#9a6a35"/>
+    <rect x="265" y="112" width="115" height="48" fill="#f4f6fa" stroke="#4a5a7a" stroke-dasharray="6 4"/>
+
+    <rect x="20" y="194" width="130" height="48" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="150" y="194" width="115" height="48" fill="#fcf3e4" stroke="#9a6a35" stroke-dasharray="6 4"/>
+    <rect x="265" y="194" width="115" height="48" fill="#f4f6fa" stroke="#4a5a7a" stroke-dasharray="6 4"/>
+  </g>
+
+  <g fill="#1f1f1f" font-size="12" text-anchor="middle">
+    <text x="85" y="58">已反映</text>
+    <text x="207.5" y="58">还没想明白</text>
+    <text x="322.5" y="58">还没传开</text>
+  </g>
+
+  <g fill="#1f1f1f" font-size="12">
+    <text x="271" y="127"><tspan font-weight="bold">还没传开：</tspan><tspan x="271" dy="14">决定价格的人</tspan><tspan x="271" dy="14">还没看到</tspan></text>
+    <text x="156" y="209"><tspan font-weight="bold">还没想明白：</tspan><tspan x="156" dy="14">看到了，但价格</tspan><tspan x="156" dy="14">还没正确吸收</tspan></text>
+  </g>
+
+  <path d="M 150 258 L 150 252 L 380 252 L 380 258" fill="none" stroke="#4a4a4a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="265" y="272" font-size="13" font-weight="bold">信息梯度</text>
+    <text x="265" y="288" font-size="12">价格还没有反映出来的信息</text>
+  </g>
+</svg>

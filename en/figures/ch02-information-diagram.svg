@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="432" height="310" viewBox="0 0 432 310" font-family="sans-serif">
+  <desc>Two overlapping circles, the left labeled state of the world θ with entropy H(θ) = 0.881 bits, the right labeled signal Y with entropy H(Y) = 0.958 bits. The part of the left circle outside the overlap is H(θ|Y) = 0.645, the uncertainty left about θ once Y is seen. The overlap is the mutual information I(θ;Y) = 0.236. The part of the right circle outside the overlap is H(Y|θ) = 0.722, the noise in Y given θ. The numbers are those of the drug example, a probability of success of 0.30 and a report right 80% of the time, and the areas are drawn in proportion to them.</desc>
+
+  <rect x="0" y="0" width="432" height="310" fill="#ffffff"/>
+
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="112" y="24" font-size="13" font-weight="bold">State of the world <tspan font-style="italic">θ</tspan></text>
+    <text x="112" y="42" font-size="12"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">θ</tspan>) = 0.881</text>
+    <text x="320" y="24" font-size="13" font-weight="bold">Signal <tspan font-style="italic">Y</tspan></text>
+    <text x="320" y="42" font-size="12"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">Y</tspan>) = 0.958</text>
+  </g>
+
+  <circle cx="155.65" cy="160" r="91.12" fill="#d6e8c9"/>
+  <circle cx="272.47" cy="160" r="95" fill="#dbe3ee"/>
+  <path d="M 210.96 87.6 A 95 95 0 0 0 210.96 232.4 A 91.12 91.12 0 0 0 210.96 87.6 Z" fill="#f7dcb4"/>
+  <g fill="none" stroke-width="2">
+    <circle cx="155.65" cy="160" r="91.12" stroke="#4a7a3a"/>
+    <circle cx="272.47" cy="160" r="95" stroke="#4a5a7a"/>
+  </g>
+
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="121" y="158" font-size="13"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">θ</tspan> | <tspan font-style="italic">Y</tspan>)</text>
+    <text x="121" y="176" font-size="12">0.645</text>
+    <text x="212" y="158" font-size="13"><tspan font-style="italic">I</tspan>(<tspan font-style="italic">θ</tspan>; <tspan font-style="italic">Y</tspan>)</text>
+    <text x="212" y="176" font-size="12">0.236</text>
+    <text x="309" y="158" font-size="13"><tspan font-style="italic">H</tspan>(<tspan font-style="italic">Y</tspan> | <tspan font-style="italic">θ</tspan>)</text>
+    <text x="309" y="176" font-size="12">0.722</text>
+  </g>
+
+  <g fill="#1f1f1f" font-size="11" text-anchor="middle">
+    <text x="104" y="284">uncertainty left</text>
+    <text x="104" y="298">about <tspan font-style="italic">θ</tspan> once <tspan font-style="italic">Y</tspan> is seen</text>
+    <text x="212" y="284">mutual</text>
+    <text x="212" y="298">information</text>
+    <text x="322" y="284">noise in <tspan font-style="italic">Y</tspan></text>
+    <text x="322" y="298">given <tspan font-style="italic">θ</tspan></text>
+  </g>
+  <g stroke="#4a4a4a" stroke-width="1">
+    <line x1="104" y1="225" x2="104" y2="270"/>
+    <line x1="212" y1="222" x2="212" y2="270"/>
+    <line x1="322" y1="231" x2="322" y2="270"/>
+  </g>
+</svg>

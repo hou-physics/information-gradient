@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400" height="600" viewBox="0 0 400 600" font-family="sans-serif">
+  <title>Figure 1.5 The tree of the book</title>
+  <desc>A tree. At the bottom, the roots: constraint laws, measures of information and the root model, Chapters 1–5. Two trunks rise from the roots: on the left, trunk one, how information spreads, Chapters 6–12; on the right, trunk two, how people read and use information, Chapters 13–15. Between the trunks, the bridges: ready-made models that join them, Chapters 19–21. The trunks meet in the canopy: how information enters prices, Chapters 16–18. Above the canopy, the fruit: gradients that can be traded, Chapters 22–24.</desc>
+
+  <rect x="0" y="0" width="400" height="600" fill="#ffffff"/>
+
+  <g stroke="#7a5a3a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M 60 430 C 55 445 45 455 40 470"/>
+    <path d="M 85 430 L 85 470"/>
+    <path d="M 115 430 C 120 445 130 455 140 470"/>
+    <path d="M 285 430 C 280 445 270 455 260 470"/>
+    <path d="M 315 430 L 315 470"/>
+    <path d="M 340 430 C 345 445 355 455 360 470"/>
+  </g>
+  <line x1="10" y1="430" x2="390" y2="430" stroke="#8a7a66" stroke-width="2"/>
+
+  <rect x="40" y="470" width="320" height="110" rx="12" ry="12" fill="#efe4d6" stroke="#7a5a3a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="496" font-size="17" font-weight="bold">Roots</text>
+    <text x="200" y="517" font-size="15">constraint laws, measures of</text>
+    <text x="200" y="536" font-size="15">information, the root model</text>
+    <text x="200" y="561" font-size="15">Chapters 1–5</text>
+  </g>
+
+  <rect x="20" y="200" width="130" height="230" fill="#e6d5c0" stroke="#7a5a3a" stroke-width="2"/>
+  <rect x="250" y="200" width="130" height="230" fill="#e6d5c0" stroke="#7a5a3a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="85" y="252" font-size="17" font-weight="bold">Trunk one</text>
+    <text x="85" y="274" font-size="15">how information</text>
+    <text x="85" y="293" font-size="15">spreads</text>
+    <text x="85" y="320" font-size="15">Chapters 6–12</text>
+    <text x="315" y="252" font-size="17" font-weight="bold">Trunk two</text>
+    <text x="315" y="274" font-size="15">how people read</text>
+    <text x="315" y="293" font-size="15">and use</text>
+    <text x="315" y="312" font-size="15">information</text>
+    <text x="315" y="339" font-size="15">Chapters 13–15</text>
+  </g>
+
+  <rect x="150" y="290" width="100" height="102" fill="#dbe3ee" stroke="#4a5a7a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="312" font-size="17" font-weight="bold">Bridges</text>
+    <text x="200" y="331" font-size="15">ready-made</text>
+    <text x="200" y="349" font-size="15">models</text>
+    <text x="200" y="368" font-size="15">Chapters</text>
+    <text x="200" y="385" font-size="15">19–21</text>
+  </g>
+
+  <ellipse cx="200" cy="158" rx="188" ry="58" fill="#d6e8c9" stroke="#4a7a3a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="140" font-size="17" font-weight="bold">Canopy</text>
+    <text x="200" y="161" font-size="15">how information enters prices</text>
+    <text x="200" y="182" font-size="15">Chapters 16–18</text>
+  </g>
+
+  <ellipse cx="200" cy="54" rx="150" ry="44" fill="#f7dcb4" stroke="#9a6a35" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="200" y="40" font-size="17" font-weight="bold">Fruit</text>
+    <text x="200" y="60" font-size="15">gradients that can be traded</text>
+    <text x="200" y="80" font-size="15">Chapters 22–24</text>
+  </g>
+</svg>

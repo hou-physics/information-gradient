@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400" height="300" viewBox="0 0 400 300" font-family="sans-serif">
+  <desc>Three bars of the same width, one above the other, each divided into the same three segments, drawn to no scale. The top bar is all the information that anyone holds about an outcome, and all three of its segments are solid: the part the price reflects, the part that is seen by those who set the price but not yet absorbed correctly (undigested), and the part that those who set the price have not yet seen (undiffused). In the middle bar, the part seen by those who set the price, the first two segments are solid and a dashed box completes the bar in place of the undiffused part. In the bottom bar, the part the price reflects, only the first segment is solid and dashed boxes complete the bar in place of the undigested and the undiffused parts. A bracket under the dashed boxes of the bottom bar names them together the information gradient: what the price has not yet reflected.</desc>
+
+  <rect x="0" y="0" width="400" height="300" fill="#ffffff"/>
+
+  <g fill="#1f1f1f" font-size="13" font-weight="bold">
+    <text x="20" y="22">All information anyone holds about the outcome</text>
+    <text x="20" y="104">Seen by those who set the price</text>
+    <text x="20" y="186">Reflected in the price</text>
+  </g>
+
+  <g stroke-width="2">
+    <rect x="20" y="30" width="130" height="48" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="150" y="30" width="115" height="48" fill="#f7dcb4" stroke="#9a6a35"/>
+    <rect x="265" y="30" width="115" height="48" fill="#dbe3ee" stroke="#4a5a7a"/>
+
+    <rect x="20" y="112" width="130" height="48" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="150" y="112" width="115" height="48" fill="#f7dcb4" stroke="#9a6a35"/>
+    <rect x="265" y="112" width="115" height="48" fill="#f4f6fa" stroke="#4a5a7a" stroke-dasharray="6 4"/>
+
+    <rect x="20" y="194" width="130" height="48" fill="#d6e8c9" stroke="#4a7a3a"/>
+    <rect x="150" y="194" width="115" height="48" fill="#fcf3e4" stroke="#9a6a35" stroke-dasharray="6 4"/>
+    <rect x="265" y="194" width="115" height="48" fill="#f4f6fa" stroke="#4a5a7a" stroke-dasharray="6 4"/>
+  </g>
+
+  <g fill="#1f1f1f" font-size="12" text-anchor="middle">
+    <text x="85" y="58">reflected</text>
+    <text x="207.5" y="58">undigested</text>
+    <text x="322.5" y="58">undiffused</text>
+  </g>
+
+  <g fill="#1f1f1f" font-size="12">
+    <text x="271" y="127"><tspan font-weight="bold">Undiffused: </tspan><tspan x="271" dy="14">not yet seen by </tspan><tspan x="271" dy="14">price-setters</tspan></text>
+    <text x="156" y="209"><tspan font-weight="bold">Undigested: </tspan><tspan x="156" dy="14">seen but not yet </tspan><tspan x="156" dy="14">absorbed correctly</tspan></text>
+  </g>
+
+  <path d="M 150 258 L 150 252 L 380 252 L 380 258" fill="none" stroke="#4a4a4a" stroke-width="2"/>
+  <g fill="#1f1f1f" text-anchor="middle">
+    <text x="265" y="272" font-size="13" font-weight="bold">The information gradient</text>
+    <text x="265" y="288" font-size="12">what the price has not yet reflected</text>
+  </g>
+</svg>
